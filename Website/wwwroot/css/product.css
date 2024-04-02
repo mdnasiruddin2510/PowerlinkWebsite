@@ -1,0 +1,64 @@
+body{
+  background-color: #D9EFFC;
+}
+  
+  
+.sb{
+  background: linear-gradient(rgba(119, 87, 87, 0.500),rgba(0, 0, 0, 0.500)),url(assets/img/slide_6.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 65vh;
+  /* position: relative; */
+  /* margin-bottom: 70px; */
+}
+    
+#sb h1{
+  color: #fff;
+  font-size: 52px;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-190%,-50%);
+}
+    
+.section{
+  background-color: #D9EFFC;
+}
+
+.btn{
+  border: none;
+  outline: none;
+  background-color: #8EC4DD;
+  width: 100%;
+}
+
+
+
+.accordion-body{
+  border: none;
+  outline: none;
+  background-color: #D9EFFC;
+}
+
+.card{
+  border: none;
+  outline: none;
+  background-color: #aedcec;
+  width: 100%;
+}
+
+.card-body a{
+  color: black;
+}
+
+.card-body a:hover{
+  color: rgba(4, 4, 87, 0.308);
+}
+
+
+
+
+
+
+    

@@ -1,0 +1,996 @@
+﻿@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div style="margin-top:85px;"></div>
+<style>
+    .width-100 .fusion-fullwidth {
+        --awb-padding-top: var(--container_padding_100_top);
+        --awb-padding-right: var(--container_padding_100_right);
+        --awb-padding-bottom: var(--container_padding_100_bottom);
+        --awb-padding-left: var(--container_padding_100_left);
+    }
+    .width-100 .fusion-fullwidth, .width-100 .nonhundred-percent-fullwidth {
+        margin-left: var(--hundredp_padding-hundred_percent_negative_margin);
+        margin-right: var(--hundredp_padding-hundred_percent_negative_margin);
+    }
+    .fusion-fullwidth {
+        --awb-background-color: var(--full_width_bg_color);
+        --awb-background-image: none;
+        --awb-background-position: center center;
+        --awb-background-repeat: no-repeat;
+        --awb-background-blend-mode: none;
+        --awb-background-size: initial;
+        --awb-box-shadow: none;
+        --awb-border-color: var(--full_width_border_color);
+        --awb-border-style: solid;
+        --awb-margin-top: 0;
+        --awb-margin-bottom: 0;
+        --awb-min-height: 0;
+        --awb-overflow: visible;
+        --awb-z-index: auto;
+        --awb-sticky-background-color: var(--awb-background-color);
+        --awb-sticky-height: var(--awb-min-height);
+        --awb-filter: none;
+        --awb-filter-hover: none;
+        --awb-filter-transition: all;
+        background-color: var(--awb-background-color);
+        background-image: var(--awb-background-image);
+        background-position: var(--awb-background-position);
+        background-repeat: var(--awb-background-repeat);
+        background-blend-mode: var(--awb-background-blend-mode);
+        background-size: var(--awb-background-size);
+        box-shadow: var(--awb-box-shadow);
+        border-width: var(--awb-border-sizes-top) var(--awb-border-sizes-right) var(--awb-border-sizes-bottom) var(--awb-border-sizes-left);
+        border-color: var(--awb-border-color);
+        border-style: var(--awb-border-style);
+        border-radius: var(--awb-border-radius-top-left) var(--awb-border-radius-top-right) var(--awb-border-radius-bottom-right) var(--awb-border-radius-bottom-left);
+        padding: var(--awb-padding-top) var(--awb-padding-right) var(--awb-padding-bottom) var(--awb-padding-left);
+        margin-top: var(--awb-margin-top);
+        margin-bottom: var(--awb-margin-bottom);
+        min-height: var(--awb-min-height);
+        overflow: var(--awb-overflow);
+        z-index: var(--awb-z-index);
+        filter: var(--awb-filter);
+        transition: var(--awb-filter-transition);
+    }
+    .fusion-fullwidth {
+        position: relative;
+    }
+
+    #wrapper #main .fullwidth-box .fusion-row {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #main .fusion-row {
+        max-width: var(--site_width);
+    }
+
+    .fusion-fullwidth .fusion-row {
+        position: relative;
+        z-index: 10;
+    }
+
+    .fusion-builder-row {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .fusion-row::before {
+        content: " ";
+        display: table;
+    }
+
+    .do-animate .fusion-animated {
+        animation-fill-mode: both;
+    }
+
+    .fusion-layout-column.fusion-one-third {
+        --awb-col-width: 33.3333%;
+    }
+
+    .fusion_builder_column.fusion-animated {
+        --awb-z-index: 2000;
+    }
+
+    .fusion-layout-column {
+        position: var(--awb-container-position);
+        float: left;
+        margin-top: var(--awb-margin-top);
+        margin-bottom: var(--awb-margin-bottom);
+        z-index: var(--awb-z-index);
+        top: var(--awb-absolute-top);
+        right: var(--awb-absolute-right);
+        bottom: var(--awb-absolute-bottom);
+        left: var(--awb-absolute-left);
+        filter: var(--awb-filter);
+        transition: var(--awb-transition);
+    }
+
+    .fusion_builder_column {
+        --awb-z-index: auto;
+        --awb-z-index-hover: var(--awb-z-index);
+        --awb-absolute-top: auto;
+        --awb-absolute-right: auto;
+        --awb-absolute-bottom: auto;
+        --awb-absolute-left: auto;
+        --awb-container-position: relative;
+        --awb-overflow: visible;
+        --awb-inner-bg-overflow: visible;
+        --awb-bg-color: transparent;
+        --awb-bg-color-hover: var(--awb-bg-color);
+        --awb-bg-position: left top;
+        --awb-inner-bg-position: left top;
+        --awb-bg-image: none;
+        --awb-inner-bg-image: none;
+        --awb-bg-blend: none;
+        --awb-inner-bg-blend: none;
+        --awb-bg-repeat: no-repeat;
+        --awb-inner-bg-repeat: no-repeat;
+        --awb-bg-size: auto auto;
+        --awb-border-top: 0;
+        --awb-border-right: 0;
+        --awb-border-bottom: 0;
+        --awb-border-left: 0;
+        --awb-border-color: initial;
+        --awb-border-color-hover: var(--awb-border-color);
+        --awb-border-style: solid;
+        --awb-inner-border-top: 0;
+        --awb-inner-border-right: 0;
+        --awb-inner-border-bottom: 0;
+        --awb-inner-border-left: 0;
+        --awb-inner-border-color: initial;
+        --awb-inner-border-color-hover: var(--awb-inner-border-color);
+        --awb-inner-border-style: solid;
+        --awb-border-radius: 0;
+        --awb-inner-bg-border-radius: 0;
+        --awb-liftup-border-radius: 0;
+        --awb-inner-bg-box-shadow: none;
+        --awb-transform: none;
+        --awb-transform-hover: var(--awb-transform);
+        --awb-transform-parent-hover: var(--awb-transform);
+        --awb-transform-origin: 50% 50%;
+        --awb-transition: transform 300ms ease,filter 300ms ease,background-color 300ms ease,border-color 300ms ease;
+        --awb-filter: none;
+        --awb-filter-hover: var(--awb-filter);
+        --awb-filter-parent-hover: var(--awb-filter);
+        --awb-col-order: var(--awb-order-large, 0);
+        --awb-margin-top-large: var(--col_margin-top);
+        --awb-margin-bottom-large: var(--col_margin-bottom);
+        --awb-spacing-left-large: var(--col_spacing);
+        --awb-spacing-right-large: var(--col_spacing);
+        --awb-spacing-left: var(--awb-spacing-left-large);
+        --awb-spacing-right: var(--awb-spacing-right-large);
+        --awb-col-flex-grow: var(--awb-flex-grow, 0);
+        --awb-col-flex-shrink: var(--awb-flex-shrink, 0);
+    }
+
+    .fusion-column-first {
+        clear: left;
+    }
+
+    .fusion-image-hovers .hover-type-zoomin {
+        overflow: hidden;
+        -webkit-transform: translate3d(0,0,0);
+    }
+
+    .fusion-column-inner-bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: var(--awb-inner-bg-border-radius);
+        transform-origin: var(--awb-transform-origin);
+        transition: var(--awb-transition);
+        margin-left: var(--awb-spacing-left);
+        margin-right: var(--awb-spacing-right);
+    }
+
+        .fusion-column-inner-bg .fusion-column-anchor {
+            width: 100%;
+            height: 100%;
+        }
+
+    .fusion-image-hovers .hover-type-zoomin .fusion-column-inner-bg-image {
+        opacity: 1;
+        transition: opacity 1s,transform 1s;
+    }
+
+    .fusion-column-inner-bg .fusion-column-anchor span {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .fusion-layout-column .fusion-column-inner-bg-image {
+        background-color: var(--awb-inner-bg-color);
+        background-image: var(--awb-inner-bg-image);
+        background-position: var(--awb-inner-bg-position);
+        background-blend-mode: var(--awb-inner-bg-blend);
+        background-repeat: var(--awb-inner-bg-repeat);
+        background-size: var(--awb-inner-bg-size);
+        border-width: var(--awb-inner-border-top) var(--awb-inner-border-right) var(--awb-inner-border-bottom) var(--awb-inner-border-left);
+        border-color: var(--awb-inner-border-color);
+        border-style: var(--awb-inner-border-style);
+        border-radius: var(--awb-border-radius);
+        box-shadow: var(--awb-inner-bg-box-shadow);
+        transition: var(--awb-transition);
+    }
+
+    .fusion-column-inner-bg-wrapper .fusion-column-wrapper {
+        position: relative;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .fusion-layout-column .fusion-flex-column-wrapper-legacy {
+        --awb-spacing-left: 0;
+        --awb-spacing-right: 0;
+    }
+
+    .fusion-layout-column .fusion-column-wrapper {
+        background-image: var(--awb-bg-image);
+        background-color: var(--awb-bg-color);
+        background-position: var(--awb-bg-position);
+        background-blend-mode: var(--awb-bg-blend);
+        background-repeat: var(--awb-bg-repeat);
+        background-size: var(--awb-bg-size);
+        border-width: var(--awb-border-top) var(--awb-border-right) var(--awb-border-bottom) var(--awb-border-left);
+        border-color: var(--awb-border-color);
+        border-style: var(--awb-border-style);
+        border-radius: var(--awb-border-radius);
+        box-shadow: var(--awb-box-shadow);
+        padding: var(--awb-padding-top) var(--awb-padding-right) var(--awb-padding-bottom) var(--awb-padding-left);
+        overflow: var(--awb-overflow);
+        transition: var(--awb-transition);
+        transform: var(--awb-transform);
+        transform-origin: var(--awb-transform-origin);
+        min-height: 1px;
+        min-width: 0;
+        margin-left: var(--awb-spacing-left);
+        margin-right: var(--awb-spacing-right);
+    }
+
+    .do-animate .fusion-animated {
+        animation-fill-mode: both;
+    }
+
+    .fusion-text {
+        --awb-content-alignment: initial;
+        --awb-font-size: inherit;
+        --awb-line-height: inherit;
+        --awb-letter-spacing: inherit;
+        --awb-text-transform: inherit;
+        --awb-text-color: inherit;
+        --awb-text-font-family: inherit;
+        --awb-text-font-style: inherit;
+        --awb-text-font-weight: inherit;
+        --awb-columns: var(--text_columns);
+        --awb-column-spacing: var(--text_column_spacing);
+        --awb-column-min-width: var(--text_column_min_width);
+        --awb-rule-style: var(--text_rule_style);
+        --awb-margin-top: 0;
+        --awb-margin-right: 0;
+        --awb-margin-bottom: 0;
+        --awb-margin-left: 0;
+        text-align: var(--awb-content-alignment);
+        font-size: var(--awb-font-size);
+        line-height: var(--awb-line-height);
+        letter-spacing: var(--awb-letter-spacing);
+        text-transform: var(--awb-text-transform);
+        color: var(--awb-text-color);
+        font-family: var(--awb-text-font-family);
+        font-weight: var(--awb-text-font-weight);
+        font-style: var(--awb-text-font-style);
+        margin: var(--awb-margin-top) var(--awb-margin-right) var(--awb-margin-bottom) var(--awb-margin-left);
+    }
+
+    .fusion-animated {
+        position: relative;
+        z-index: 2000;
+    }
+
+    .post-content p {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .post-content p {
+        margin: 0 0 20px;
+    }
+
+    strong {
+        font-weight: bolder;
+    }
+
+    .fusion-checklist, ul.fusion-checklist {
+        --awb-margin-top: 10px;
+        --awb-margin-right: 0;
+        --awb-margin-bottom: 0;
+        --awb-margin-left: 0;
+        --awb-divider-color: var(--checklist_divider_color);
+        --awb-item-padding-top: var(--checklist_item_padding-top);
+        --awb-item-padding-right: var(--checklist_item_padding-right);
+        --awb-item-padding-bottom: var(--checklist_item_padding-bottom);
+        --awb-item-padding-left: var(--checklist_item_padding-left);
+        --awb-odd-row-bgcolor: var(--checklist_odd_row_bgcolor);
+        --awb-even-row-bgcolor: var(--checklist_even_row_bgcolor);
+        --awb-textcolor: var(--checklist_text_color);
+        --awb-iconcolor: var(--checklist_icons_color);
+        list-style-type: none;
+        padding: 0;
+        margin: var(--awb-margin-top) var(--awb-margin-right) var(--awb-margin-bottom) var(--awb-margin-left);
+        font-size: var(--awb-size);
+        line-height: var(--awb-line-height);
+    }
+
+    ul {
+        box-sizing: border-box;
+    }
+
+        .fusion-checklist.fusion-checklist-default .fusion-li-item:first-child, ul.fusion-checklist.fusion-checklist-default .fusion-li-item:first-child {
+            --awb-item-padding-top: 0;
+        }
+
+        .fusion-checklist .fusion-li-item:nth-child(2n+1),  ul.fusion-checklist .fusion-li-item:nth-child(2n+1) {
+            background-color: var(--awb-odd-row-bgcolor);
+        }
+
+        .fusion-checklist .fusion-li-item, ul.fusion-checklist .fusion-li-item {
+            padding-top: var(--awb-item-padding-top);
+            padding-right: var(--awb-item-padding-right);
+            padding-bottom: var(--awb-item-padding-bottom);
+            padding-left: var(--awb-item-padding-left);
+            margin-left: 0;
+        }
+
+        .fusion-checklist .circle-yes, ul.fusion-checklist .circle-yes {
+            border-radius: 50%;
+            background-clip: padding-box;
+            background-color: var(--awb-circlecolor);
+            font-size: var(--awb-circle-yes-font-size);
+            color: #fff;
+            text-align: center;
+        }
+
+        .fusion-checklist .icon-wrapper, ul.fusion-checklist .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            float: left;
+            width: var(--awb-icon-width);
+            height: var(--awb-icon-height);
+            margin-inline-end: var(--awb-icon-margin);
+        }
+
+        .fusion-checklist .fusion-li-icon, ul.fusion-checklist .fusion-li-icon {
+            display: inline-block;
+            color: var(--awb-iconcolor);
+        }
+
+    .fa {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        line-height: 1;
+    }
+
+    .fa-check::before {
+        content: "\f00c";
+    }
+
+    .fusion-checklist .fusion-li-item-content, ul.fusion-checklist .fusion-li-item-content {
+        color: var(--awb-textcolor);
+        margin-inline-start: var(--awb-content-margin);
+    }
+
+    body a {
+        color: var(--link_color);
+    }
+
+    a {
+        transition-property: color,background-color,border-color;
+        transition-duration: .2s;
+        transition-timing-function: linear;
+        text-decoration: none;
+    }
+
+    .fusion-body .fusion-title.fusion-title-center {
+        text-align: center;
+    }
+
+    .fusion-body .fusion-title.fusion-title-size-three {
+        --awb-font-size: var(--h3_typography-font-size);
+        --awb-text-color: var(--h3_typography-color);
+    }
+
+    .do-animate .fusion-animated {
+        animation-fill-mode: both;
+    }
+
+    .fusion-body .fusion-title {
+        --awb-highlight-color: var(--primary_color);
+        --awb-highlight-top-margin: 0;
+        --awb-highlight-width: 9;
+        --awb-margin-top: var(--title_margin-top);
+        --awb-margin-right: var(--title_margin-right);
+        --awb-margin-bottom: var(--title_margin-bottom);
+        --awb-margin-left: var(--title_margin-left);
+        --awb-link-color: var(--link_color);
+        --awb-link-hover-color: var(--link_hover_color);
+        --awb-sep-color: var(--title_border_color);
+        --awb-marquee-direction: normal;
+        --awb-marquee-speed: 5000ms;
+        --awb-marquee-translate-x: 100%;
+        --awb-marquee-translate-y: 0%;
+        margin-top: var(--awb-margin-top);
+        margin-right: var(--awb-margin-right);
+        margin-bottom: var(--awb-margin-bottom);
+        margin-left: var(--awb-margin-left);
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        border-bottom-color: var(--awb-sep-color);
+        font-size: var(--awb-font-size);
+    }
+
+    .fusion-animated {
+        position: relative;
+        z-index: 2000;
+    }
+
+    .fusion-body .fusion-title .title-sep-container {
+        position: relative;
+        height: 6px;
+        flex-grow: 1;
+    }
+
+    .fusion-body .fusion-title .title-sep.sep-double {
+        height: 6px;
+        border-bottom-width: 1px;
+        border-top-width: 1px;
+    }
+
+    .fusion-body .fusion-title .title-sep {
+        position: relative;
+        display: block;
+        width: 100%;
+        border: 0 solid var(--awb-sep-color);
+        box-sizing: content-box;
+    }
+
+    .fusion-body .fusion-title .awb-title-spacer {
+        max-width: .3em;
+        flex-grow: 1;
+    }
+
+    .fusion-body #wrapper .fusion-title h3 {
+        flex-grow: 0;
+        padding: 0;
+        font-size: 1em;
+        color: var(--awb-text-color);
+    }
+
+    .fusion-body .fusion-title .title-sep.sep-double {
+        height: 6px;
+        border-bottom-width: 1px;
+        border-top-width: 1px;
+    }
+
+    .fusion-image-carousel {
+        margin-bottom: 40px;
+    }
+
+    .swiper-autoheight {
+        height: auto;
+    }
+
+    .swiper-pointer-events {
+        touch-action: pan-y;
+    }
+
+    .awb-swiper:not(.swiper-fade) .swiper-wrapper {
+        padding: 8px 0;
+    }
+
+    .swiper-autoheight .swiper-wrapper {
+        transition-property: transform,height;
+    }
+
+    .swiper-wrapper {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        display: flex;
+        box-sizing: content-box;
+    }
+
+    .awb-swiper:not(.swiper-fade) .swiper-wrapper .swiper-slide {
+        transition: transform .45s ease;
+    }
+
+    .swiper-autoheight .swiper-slide {
+        height: auto;
+    }
+
+    .swiper-slide {
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .awb-swiper .fusion-carousel-item-wrapper {
+        line-height: normal;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .awb-swiper .fusion-image-wrapper.hover-type-none {
+        display: inline-flex;
+    }
+
+    .fusion-carousel-border .fusion-image-wrapper {
+        border: 1px solid #e9eaee;
+    }
+
+    .fusion-image-wrapper {
+        overflow: hidden;
+        z-index: 1;
+        position: relative;
+    }
+
+    .fusion-image-wrapper {
+        --image_gradient_top_color: #d1e990;
+    }
+
+    .awb-swiper .fusion-carousel-item-wrapper {
+        line-height: normal;
+        text-align: center;
+    }
+
+    .awb-swiper-button-prev {
+        left: var(--awb-arrow-position-horizontal);
+        right: auto;
+    }
+
+    .awb-swiper-button-prev {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        font-size: var(--awb-arrow-size);
+        position: absolute;
+        width: var(--awb-arrow-box-width);
+        height: var(--awb-arrow-box-height);
+        z-index: 10;
+        justify-content: center;
+        color: var(--awb-arrow-color);
+        background-color: var(--awb-arrow-bgcolor);
+        top: var(--awb-arrow-position-vertical);
+        transform: var(--awb-arrow-position-vertical-transform);
+        border-radius: var(--awb-arrow-border-radius-top-left) var(--awb-arrow-border-radius-top-right) var(--awb-arrow-border-radius-bottom-right) var(--awb-arrow-border-radius-bottom-left);
+        transition: all .3s ease;
+        opacity: .8;
+    }
+
+    [class^="awb-icon-"] {
+        font-family: awb-icons !important;
+        font-style: normal;
+        font-weight: 400;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+    }
+
+    .awb-icon-angle-left::before {
+        content: "\f104";
+    }
+
+    .awb-swiper-button-next {
+        right: var(--awb-arrow-position-horizontal);
+        left: auto;
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        font-size: var(--awb-arrow-size);
+        position: absolute;
+        width: var(--awb-arrow-box-width);
+        height: var(--awb-arrow-box-height);
+        z-index: 10;
+        justify-content: center;
+        color: var(--awb-arrow-color);
+        background-color: var(--awb-arrow-bgcolor);
+        top: var(--awb-arrow-position-vertical);
+        transform: var(--awb-arrow-position-vertical-transform);
+        border-radius: var(--awb-arrow-border-radius-top-left) var(--awb-arrow-border-radius-top-right) var(--awb-arrow-border-radius-bottom-right) var(--awb-arrow-border-radius-bottom-left);
+        transition: all .3s ease;
+        opacity: .8;
+    }
+
+    .awb-swiper .swiper-notification {
+        position: absolute;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        opacity: 0;
+        z-index: -1000;
+    }
+
+    .fusion-clearfix {
+        clear: both;
+    }
+
+    .fusion-layout-column.fusion-column-last {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .fusion-layout-column.fusion-two-third {
+        --awb-col-width: 66.6666%;
+    }
+
+    .fusion-layout-column {
+        position: var(--awb-container-position);
+        float: left;
+        margin-top: var(--awb-margin-top);
+        margin-bottom: var(--awb-margin-bottom);
+        z-index: var(--awb-z-index);
+        top: var(--awb-absolute-top);
+        right: var(--awb-absolute-right);
+        bottom: var(--awb-absolute-bottom);
+        left: var(--awb-absolute-left);
+        filter: var(--awb-filter);
+        transition: var(--awb-transition);
+    }
+
+    .fusion_builder_column, .fusion_builder_column_inner {
+        --awb-z-index: auto;
+        --awb-z-index-hover: var(--awb-z-index);
+        --awb-absolute-top: auto;
+        --awb-absolute-right: auto;
+        --awb-absolute-bottom: auto;
+        --awb-absolute-left: auto;
+        --awb-container-position: relative;
+        --awb-overflow: visible;
+        --awb-inner-bg-overflow: visible;
+        --awb-bg-color: transparent;
+        --awb-bg-color-hover: var(--awb-bg-color);
+        --awb-inner-bg-color: transparent;
+        --awb-bg-position: left top;
+        --awb-inner-bg-position: left top;
+        --awb-bg-image: none;
+        --awb-inner-bg-image: none;
+        --awb-bg-blend: none;
+        --awb-inner-bg-blend: none;
+        --awb-bg-repeat: no-repeat;
+        --awb-inner-bg-repeat: no-repeat;
+        --awb-inner-bg-size: auto auto;
+        --awb-border-top: 0;
+        --awb-border-right: 0;
+        --awb-border-bottom: 0;
+        --awb-border-left: 0;
+        --awb-border-color: initial;
+        --awb-border-color-hover: var(--awb-border-color);
+        --awb-border-style: solid;
+        --awb-inner-border-top: 0;
+        --awb-inner-border-right: 0;
+        --awb-inner-border-bottom: 0;
+        --awb-inner-border-left: 0;
+        --awb-inner-border-color: initial;
+        --awb-inner-border-color-hover: var(--awb-inner-border-color);
+        --awb-inner-border-style: solid;
+        --awb-border-radius: 0;
+        --awb-inner-bg-border-radius: 0;
+        --awb-liftup-border-radius: 0;
+        --awb-box-shadow: none;
+        --awb-inner-bg-box-shadow: none;
+        --awb-padding-top: 0;
+        --awb-padding-right: 0;
+        --awb-padding-bottom: 0;
+        --awb-padding-left: 0;
+        --awb-transform: none;
+        --awb-transform-hover: var(--awb-transform);
+        --awb-transform-parent-hover: var(--awb-transform);
+        --awb-transform-origin: 50% 50%;
+        --awb-transition: transform 300ms ease,filter 300ms ease,background-color 300ms ease,border-color 300ms ease;
+        --awb-filter: none;
+        --awb-filter-hover: var(--awb-filter);
+        --awb-filter-parent-hover: var(--awb-filter);
+        --awb-col-order: var(--awb-order-large, 0);
+        --awb-margin-top-large: var(--col_margin-top, 0);
+        --awb-margin-bottom-large: var(--col_margin-bottom, 20px);
+        --awb-spacing-left-large: var(--col_spacing, 4%);
+        --awb-spacing-right-large: var(--col_spacing, 4%);
+        --awb-margin-top: var(--awb-margin-top-large);
+        --awb-margin-bottom: var(--awb-margin-bottom-large);
+        --awb-spacing-left: var(--awb-spacing-left-large);
+        --awb-spacing-right: var(--awb-spacing-right-large);
+        --awb-col-flex-grow: var(--awb-flex-grow, 0);
+        --awb-col-flex-shrink: var(--awb-flex-shrink, 0);
+    }
+
+    .fusion-layout-column .fusion-flex-column-wrapper-legacy {
+        --awb-spacing-left: 0;
+        --awb-spacing-right: 0;
+    }
+
+    .fusion-layout-column .fusion-column-wrapper {
+        background-image: var(--awb-bg-image);
+        background-color: var(--awb-bg-color);
+        background-position: var(--awb-bg-position);
+        background-blend-mode: var(--awb-bg-blend);
+        background-repeat: var(--awb-bg-repeat);
+        background-size: var(--awb-bg-size);
+        border-width: var(--awb-border-top) var(--awb-border-right) var(--awb-border-bottom) var(--awb-border-left);
+        border-color: var(--awb-border-color);
+        border-style: var(--awb-border-style);
+        border-radius: var(--awb-border-radius);
+        box-shadow: var(--awb-box-shadow);
+        padding: var(--awb-padding-top) var(--awb-padding-right) var(--awb-padding-bottom) var(--awb-padding-left);
+        overflow: var(--awb-overflow);
+        transition: var(--awb-transition);
+        transform: var(--awb-transform);
+        transform-origin: var(--awb-transform-origin);
+        min-height: 1px;
+        min-width: 0;
+        margin-left: var(--awb-spacing-left);
+        margin-right: var(--awb-spacing-right);
+    }
+
+    .fusion-sep-clear {
+        clear: both;
+        display: block;
+        height: 1px;
+        font-size: 0;
+        line-height: 0;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .fusion-body .fusion-separator {
+        --awb-separator-pattern-url: none;
+        --awb-sep-color: transparent;
+        --awb-height: 20px;
+        --awb-amount: 20px;
+    }
+
+    .fusion-body .fusion-separator {
+        display: flex;
+        align-items: center;
+    }
+
+    .fusion-separator {
+        clear: both;
+        position: relative;
+        z-index: 11;
+    }
+
+    .row {
+        margin-left: -15px;
+        margin-right: -15px;
+        clear:both;
+    }
+
+    .fusion-content-boxes {
+        --awb-backgroundcolor: var(--content_box_bg_color);
+        --awb-body-color: var(--content_box_body_color);
+        --awb-iconcolor: var(--content_box_icon_color);
+        --awb-item-margin-bottom: 20px;
+        --awb-item-margin-top: 0px;
+        --awb-content-padding-left: 0;
+        --awb-content-padding-right: 0;
+        --awb-content-text-align: initial;
+        --awb-border-radius-top-left: 0;
+        --awb-border-radius-top-right: 0;
+        --awb-border-radius-bottom-right: 0;
+        --awb-border-radius-bottom-left: 0;
+        --awb-box-shadow: none;
+        margin-top: var(--awb-margin-top);
+        margin-bottom: var(--awb-margin-bottom);
+    }
+
+        .fusion-content-boxes .fusion-column {
+            box-sizing: border-box;
+            margin-bottom: var(--awb-item-margin-bottom);
+            margin-top: var(--awb-item-margin-top);
+        }
+    @@media (min-width: 1200px) {
+        .col-lg-12 {
+            width: 100%;
+            float: left;
+        }
+    }
+
+    .do-animate .fusion-content-boxes .fusion-animated {
+        animation-fill-mode: none;
+        position: relative;
+    }
+
+    .fusion-content-boxes.content-boxes-icon-with-title .heading-with-icon {
+        display: table;
+        width: auto;
+    }
+
+    .fusion-content-boxes .heading {
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+
+    .col .heading {
+        margin: 0 0 15px;
+    }
+
+    .fusion-content-boxes.content-boxes-icon-with-title .heading-with-icon {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+    }
+
+    .fusion-content-boxes.content-boxes-icon-with-title .content-icon-wrapper-yes .heading-with-icon .icon span {
+        margin-right: 20px;
+    }
+
+    .fusion-content-boxes .icon > span {
+        display: inline-block;
+    }
+
+    .fusion-content-boxes.content-boxes-icon-with-title .heading-with-icon .fontawesome-icon {
+        display: block;
+        float: none;
+    }
+
+    .fusion-content-boxes.content-boxes-icon-with-title .heading-with-icon .content-box-heading {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .fusion-content-boxes .heading .content-box-heading {
+        margin: 0;
+        padding: 0;
+        color: var(--awb-title-color);
+        transition: all .3s;
+    }
+
+    .post-content h2, h2 {
+        font-family: var(--h2_typography-font-family);
+        font-weight: var(--h2_typography-font-weight);
+        letter-spacing: var(--h2_typography-letter-spacing);
+        font-style: var(--h2_typography-font-style,normal);
+    }
+
+    .fusion-content-boxes .content-container {
+        color: var(--awb-body-color);
+        text-align: var(--awb-content-text-align);
+    }
+
+    .do-animate .fusion-content-boxes .fusion-animated {
+        animation-fill-mode: none;
+        position: relative;
+    }
+
+    .fusion-button.button-flat {
+        box-shadow: none !important;
+    }
+    .button-default{
+        --button_gradient: linear-gradient(var(--button_gradient_angle), var(--button_gradient_top_color) var(--button_gradient_start), var(--button_gradient_bottom_color) var(--button_gradient_end));
+        background-image: var(--button_gradient);
+    }
+
+    .fusion-content-boxes a {
+        text-decoration: none;
+    }
+    .button-small{
+        padding: 9px 20px;
+        line-height: 14px;
+        font-size: 12px;
+    }
+
+    .width-100 .fusion-fullwidth, .width-100 .nonhundred-percent-fullwidth {
+        margin-left: var(--hundredp_padding-hundred_percent_negative_margin);
+        margin-right: var(--hundredp_padding-hundred_percent_negative_margin);
+    }
+
+    .fusion-layout-column.fusion-column-last {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .fusion-layout-column.fusion-one-full {
+        float: none;
+        clear: both;
+        --awb-col-width: 100%;
+    }
+
+    .fusion-layout-column {
+        position: var(--awb-container-position);
+        margin-top: var(--awb-margin-top);
+        margin-bottom: var(--awb-margin-bottom);
+        z-index: var(--awb-z-index);
+        top: var(--awb-absolute-top);
+        right: var(--awb-absolute-right);
+        bottom: var(--awb-absolute-bottom);
+        left: var(--awb-absolute-left);
+        filter: var(--awb-filter);
+        transition: var(--awb-transition);
+        width: var(--awb-col-width);
+        order: var(--awb-col-order);
+        flex-grow: var(--awb-col-flex-grow);
+        flex-shrink: var(--awb-col-flex-shrink);
+    }
+
+    .fusion-body .fusion-title.fusion-sep-none {
+        display: block;
+    }
+</style>
+
+<div class="fusion-fullwidth fullwidth-box fusion-builder-row-1 nonhundred-percent-fullwidth non-hundred-percent-height-scrolling" style="--awb-border-sizes-top:0px;--awb-border-sizes-bottom:0px;--awb-border-sizes-left:0px;--awb-border-sizes-right:0px;--awb-border-radius-top-left:0px;--awb-border-radius-top-right:0px;--awb-border-radius-bottom-right:0px;--awb-border-radius-bottom-left:0px;--awb-flex-wrap:wrap;">
+    <div class="fusion-builder-row fusion-row">
+        <div class="fusion-layout-column fusion_builder_column fusion-builder-column-0 fusion_builder_column_1_3 1_3 fusion-one-third fusion-column-first fusion-column-inner-bg-wrapper fusion-animated" style="--awb-padding-top: 20px; --awb-padding-right: 20px; --awb-padding-bottom: 20px; --awb-padding-left: 20px; --awb-inner-bg-color: #f2f3f5; --awb-inner-bg-color-hover: #f2f3f5; --awb-inner-bg-size: cover; --awb-box-shadow: 2px 0px ; --awb-margin-top: 50px; --awb-margin-bottom: 50px; width: calc(32%); margin-right: 4%; visibility: visible; animation-duration: 0.3s;" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view">
+            <span class="fusion-column-inner-bg hover-type-zoomin"><span class="fusion-column-anchor"><span class="fusion-column-inner-bg-image"></span></span></span><div class="fusion-column-wrapper fusion-column-has-shadow fusion-flex-column-wrapper-legacy">
+                <div class="fusion-text fusion-text-1 fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                    <p><strong>Installation &amp; Maintenance Services available for:</strong></p><ul style="--awb-size:15px;--awb-line-height:25.5px;--awb-icon-width:25.5px;--awb-icon-height:25.5px;--awb-icon-margin:10.5px;--awb-content-margin:36px;--awb-circlecolor:#65bc7b;--awb-circle-yes-font-size:13.2px;" class="fusion-checklist fusion-checklist-1 fusion-checklist-default type-icons">
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content"><a href="http://localhost/impress/product-category/uninterruptible-power-supply-ups/">Uninterruptible Power Supply (UPS)</a></div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">UPS Battery Bank</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Battery Monitoring System</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Automatic Voltage Regulator (AVR)/Voltage Stabilizer</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Lightning Protection System (LPS)</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Fire Detection &amp; Alarm System</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Fire Protection System</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Fire Hydrant and Sprinkler System</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Fire Pump</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">VESDA Installation</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content"><a href="https://www.rikenkeiki.co.jp/">Gas Detection System</a></div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Raised Floor</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Environment Monitoring System (EMS)</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Surge Protection Device (SPD)</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">ESE Lightning Arrester</div></li>
+                        <li class="fusion-li-item" style=""><span class="icon-wrapper circle-yes"><i class="fusion-li-icon fa fa-check" aria-hidden="true"></i></span><div class="fusion-li-item-content">Grounding/Eathing installation</div></li>
+                    </ul><p></p>
+                </div><div class="fusion-title title fusion-title-1 fusion-title-center fusion-title-text fusion-title-size-three fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;"><div class="title-sep-container title-sep-container-left"><div class="title-sep sep-double sep-solid" style="border-color:#e2e2e2;"></div></div><span class="awb-title-spacer"></span><h3 class="fusion-title-heading title-heading-center" style="margin:0;">Our Brands</h3><span class="awb-title-spacer"></span><div class="title-sep-container title-sep-container-right"><div class="title-sep sep-double sep-solid" style="border-color:#e2e2e2;"></div></div></div><div class="fusion-image-carousel fusion-image-carousel-auto fusion-image-carousel-1 fusion-carousel-border"><div class="awb-carousel awb-swiper awb-swiper-carousel swiper-initialized swiper-horizontal swiper-pointer-events swiper-autoheight" data-autoplay="yes" data-columns="1" data-itemmargin="13" data-itemwidth="180" data-touchscroll="no" data-imagesize="auto" style="--awb-columns: 1; max-width: 1200px;"><div class="swiper-wrapper awb-image-carousel-wrapper fusion-flex-align-items-center" style="transition-duration: 0ms; transform: translate3d(-2856px, 0px, 0px); height: 149px;" id="swiper-wrapper-81e9637f5107b1010a1" aria-live="off"><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="9" style="width: 344px; margin-right: 13px;" role="group" aria-label="10 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min.png" class="attachment-full size-full" alt="Tyco Fire Protection Bangladesh" srcset="https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="0" style="width: 344px; margin-right: 13px;" role="group" aria-label="1 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="240" height="108" src="https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand.png" class="attachment-full size-full" alt="Inform-UPS-by-Legrand" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand-200x90.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand.png 240w" sizes="(max-width: 240px) 100vw, 240px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="1" style="width: 344px; margin-right: 13px;" role="group" aria-label="2 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Fiamm-Logo-min.png" class="attachment-full size-full" alt="Fiamm Battery Bangladesh" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Fiamm-Logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Fiamm-Logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="2" style="width: 344px; margin-right: 13px;" role="group" aria-label="3 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Kidde-Fire-UTC-min.png" class="attachment-full size-full" alt="Kidde Fire Protection System" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Kidde-Fire-UTC-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Kidde-Fire-UTC-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="3" style="width: 344px; margin-right: 13px;" role="group" aria-label="4 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Honeywell-Fire-Alarm-Bangladesh-1-min.png" class="attachment-full size-full" alt="Honeywell-Fire-Alarm-Bangladesh-1-min" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Honeywell-Fire-Alarm-Bangladesh-1-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Honeywell-Fire-Alarm-Bangladesh-1-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="4" style="width: 344px; margin-right: 13px;" role="group" aria-label="5 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Mobiak-SA-Logo-min.png" class="attachment-full size-full" alt="Mobiak-Fire-Protection-Bangladesh-1-min" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Mobiak-SA-Logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Mobiak-SA-Logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="5" style="width: 344px; margin-right: 13px;" role="group" aria-label="6 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Hochiki_logo-2-min.png" class="attachment-full size-full" alt="xtralis vesda" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Hochiki_logo-2-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Hochiki_logo-2-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="6" style="width: 344px; margin-right: 13px;" role="group" aria-label="7 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Bergvik-logo-min.png" class="attachment-full size-full" alt="bergvik Raised floor" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Bergvik-logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Bergvik-logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide swiper-slide-active" data-swiper-slide-index="7" style="width: 344px; margin-right: 13px;" role="group" aria-label="8 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Emerson-logo-min.png" class="attachment-full size-full" alt="" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Emerson-logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Emerson-logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide swiper-slide-next" data-swiper-slide-index="8" style="width: 344px; margin-right: 13px;" role="group" aria-label="9 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/Alpha-Technologies-min.png" class="attachment-full size-full" alt="" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Alpha-Technologies-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Alpha-Technologies-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide" data-swiper-slide-index="9" style="width: 344px; margin-right: 13px;" role="group" aria-label="10 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="220" height="143" src="https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min.png" class="attachment-full size-full" alt="Tyco Fire Protection Bangladesh" srcset="https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min-200x130.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/tyco-fire-security-bangladesh-logo-min.png 220w" sizes="(max-width: 220px) 100vw, 220px"></div></div></div><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 344px; margin-right: 13px;" role="group" aria-label="1 / 10"><div class="fusion-carousel-item-wrapper"><div class="fusion-image-wrapper hover-type-none"><img decoding="async" width="240" height="108" src="https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand.png" class="attachment-full size-full" alt="Inform-UPS-by-Legrand" srcset="https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand-200x90.png 200w, https://impress.com.bd/wp-content/uploads/2020/06/Inform-UPS-by-Legrand.png 240w" sizes="(max-width: 240px) 100vw, 240px"></div></div></div></div><div class="awb-swiper-button awb-swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-81e9637f5107b1010a1"><i class="awb-icon-angle-left" aria-hidden="true"></i></div><div class="awb-swiper-button awb-swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-81e9637f5107b1010a1"><i class="awb-icon-angle-right" aria-hidden="true"></i></div><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div></div><div class="fusion-clearfix"></div>
+            </div>
+        </div><div class="fusion-layout-column fusion_builder_column fusion-builder-column-1 fusion_builder_column_2_3 2_3 fusion-two-third fusion-column-last" style="--awb-bg-size:cover;width:66.666666666667%;width:calc(66.666666666667% - ( ( 4% ) * 0.66666666666667 ) );">
+            <div class="fusion-column-wrapper fusion-column-has-shadow fusion-flex-column-wrapper-legacy">
+                <div class="fusion-sep-clear"></div><div class="fusion-separator fusion-full-width-sep" style="margin-left: auto;margin-right: auto;margin-top:25px;margin-bottom:22px;width:100%;"></div><div class="fusion-sep-clear"></div><div class="fusion-content-boxes content-boxes columns row fusion-columns-1 fusion-columns-total-5 fusion-content-boxes-1 content-boxes-icon-with-title content-left" style="--awb-title-color:#3cadab;--awb-margin-top:0px;--awb-margin-bottom:0px;--awb-hover-accent-color:#65bc7b;--awb-circle-hover-accent-color:#65bc7b;--awb-item-margin-bottom:40px;" data-animationoffset="top-into-view">
+                    <div style="--awb-backgroundcolor:rgba(255,255,255,0);" class="fusion-column content-box-column content-box-column content-box-column-1 col-lg-12 col-md-12 col-sm-12 fusion-content-box-hover content-box-column-last-in-row">
+                        <div class="col content-box-wrapper content-wrapper link-area-link-icon content-icon-wrapper-yes icon-hover-animation-fade fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                            <div class="heading heading-with-icon icon-left"><div class="icon"><span style="height:42px;width:42px;line-height:22px;border-color:rgba(255,255,255,0);border-width:1px;border-style:solid;background-color:#212934;box-sizing:content-box;border-radius:50%;"><i style="border-color:#212934;border-width:1px;background-color:#212934;box-sizing:content-box;height:40px;width:40px;line-height:40px;border-radius:50%;position:relative;top:auto;left:auto;margin:0;border-radius:50%;font-size:20px;" aria-hidden="true" class="fontawesome-icon fa-pencil-ruler fas circle-yes"></i></span></div><h2 class="content-box-heading" style="--h2_typography-font-size:24px;line-height:29px;">Installation &amp; Commissioning </h2></div><div class="fusion-clearfix"></div><div class="content-container">
+                                <p>We do installation, testing and commissioning job of electrical protection equipment, fire safety equipment and some data center items. Generally this installation services are provided under the same package of supplying the materials. But in some cases, we provide this supports where are are not the supplier. We have an experienced team of which most of the engineers are vendor certified to do the installation job. UPS installation service. Voltage Stabilizer installation service. Fire alarm system installation service. fire protection system installation service. Installation &amp; Maintenance Services. </p><div class="fusion-button-wrapper"><a class="fusion-button button-flat button-small button-default fusion-button-default button-1 fusion-button-default-span fusion-animated" style="--button-border-radius-top-left: 2px; --button-border-radius-top-right: 2px; --button-border-radius-bottom-right: 2px; --button-border-radius-bottom-left: 2px; visibility: visible; animation-duration: 0.3s;" data-animationtype="fadeInRight" data-animationduration="0.3" data-animationoffset="top-into-view" target="_self" href="http://localhost/impress/installation-and-commissioning-services/"><span class="fusion-button-text">Read More</span></a></div>
+                            </div>
+                        </div>
+                    </div><div style="--awb-backgroundcolor:rgba(255,255,255,0);" class="fusion-column content-box-column content-box-column content-box-column-2 col-lg-12 col-md-12 col-sm-12 fusion-content-box-hover content-box-column-last-in-row">
+                        <div class="col content-box-wrapper content-wrapper link-area-link-icon content-icon-wrapper-yes icon-hover-animation-fade fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                            <div class="heading heading-with-icon icon-left"><div class="icon"><span style="height:42px;width:42px;line-height:22px;border-color:rgba(255,255,255,0);border-width:1px;border-style:solid;background-color:#212934;box-sizing:content-box;border-radius:50%;"><i style="border-color:#212934;border-width:1px;background-color:#212934;box-sizing:content-box;height:40px;width:40px;line-height:40px;border-radius:50%;position:relative;top:auto;left:auto;margin:0;border-radius:50%;font-size:20px;" aria-hidden="true" class="fontawesome-icon fa-fist-raised fas circle-yes"></i></span></div><h2 class="content-box-heading" style="--h2_typography-font-size:24px;line-height:29px;">Maintenance &amp; Servicing</h2></div><div class="fusion-clearfix"></div><div class="content-container">
+                                <p>Generally our products sold with warranty coverage, but we provide maintenance service support as long as our customers want. There are three types of after sales services: a) support during warranty period- it’s free of any cost. b) Annual Maintenance Contract (AMC)- covers a periodic routine maintenance plus on request service support. Supply of spare parts are optional. c) On call basis- we entertain your on call request of service support on payment basis. </p><div class="fusion-button-wrapper"><a class="fusion-button button-flat button-small button-default fusion-button-default button-2 fusion-button-default-span " target="_self" href="http://localhost/impress/maintenance-servicing/"><span class="fusion-button-text">Button Text</span></a></div>
+                            </div>
+                        </div>
+                    </div><div style="--awb-backgroundcolor:rgba(255,255,255,0);" class="fusion-column content-box-column content-box-column content-box-column-3 col-lg-12 col-md-12 col-sm-12 fusion-content-box-hover content-box-column-last-in-row">
+                        <div class="col content-box-wrapper content-wrapper link-area-link-icon content-icon-wrapper-yes icon-hover-animation-fade fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                            <div class="heading heading-with-icon icon-left"><div class="icon"><span style="height:42px;width:42px;line-height:22px;border-color:rgba(255,255,255,0);border-width:1px;border-style:solid;background-color:#212934;box-sizing:content-box;border-radius:50%;"><i style="border-color:#212934;border-width:1px;background-color:#212934;box-sizing:content-box;height:40px;width:40px;line-height:40px;border-radius:50%;position:relative;top:auto;left:auto;margin:0;border-radius:50%;font-size:20px;" aria-hidden="true" class="fontawesome-icon fa-ruler-combined fas circle-yes"></i></span></div><h2 class="content-box-heading" style="--h2_typography-font-size:24px;line-height:29px;">Design &amp; Consultancy</h2></div><div class="fusion-clearfix"></div><div class="content-container">
+                                <p>We design HVAC, Electrical, Fire Safety solutions and lightning protection system for your premises.&nbsp; Designing the data center infrastructure for you is also a part of our job. We prepare specifications for the required products, make the BOQ and help you to procure the precised products. </p><div class="fusion-button-wrapper"><a class="fusion-button button-flat button-small button-default fusion-button-default button-3 fusion-button-default-span " target="_self" href="http://localhost/impress/design-consultancy/"><span class="fusion-button-text">Read More</span></a></div>
+                            </div>
+                        </div>
+                    </div><div style="--awb-backgroundcolor:rgba(255,255,255,0);" class="fusion-column content-box-column content-box-column content-box-column-4 col-lg-12 col-md-12 col-sm-12 fusion-content-box-hover content-box-column-last-in-row">
+                        <div class="col content-box-wrapper content-wrapper link-area-link-icon content-icon-wrapper-yes icon-hover-animation-fade fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                            <div class="heading heading-with-icon icon-left"><div class="icon"><span style="height:42px;width:42px;line-height:22px;border-color:rgba(255,255,255,0);border-width:1px;border-style:solid;background-color:#212934;box-sizing:content-box;border-radius:50%;"><i style="border-color:#212934;border-width:1px;background-color:#212934;box-sizing:content-box;height:40px;width:40px;line-height:40px;border-radius:50%;position:relative;top:auto;left:auto;margin:0;border-radius:50%;font-size:20px;" aria-hidden="true" class="fontawesome-icon fa-dolly fas circle-yes"></i></span></div><h2 class="content-box-heading" style="--h2_typography-font-size:24px;line-height:29px;">Product Supply</h2></div><div class="fusion-clearfix"></div><div class="content-container">
+                                <p>We are an importer and authorized distributor of many products. Partnered with a number of globally reputed manufacturers. We supply world class products with international warranty and authorization. We are also exporting our products to many countries. </p><div class="fusion-button-wrapper"><a class="fusion-button button-flat button-small button-default fusion-button-default button-4 fusion-button-default-span " target="_self" href="http://localhost/impress/product-supply/"><span class="fusion-button-text">Read More</span></a></div>
+                            </div>
+                        </div>
+                    </div><div style="--awb-backgroundcolor:rgba(255,255,255,0);" class="fusion-column content-box-column content-box-column content-box-column-5 col-lg-12 col-md-12 col-sm-12 fusion-content-box-hover content-box-column-last content-box-column-last-in-row">
+                        <div class="col content-box-wrapper content-wrapper link-area-link-icon content-icon-wrapper-yes icon-hover-animation-fade fusion-animated" data-animationtype="fadeInLeft" data-animationduration="0.3" data-animationoffset="top-into-view" style="visibility: visible; animation-duration: 0.3s;">
+                            <div class="heading heading-with-icon icon-left"><div class="icon"><span style="height:42px;width:42px;line-height:22px;border-color:rgba(255,255,255,0);border-width:1px;border-style:solid;background-color:#212934;box-sizing:content-box;border-radius:50%;"><i style="border-color:#212934;border-width:1px;background-color:#212934;box-sizing:content-box;height:40px;width:40px;line-height:40px;border-radius:50%;position:relative;top:auto;left:auto;margin:0;border-radius:50%;font-size:20px;" aria-hidden="true" class="fontawesome-icon fa-certificate fas circle-yes"></i></span></div><h2 class="content-box-heading" style="--h2_typography-font-size:24px;line-height:29px;">Audit &amp; Certification</h2></div><div class="fusion-clearfix"></div><div class="content-container">
+                                <p>We audit your Electrical, HVAC and Fire Safety facilities and make reports to you. Conduct our audits as per NFPA, NEC, BNBC, IEC, ASHRAE, Accord, Alliance guidelines. We also follow the guidelines of Department of Fire Brigade &amp; Civil Defense, Bangladesh.</p>
+                            </div>
+                        </div>
+                    </div><div class="fusion-clearfix"></div>
+                </div><div class="fusion-clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

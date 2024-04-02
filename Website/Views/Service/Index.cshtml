@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .list-group-item{
+        border: none;
+    }
+    .separator {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+    .separator::before,.separator::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000;
+    }
+    .separator:not(:empty)::before {
+        margin-right: .25em;
+    }
+    .separator:not(:empty)::after {
+        margin-left: .25em;
+    }
+    .dynamicColor{
+        color:darkcyan;
+        display:inline-block;
+    }
+
+    .info-box a:hover {
+        background: #67b0d1;
+        text-decoration: none;
+    }
+
+    .info-box a {
+        font-size: 24px;
+        display: inline-block;
+        background: #2f4d5a;
+        color: #fff !important;
+        line-height: 1;
+        padding: 8px 0;
+        margin-right: 4px;
+        border-radius: 50%;
+        text-align: center;
+        width: 36px;
+        height: 36px;
+        transition: 0.3s;
+    }
+    .bxs-check-circle {
+        font-size: larger;
+    }
+
+</style>
+
+<div class="" style="margin-top:150px;">
+    <section id="cta" class="cta">
+        <div class="container" data-aos="zoom-in">
+
+            <div class="text-center">
+                <h2 style="font-size: 40px;">SERVICES</h2>
+                @*<h4>Our Hotline Numbers</h4> <br>*@
+
+                <p> Home / Services </p>
+
+            </div>
+
+        </div>
+    </section><br />
+    <div class="row d-flex @*align-items-center*@ justify-content-center">
+        <div class="col-md-3" style="background-color:aliceblue;">
+            <h3 style="margin-top:5%;">Installation & Maintenance Services Avaiable For:</h3>
+            <ul class="list-group">
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Installation & Commissioning</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Design & Consultancy</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Product Supply</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Audit & Certification</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Installation & Commissioning</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Installation & Commissioning</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Design & Consultancy</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Product Supply</span>
+                </li>
+                <li class="list-group-item  justify-content-between align-items-center info-box">
+                    <i class="bx bxs-check-circle"></i>
+                    <span>Audit & Certification</span>
+                </li>
+
+            </ul>
+            <div class="separator"><h3>Our Brands</h3></div>
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="~/assets/img/la.jpg" alt="Los Angeles" class="d-block" style="width:100%">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/assets/img/chicago.jpg" alt="Chicago" class="d-block" style="width:100%">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/assets/img/ny.jpg" alt="New York" class="d-block" style="width:100%">
+                    </div>
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-5 info-box">
+            <a href="#" class="facebook"><i class="bx bxs-spa"></i></a>
+            <h3 class="dynamicColor">Installation & Commissioning</h3>
+            <p>
+                We do installation, testing and commissioning job of electrical protection equipment, 
+                fire safety equipment and some data center items. Generally this installation services are provided under the same package of supplying the materials. 
+                But in some cases, we provide this supports where are are not the supplier. 
+                We have an experienced team of which most of the engineers are vendor certified to do the installation job. 
+                UPS installation service. Voltage Stabilizer installation service. Fire alarm system installation service. 
+                fire protection system installation service. Installation & Maintenance Services. 
+            </p>
+            <button style="font-size:14px;height:30px;font-weight:100;text-transform:none;" type="button" class="btn btn-default btn-sm">Read More</button><br /><br />
+            <a href="#" class="facebook"><i class="bx bxs-spa"></i></a>
+            <h3 class="dynamicColor">Design & Consultancy</h3>
+            <p>
+                We do installation, testing and commissioning job of electrical protection equipment,
+                fire safety equipment and some data center items. Generally this installation services are provided under the same package of supplying the materials.
+                But in some cases, we provide this supports where are are not the supplier.
+                We have an experienced team of which most of the engineers are vendor certified to do the installation job.
+                UPS installation service. Voltage Stabilizer installation service. Fire alarm system installation service.
+                fire protection system installation service. Installation & Maintenance Services.
+            </p>
+            <button style="font-size:14px;height:30px;font-weight:100;text-transform:none;" type="button" class="btn btn-default btn-sm">Read More</button><br /><br />
+            <a href="#" class="facebook"><i class="bx bxs-spa"></i></a>
+            <h3 class="dynamicColor">Product Supply</h3>
+            <p>
+                We do installation, testing and commissioning job of electrical protection equipment,
+                fire safety equipment and some data center items. Generally this installation services are provided under the same package of supplying the materials.
+                But in some cases, we provide this supports where are are not the supplier.
+                We have an experienced team of which most of the engineers are vendor certified to do the installation job.
+                UPS installation service. Voltage Stabilizer installation service. Fire alarm system installation service.
+                fire protection system installation service. Installation & Maintenance Services.
+            </p>
+            <button style="font-size:14px;height:30px;font-weight:100;text-transform:none;" type="button" class="btn btn-default btn-sm">Read More</button><br /><br />
+            <a href="#" class="facebook"><i class="bx bxs-spa"></i></a>
+            <h3 class="dynamicColor">Audit & Certification</h3>
+            <p>
+                We do installation, testing and commissioning job of electrical protection equipment,
+                fire safety equipment and some data center items. Generally this installation services are provided under the same package of supplying the materials.
+                But in some cases, we provide this supports where are are not the supplier.
+                We have an experienced team of which most of the engineers are vendor certified to do the installation job.
+                UPS installation service. Voltage Stabilizer installation service. Fire alarm system installation service.
+                fire protection system installation service. Installation & Maintenance Services.
+            </p>
+            <button style="font-size:14px;height:30px;font-weight:100;text-transform:none;" type="button" class="btn btn-default btn-sm">Read More</button><br /><br />
+        </div>
+    </div>
+
+    
+</div>

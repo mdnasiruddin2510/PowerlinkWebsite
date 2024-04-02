@@ -1,0 +1,144 @@
+#sb-banner{
+  /* background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)); */
+  background-image: url(assets/solution.png);
+  background-position: center;
+  background-size: cover;
+  height: 65vh;
+  position: relative;
+  margin-bottom: 70px;
+}
+
+#sb-banner h4{
+  color: #fff;
+  font-size: 52px;
+  text-transform: uppercase;
+}
+
+.section{
+  background-color: #D9EFFC;
+}
+
+
+.btn{
+  background-color: #DBEAF3;
+  color: #2F4D5A;  
+  border: none;
+  height: 40px;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.btn:hover{
+  color: #8EC4DD;
+}
+
+.accordion-item{
+	background-color: #D9EFFC;
+	padding: 10px;
+	
+}
+
+.accordion-button{
+	background-color: #D9EFFC;
+	height: 50px;
+	width: 400px;
+	text-align: center;
+	/* border: 1px solid #8EC4DD; */
+	margin: auto;
+	border-radius: 15px;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.accordion-item h2{
+	color: #2F4D5A;
+}
+
+.product-body-sizeing{
+  height: 400px;
+}
+.electrical-product-body-sizeing{
+  height: 365px;
+}
+
+
+.card{
+  min-height: 335px;
+  background-color: #dbeaf3;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  color: #2F4D5A;
+}
+
+ .card-title{
+  font-size: 25px;
+  font-weight: 700;
+  padding-bottom: 30px;
+}
+.address-body{
+  width: 100%;
+  height: 230px;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+.nameNumber-body{
+  width: 100%;
+  height: 200px;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-text{
+  font: 16px !important;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  line-height: .5;
+}
+.zone-text{
+  font: 15px !important;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+}
+
+.card p{
+  color: #2F4D5A;
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 20px;
+}
+
+.card a{
+  color: #2F4D5A;
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 20px;
+  
+}
+
+.card a:hover{
+  color: #8EC4DD;
+  font-size: 20px;
+  font-weight: 700;
+  padding-bottom: 20px;
+  
+}
+
+.dropdown-menu{
+  text-align: center;  
+  width: 40%;
+  background-color: #DBEAF3;
+}
+
+.card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
