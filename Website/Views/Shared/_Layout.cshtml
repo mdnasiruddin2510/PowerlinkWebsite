@@ -1,13 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-
 <!-- Mirrored from www.lidpowerbd.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 08 Mar 2024 10:50:17 GMT -->
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>LID POWER SOLUTIONS LTD.</title>
+  <title>POWER LINK</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -59,31 +57,21 @@
     <div class="container-fluid d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index-2.html"><img src="~/assets/img/Logo.png" alt=""> <span class="hidden">LID POWER SOLUTIONS LTD.</span></a></h1>
+        <h1 class="text-light"><a href="/home/index"><img src="~/assets/img/Logo.png" alt=""> <span class="hidden">POWER LINK</span></a></h1>
         
       </div>
-
-      
-
       <nav id="navbar" class="navbar">
-        <ul>
+        <ul id="parentMenuDP">
           <li><a class="nav-link scrollto " href="/home/index">Home</a></li>
-          <li><a class="nav-link scrollto active" href="about.html">About Us</a></li>
-          <li><a class="nav-link scrollto" href="solution.html">solutions</a></li>
+          <li><a class="nav-link scrollto active" href="#">About Us</a></li>
+          <li><a class="nav-link scrollto" href="#">solutions</a></li>
           <li><a class="nav-link scrollto" href="/product/index">Products</a></li>
-            <li><a class="nav-link scrollto" href="/service/index">Service</a></li>
-          <li><a class="nav-link scrollto" href="contact.html">Contact</a></li>
-          
+          <li><a class="nav-link scrollto" href="/service/index">Service</a></li>
+          <li><a class="nav-link scrollto" href="#">Contact</a></li>
         </ul>
-
-        <button class="log-in"> <a href="https://login.microsoftonline.com/" target="blank"> LOG IN </a></button>
+        <button class="log-in"> <a href="#" target="blank"> LOG IN </a></button>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-      
-      
-      
-      
-    
     </div>
   </header><!-- End Header -->
     @RenderBody()
@@ -117,6 +105,7 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
   <!-- ======= Hero Section ======= -->
   <!-- Vendor JS Files -->
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/assets/vendor/aos/aos.js"></script>
   <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="~/assets/vendor/glightbox/js/glightbox.min.js"></script>
@@ -127,7 +116,62 @@
 
   <!-- Template Main JS File -->
   <script src="~/assets/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
+    <script type="text/javascript">
+        //Load Menu
+        function loadMenu(){
+            $.ajax({
+                url: baseURL + '/api/Menu',
+                type: "GET",
+                async: false,
+                data: { appId: appId },
+                success: function (res) {
+                    var parentMenuDP = ``;
+                    var parentMenuMB = ``;
+                    $(res).each(function (i, menu) {
+                        parentMenuDP += `<li class="mmenu-item--simple">
+                                             <a href="${menu.url}" title="">${menu.name}</a>`;
 
+
+                        parentMenuMB += `<li><a href="${menu.url}" title="">${menu.name}</a>`;
+                        if (menu.subMenu.length > 0) {
+                            parentMenuDP += `<div class="mmenu-submenu">
+                                                 <ul class="submenu-list">`;
+                            parentMenuMB += `<span class="arrow"></span><ul class="nav-level-2">`;
+                            $(menu.subMenu).each(function (j, sub) {
+                                parentMenuDP += `<li><a href="${sub.url}" title="">${sub.name}</a>`;
+                                parentMenuMB += `<li><a href="${sub.url}" title="">${sub.name}</a>`;
+                                if (sub.subMenuItem.length > 0) {
+                                    parentMenuDP += `<ul>`;
+                                    parentMenuMB += `<span class="arrow"></span>
+                                                         <ul class="nav-level-3">`;
+
+                                    $(sub.subMenuItem).each(function (k, item) {
+                                        parentMenuDP += `<li><a href="${item.url}" title="">${item.name}</a></li>`;
+                                        parentMenuMB += `<li><a href="${item.url}" title="">${item.name}</a></li>`;
+                                    });
+                                    parentMenuDP += `</ul>`;
+                                    parentMenuMB += `</ul>`;
+                                }
+                                parentMenuDP += `</li>`;
+                                parentMenuMB += `</li>`;
+
+                            });
+                            parentMenuMB += `</ul>`;
+                            parentMenuDP += `</div>`;
+                        }
+
+                        parentMenuDP += `</li>`;
+
+                        parentMenuMB += `</li>`;
+                    });
+                    $("#parentMenuDP").append(parentMenuDP);
+                    $("#parentMenuMB").append(parentMenuMB);
+
+                }
+            });
+        }
+    </script>
 </body>
 
 
