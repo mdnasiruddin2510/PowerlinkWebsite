@@ -1,3 +1,5 @@
+
+#nullable enable
 namespace Website.Models
 {
     public class ErrorViewModel
