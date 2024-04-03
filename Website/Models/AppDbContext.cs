@@ -99,5 +99,9 @@ namespace PosWebsite.Models
         public DbSet<DynamicBodyTemplate> DynamicBodyTemplate { get; set; }
         public DbSet<Partners> Partners { get; set; }
         public DbSet<Solutions> Solutions { get; set; }
+        public DbSet<Banner> Banner { get; set; }
+        public DbSet<AboutUs> AboutUs { get; set; }
+        public DbSet<Clients> Clients { get; set; }
+        
     }
 }

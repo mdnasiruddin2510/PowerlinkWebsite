@@ -62,12 +62,12 @@
       </div>
       <nav id="navbar" class="navbar">
         <ul id="parentMenuDP">
-          <li><a class="nav-link scrollto " href="/home/index">Home</a></li>
+          @*<li><a class="nav-link scrollto " href="/home/index">Home</a></li>
           <li><a class="nav-link scrollto active" href="#">About Us</a></li>
           <li><a class="nav-link scrollto" href="#">solutions</a></li>
           <li><a class="nav-link scrollto" href="/product/index">Products</a></li>
           <li><a class="nav-link scrollto" href="/service/index">Service</a></li>
-          <li><a class="nav-link scrollto" href="#">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#">Contact</a></li>*@
         </ul>
         <button class="log-in"> <a href="#" target="blank"> LOG IN </a></button>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -113,64 +113,32 @@
   <script src="~/assets/vendor/php-email-form/validate.js"></script>
   <script src="~/assets/vendor/purecounter/purecounter.js"></script>
   <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
-
+  <script src="~/js/common.js"></script>
   <!-- Template Main JS File -->
   <script src="~/assets/js/main.js"></script>
     @RenderSection("Scripts", required: false)
     <script type="text/javascript">
         //Load Menu
-        function loadMenu(){
-            $.ajax({
-                url: baseURL + '/api/Menu',
-                type: "GET",
-                async: false,
-                data: { appId: appId },
-                success: function (res) {
-                    var parentMenuDP = ``;
-                    var parentMenuMB = ``;
-                    $(res).each(function (i, menu) {
-                        parentMenuDP += `<li class="mmenu-item--simple">
-                                             <a href="${menu.url}" title="">${menu.name}</a>`;
-
-
-                        parentMenuMB += `<li><a href="${menu.url}" title="">${menu.name}</a>`;
-                        if (menu.subMenu.length > 0) {
-                            parentMenuDP += `<div class="mmenu-submenu">
-                                                 <ul class="submenu-list">`;
-                            parentMenuMB += `<span class="arrow"></span><ul class="nav-level-2">`;
-                            $(menu.subMenu).each(function (j, sub) {
-                                parentMenuDP += `<li><a href="${sub.url}" title="">${sub.name}</a>`;
-                                parentMenuMB += `<li><a href="${sub.url}" title="">${sub.name}</a>`;
-                                if (sub.subMenuItem.length > 0) {
-                                    parentMenuDP += `<ul>`;
-                                    parentMenuMB += `<span class="arrow"></span>
-                                                         <ul class="nav-level-3">`;
-
-                                    $(sub.subMenuItem).each(function (k, item) {
-                                        parentMenuDP += `<li><a href="${item.url}" title="">${item.name}</a></li>`;
-                                        parentMenuMB += `<li><a href="${item.url}" title="">${item.name}</a></li>`;
-                                    });
-                                    parentMenuDP += `</ul>`;
-                                    parentMenuMB += `</ul>`;
-                                }
-                                parentMenuDP += `</li>`;
-                                parentMenuMB += `</li>`;
-
-                            });
-                            parentMenuMB += `</ul>`;
-                            parentMenuDP += `</div>`;
-                        }
-
-                        parentMenuDP += `</li>`;
-
-                        parentMenuMB += `</li>`;
-                    });
-                    $("#parentMenuDP").append(parentMenuDP);
-                    $("#parentMenuMB").append(parentMenuMB);
-
-                }
-            });
-        }
+        //function loadMenu(){
+            
+        //}
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: baseURL + 'api/Home/GetAllMenu',
+            type: "GET",
+            async: false,
+            success: function (res) {
+                $("#parentMenuDP").empty();
+                var parentMenuDP = ``;
+                $(res).each(function (i, menu) {
+                    parentMenuDP += `<li><a class="nav-link scrollto " href="${menu.url}">${menu.title}</a></li>`;
+                });
+                $("#parentMenuDP").append(parentMenuDP);
+            }
+        });
     </script>
 </body>
 
