@@ -2,206 +2,234 @@
     ViewData["Title"] = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<link href="~/assets/css/products.css" rel="stylesheet" />*@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="~/css/products.css" rel="stylesheet" />
 
-<script src="../kit.fontawesome.com/9c3c9132b8.js" crossorigin="anonymous"></script>
-<link href="~/numeric/themes/numeric/css/lg-icons.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link href="~/numeric/themes/numeric/css/iceberg.min.css" rel="stylesheet" />
-<link href="~/numeric/themes/numeric/css/stylesheet.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,500,700&amp;display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<article data-history-node-id="20">
+<div role="main" class="main shop pt-4" style="height: 1750px;margin-top:115px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Catagory-->
+                        <div class="widget catagory mb-4">
+                            <h6 class="widget-title mb-2">Brand</h6>
+                            <div class="widget-desc" id="filterBrandContainer">
+                                <!-- Single Checkbox-->
 
-	<div class="banner banner--no-gradient headerTheme-style mngShape-energy mngHeader_wrapper bgNo">
-		<div class="fullHeaderWrap">
-			<div class="headImg_wrap">
-				<picture class="img-responsive headImg">
-                    <source style="max-height: 310px;width: 100%;height: auto;" width="1920" height="310" media="(min-width:500px)" srcset="~/assets/img/m_header-categories.webp">
-					<img style="max-height: 310px;width: 100%;height: auto;" width="1920" height="310" class="headImg" src="~/assets/img/m_header-categories.webp" alt="Numeric Ups Products Array">
-				</picture>
-			</div>
-		</div>
-	</div>
-	<section class="section section--grey section--small-top-padding">
-		<div class="container">
-			<div class="text-right mb--45 buttons-below-banner" style="text-align:right;">
-				<a class="button-below-banner btn-second btn-second--inline btn-second--primary-color" href="/services">Services</a>
-				<a class="button-below-banner btn-second btn-second--inline btn-second--primary-color" href="/products">Products</a>
-				<a class="button-below-banner btn-second btn-second--inline btn-second--primary-color" href="/contact-us">Contact</a>
-			</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- Color-->
+                        <div class="widget color mb-4">
+                            <h6 class="widget-title mb-2">Category</h6>
+                            <div class="widget-desc" id="filterCategoryContainer">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- Price Range-->
+                        <div class="widget price-range mb-4">
+                            <h6 class="widget-title mb-2">Price Range</h6>
+                            <div class="widget-desc">
+                                <!-- Min Value-->
+                                <div class="row g-3">
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input class="form-control" id="minPrice" type="text" placeholder="1" value="1">
+                                            <label for="floatingInput">Min</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input class="form-control" id="maxPrice" type="text" placeholder="1" value="5000">
+                                            <label for="floatingInput">Max</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <!-- Apply Filter-->
+                        <div class="apply-filter-btn"><a class="btn btn-lg btn-success w-100" id="btnFilter">Apply Filter</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9">
+				<div class="row">
+					<div class="col-md-4">
+						<div id="product-card">
+							<div id="product-front">
+								<div class="shadow"></div>
+								<img src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" height="240" width="250" style="margin-left:12%;" alt="" />
+								<div class="image_overlay"></div>
+								<div id="view_details">Related</div>
+								<div class="stats">
+									<div class="stats-container">
+										<span class="product_price">$39</span>
+										<span class="product_name">Digital 1000 PLUS V</span>
+										<p>interactive UPS 1000 VA - 600 W</p>
 
-			<div class="row ">
-				<div class="text-center col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
-					<i class="lgpicto--title imgIcon mb--10"><img width="35" height="35" style="width: 100%;height: auto;" src="~/assets/img/icon-products-text.png" alt="icon"></i>
-					<h1 class="title text-uppercase mb--20">
-						<span>Products</span>
-					</h1>
-					<div class="infoText_Cont_Top text-justify">
-						<p class="mb--0"></p>
+										<div class="product-options">
+											<strong>Brand</strong>
+											<span>Prolink</span>
+											<strong>Model</strong>
+											<span>
+												Prolink 650VA
+											</span>
+											@* <div class="colors">
+												<div class="c-blue"><span></span></div>
+												<div class="c-red"><span></span></div>
+												<div class="c-white"><span></span></div>
+												<div class="c-green"><span></span></div>
+											</div> *@
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="product-back">
+								<div class="shadow"></div>
+								<div id="carousel">
+									<ul>
+										<li><img src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" height="240" width="250" style="margin-left:3%;" alt="" /></li>
+										<li><img src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" height="240" width="250" style="margin-left:3%;" alt="" /></li>
+										<li><img src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" height="240" width="250" style="margin-left:3%;" alt="" /></li>
+										<li><img src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" height="240" width="250" style="margin-left:3%;" alt="" /></li>
+									</ul>
+									<div id="view_details_back">View Details</div>
+									<div class="arrows-perspective">
+										<div class="carouselPrev">
+											<div class="y"></div>
+											<div class="x"></div>
+										</div>
+										<div class="carouselNext">
+											<div class="y"></div>
+											<div class="x"></div>
+										</div>
+									</div>
+								</div>
+								<div id="flip-back">
+									<div id="cy"></div>
+									<div id="cx"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-
-</article>
-<section class="section">
-    <div class="container">
-        <div class="panel-group prodCateAccordianWrap" id="accordion_products">
-
-            <div class="panel">
-                <div class="scrollPosition" id="target_cat_1"></div>
-
-                <div class="panel-heading">
-                    <a class="title_catSec section--grey collapsed" data-bs-toggle="collapse" data-bs-parent="#accordion_products" aria-expanded="true" href="#prod_collapse_1">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <h2 class="title text-uppercase text-center mb--15">Home UPS</h2>
-                                <div class="text-center">
-                                    <p>Modern households are equipped with various electronic devices like computers, accessories,
-                                        home theatre systems, security systems, and numerous other gadgets that facilitate intelligent living 
-                                        and simplify everyday tasks. An efficient power backup becomes essential that can sustain the digital
-                                        lifestyle without any interruptions. Whether you opt to work remotely from home, establish temporary workspaces, 
-                                        conduct online learning sessions for children, or entertain guests, you can fortify your homes with reliable UPS solutions.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div id="prod_collapse_1" class="panel-collapse collapse" aria-expanded="true">
-                    <div class="panel-body">
-                        <div class="row prodCol3">
-
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="~/assets/img/dc-s.webp" alt="Intizon mini UPS for WiFi Router"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="fa-solid fa-circle-arrow-right"></i></span>
-                                        Intizon Mini UPS for Wi-Fi Router
-                                    </div>
-                                    <div class="desc text-color-9 mb--15"style="font-size:10px;">Intizon Mini UPS for Wi-Fi Router is a reliable and efficient power backup solu... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>12 V</span></h5>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="panel">
-                <div class="scrollPosition" id="target_cat_custom_pnp"></div>
-
-                <div class="panel-heading">
-                    <a class="title_catSec section--grey collapsed" data-bs-toggle="collapse" data-bs-parent="#accordion_products" aria-expanded="false" href="#prod_collapse_custom_pnp">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <h2 class="title text-uppercase text-center mb--15">Plug N Play UPS</h2>
-                                <div class="text-center"><p>Homes, small businesses and home offices rely heavily on digital tools to make their everyday life more smart and easy. This requires a reliable and trusted power back up to ensure continuity of all things digital. ​Installing or setting up a UPS can appear to be a daunting task that necessitates external support or assistance. As part of our commitment to offer smart solutions, we have simplified this process with Plug N Play UPS. It comes with a step by step user guide to ensure quick and hassle free set up, easy-to-unbox packaging and contactless installation making the entire process seamless and convenient. ​Contact us today to learn more about our products and services and discover how we can help you go uninterrupted even during power disruptions</p></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div id="prod_collapse_custom_pnp" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="panel-body">
-                        <div class="row prodCol3">
-
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="/images/products/dc-s.webp" alt="Intizon mini UPS for WiFi Router"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Intizon Mini UPS for Wi-Fi Router
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Intizon Mini UPS for Wi-Fi Router is a reliable and efficient power backup solu... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>12 V</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="https://www.numericups.com/sites/default/files/2022-06/eXs2.png" alt="Digital 600 EX"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Digital 600 EX
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">
-                                        Digital 600 EX&nbsp;line interactive UPS 600 VA - 360 W - 3 Indian output sockets
-                                        ... <span class="text-color-1">Read More</span>
-                                    </div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>600 VA</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="https://www.numericups.com/sites/default/files/2019-05/Numeric-Digital-1000-Plus-V---R.png" alt="Digital 1000 PLUS V"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Digital 1000 PLUS V
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Digital 1000 Plus V line interactive UPS 1000 VA - 600 W - 4 Indian output sock... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>1000 VA</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="/images/products/d10-s.webp" alt="Digital 1000 HR-V IBB"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Digital 1000 HR-V IBB
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Protect your critical equipment from power disruptions with easy-to-install Plu... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>1000 VA</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="https://www.numericups.com/sites/default/files/2024-01/2k-s1.webp" alt="Digital 2000 HR-V IBB"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Digital 2000 HR-V IBB
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Protect your critical equipment from power disruptions with easy-to-install, Pl... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>2000 VA</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="https://www.numericups.com/sites/default/files/2024-02/vl-s1_%200.webp" alt="Valura IBB - Side View Image"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Valura IBB
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Valura is a true double-conversion online single-phase UPS that comes with inbu... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>1 - 3 kVA</span></h5>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <a href="/product/details" class="prodCol_wrap card card--link no-shadow">
-                                    <div class="imageWrap section--grey text-center"><img width="180" height="246" loading="lazy" class="card__image" src="https://www.numericups.com/sites/default/files/2018-11/Numeric-Onfinity-FM-2KV-2.png" alt="Onfiniti"></div>
-
-                                    <div class="prod-Title card__text card__text--spaced-v card__text--big title--transform-none">
-                                        <span class="link link--vertical-center"><i class="lgicon-btn-arrow-circle"></i></span>
-                                        Onfiniti
-                                    </div>
-                                    <div class="desc text-color-9 mb--15">Available in 1 to 10 kVA range, it&nbsp;offers true double conversion online power ... <span class="text-color-1">Read More</span></div>
-                                    <h5 class="cst-title-mdl title title--h4 text-color-1 title--transform-none"><span>1 - 10 kVA</span></h5>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
-</section>
+</div>
+@section Scripts{
+<script type="text/javascript">
+	$(document).ready(function () {
+
+			// Lift card and show stats on Mouseover
+			$('#product-card').hover(function () {
+				$(this).addClass('animate');
+				$('div.carouselNext, div.carouselPrev').addClass('visible');
+			}, function () {
+				$(this).removeClass('animate');
+				$('div.carouselNext, div.carouselPrev').removeClass('visible');
+			});
+
+			// Flip card to the back side
+			$('#view_details').click(function () {
+				$('div.carouselNext, div.carouselPrev').removeClass('visible');
+				$('#product-card').addClass('flip-10');
+				setTimeout(function () {
+					$('#product-card').removeClass('flip-10').addClass('flip90').find('div.shadow').show().fadeTo(80, 1, function () {
+						$('#product-front, #product-front div.shadow').hide();
+					});
+				}, 50);
+
+				setTimeout(function () {
+					$('#product-card').removeClass('flip90').addClass('flip190');
+					$('#product-back').show().find('div.shadow').show().fadeTo(90, 0);
+					setTimeout(function () {
+						$('#product-card').removeClass('flip190').addClass('flip180').find('div.shadow').hide();
+						setTimeout(function () {
+							$('#product-card').css('transition', '100ms ease-out');
+							$('#cx, #cy').addClass('s1');
+							setTimeout(function () { $('#cx, #cy').addClass('s2'); }, 100);
+							setTimeout(function () { $('#cx, #cy').addClass('s3'); }, 200);
+							$('div.carouselNext, div.carouselPrev').addClass('visible');
+						}, 100);
+					}, 100);
+				}, 150);
+			});
+
+			// Flip card back to the front side
+			$('#flip-back').click(function () {
+
+				$('#product-card').removeClass('flip180').addClass('flip190');
+				setTimeout(function () {
+					$('#product-card').removeClass('flip190').addClass('flip90');
+
+					$('#product-back div.shadow').css('opacity', 0).fadeTo(100, 1, function () {
+						$('#product-back, #product-back div.shadow').hide();
+						$('#product-front, #product-front div.shadow').show();
+					});
+				}, 50);
+
+				setTimeout(function () {
+					$('#product-card').removeClass('flip90').addClass('flip-10');
+					$('#product-front div.shadow').show().fadeTo(100, 0);
+					setTimeout(function () {
+						$('#product-front div.shadow').hide();
+						$('#product-card').removeClass('flip-10').css('transition', '100ms ease-out');
+						$('#cx, #cy').removeClass('s1 s2 s3');
+					}, 100);
+				}, 150);
+
+			});
+
+
+			/* ----  Image Gallery Carousel   ---- */
+
+			var carousel = $('#carousel ul');
+			var carouselSlideWidth = 335;
+			var carouselWidth = 0;
+			var isAnimating = false;
+
+			// building the width of the casousel
+			$('#carousel li').each(function () {
+				carouselWidth += carouselSlideWidth;
+			});
+			$(carousel).css('width', carouselWidth);
+
+			// Load Next Image
+			$('div.carouselNext').on('click', function () {
+				var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+				var newLeft = currentLeft + carouselSlideWidth;
+				if (newLeft == carouselWidth || isAnimating === true) { return; }
+				$('#carousel ul').css({
+					'left': "-" + newLeft + "px",
+					"transition": "300ms ease-out"
+				});
+				isAnimating = true;
+				setTimeout(function () { isAnimating = false; }, 300);
+			});
+
+			// Load Previous Image
+			$('div.carouselPrev').on('click', function () {
+				var currentLeft = Math.abs(parseInt($(carousel).css("left")));
+				var newLeft = currentLeft - carouselSlideWidth;
+				if (newLeft < 0 || isAnimating === true) { return; }
+				$('#carousel ul').css({
+					'left': "-" + newLeft + "px",
+					"transition": "300ms ease-out"
+				});
+				isAnimating = true;
+				setTimeout(function () { isAnimating = false; }, 300);
+			});
+		});
+	$(document).on("click", "#view_details_back", function () {
+			window.location.href = '/product/details';
+	});
+</script>
+} 
