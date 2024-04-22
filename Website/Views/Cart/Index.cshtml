@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:150px;background-color:white;">
+    <div class="page-content">
+        <div class="holder mt-0">
+            <div class="container">
+                <h1 class="text-center">Shopping Cart</h1>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="cart-table">
+                            <div id="cart-table-dy">
+                                <div class="cart-table-prd">
+                                    <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="/assets/products/dc-f1.webp" alt=""></a></div>
+                                    <div class="cart-table-prd-name">
+                                        <h5><a href="javascript:void(0)">PRDC-1212</a></h5>
+                                        <h2><a href="javascript:void(0)">Intizon Mini UPS for Wi-Fi Router</a></h2>
+                                    </div>
+                                    <div class="cart-table-prd-qty"><span>qty:</span><b><a href="#" class="icon-prev"></a> <span class="#">5</span><a href="#" class="icon-next"></a></b>  </div>
+                                    <div class="cart-table-prd-price"><span>price:</span> <b>৳ 1200</b></div>
+                                    <div class="cart-table-prd-action"><a href="#" class="icon-cross"></a></div>
+                                </div>
+                            </div>
+                            <div class="cart-table-total">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <a href="javascript:void(0)" class="btn btn--alt clear-cart-all-items">
+                                            <i class="bx bx-x"></i>
+                                            <span>clear shopping cart</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-auto"><a href="/home" class="btn"><i class="bx bx-chevron-left"></i><span>continue shopping</span></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="sidebar-block">
+                            <div class="card-total text-uppercase">Subtotal <span class="card-total-price">৳ 1200</span></div><a href="/shopping/checkout" style="height:52px;" class="btn btn--full btn--lg">proceed to checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        function cartPageItems() {
+            var priceTotal = 0;
+            var itemTotal = 0;
+            var cart = JSON.parse(localStorage.getItem('cart'));
+            let content = ``;
+            $("#cart-table-dy").empty();
+            if (cart != null) {
+                $.each(cart, function (index, val) {
+
+                    content += `<div class="cart-table-prd">
+                                      <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${val.img}" alt=""></a></div>
+                                      <div class="cart-table-prd-name">
+                                          <h5><a href="javascript:void(0)">${val.code}</a></h5>
+                                          <h2><a href="javascript:void(0)">${val.name}</a></h2>
+                                      </div>
+                                      <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <span class="quentityItemCart-${index}">${val.qty}</span><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
+                                      <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${val.priceTotal}</b></div>
+                                      <div class="cart-table-prd-action"><a href="javascript:removeItem(${index})" class="icon-cross"></a></div>
+                                  </div>`;
+                    priceTotal += parseInt(val.priceTotal);
+                    itemTotal += 1;
+                });
+            }
+
+
+            $("#cart-table-dy").append(content);
+            $(".card-total-price").text('৳ ' + (priceTotal).toFixed(2));
+            cartItems();
+        }
+        $('.clear-cart-all-items').click(() => {
+            let cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cartItems();
+            cartPageItems();
+        })
+
+        function removeItem(item) {
+            var cart = JSON.parse(localStorage.getItem('cart'));
+            var removed = cart.splice(item, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            cartPageItems();
+        }
+
+
+        $(document).ready(function () {
+            //cartPageItems();
+        });
+    </script>
+}
