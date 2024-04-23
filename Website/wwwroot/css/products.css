@@ -200,7 +200,7 @@ div#product-card.flip180 {
 }
 
 .stats-container .product_name {
-    font-size: 22px;
+    font-size: 18px;
     color: #393c45;
 }
 
@@ -288,6 +288,17 @@ div#product-card.flip180 {
     -moz-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
+}
+.wishListDiv {
+    top: 15px;
+    /* margin-top: 112px; */
+    position: absolute;
+    margin-left: 87%;
+    font-size: x-large;
+    color: brown;
+}
+.wishlist-btn {
+    color: brown !important;
 }
 #view_details_back {
     position: absolute;

@@ -35,8 +35,9 @@ namespace Website.Api
                                   .Select(x => new Banner
                                   {
                                       Id = x.Id,
-                                      Title = x.Title,
-                                      ImageUrl = x.ImageUrl,
+                                      Page = x.Page,
+                                      Url = x.Url,
+                                      Position = x.Position
                                   }).ToListAsync();
             return banner;
         } 

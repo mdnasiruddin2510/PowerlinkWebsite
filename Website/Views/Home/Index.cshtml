@@ -231,7 +231,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetAllBanner',
+                url: baseURL + '/api/Home/GetAllBanner',
                 type: "GET",
                 async: false,
                 success: function (res) {
@@ -239,7 +239,7 @@
                     var content = ``;
                     $(res).each(function (i, val) {
                         content += `<div class="carousel-item ${i == 1? 'active':''}">
-                                        <img src="${baseURL + val.imageUrl}" class="img-fluid d-block w-100" alt="slide">
+                                        <img src="${baseURL + val.url}" class="img-fluid d-block w-100" alt="slide">
                                         <div class="carousel-caption">
                                         </div>
                                     </div>`;
@@ -254,7 +254,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetAboutUs',
+                url: baseURL + '/api/Home/GetAboutUs',
                 type: "GET",
                 async: false,
                 success: function (res) {
@@ -325,7 +325,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetSolutions',
+                url: baseURL + '/api/Home/GetSolutions',
                 type: "GET",
                 async: false,
                 success: function (res) {
@@ -358,7 +358,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetAllBrandPartners',
+                url: baseURL + '/api/Home/GetAllBrandPartners',
                 type: "GET",
                 async: false,
                 success: function (res) {
@@ -379,7 +379,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetAllMajorClients',
+                url: baseURL + '/api/Home/GetAllMajorClients',
                 type: "GET",
                 async: false,
                 success: function (res) {
@@ -400,7 +400,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                url: baseURL + 'api/Home/GetContactInformation',
+                url: baseURL + '/api/Home/GetContactInformation',
                 type: "GET",
                 async: false,
                 success: function (res) {
