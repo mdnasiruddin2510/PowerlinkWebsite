@@ -54,24 +54,24 @@ function cartItems() {
     if (cart.length > 0) {
         let content = ``;
         $.each(cart, function (index, val) {
-            content += `<tr>
-                            <td><img class="rounded" src="${imageURL + val.productImageUrl}" alt=""></td>
-                            <td><a class="product-title" href="/shop/details?id=${val.productId}">${val.name}<span class="mt-1">${currencySymbol + val.price}</span></a></td>
-                            <td>
-                                <div class="quantity">
-                                    <input class="qty-text decimal" type="text" min="1" id="quantityChanged${index}" max="99" onblur="modifyQuantity(${index})" value="${val.quantity}">
-                                </div>
-                            </td>
-                            <th scope="row"><a class="remove-product" onclick="removeItem(${val.productId})" href=""><i class="ti ti-x"></i></a></th>
-                        </tr>`;
+            content += `<div class="cart-table-prd">
+                            <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
+                            <div class="cart-table-prd-name">
+                                <h5><a href="javascript:void(0)">${val.code}</a></h5>
+                                <h2><a href="javascript:void(0)">${val.name}</a></h2>
+                            </div>
+                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <i class="bx bx-chevron-left"></i><span class="quentityItemCart-${index}">${val.quantity}</span><i class="bx bx-chevron-right"></i><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
+                            <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${val.priceTotal}</b></div>
+                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"></a></div>
+                        </div>`;
             priceTotal += parseInt(val.priceTotal);
             itemTotal += 1;
         });
         const initialValue = 0;
         const total = cart.reduce((acc, curr) => acc + parseFloat(curr.priceTotal), initialValue);
-        $("#cartTbl tbody").empty();
-        $("#cartTbl tbody").append(content);
-        $(".priceTotal").text(total.toFixed(2));
+        $("#cart-table-dy").empty();
+        $("#cart-table-dy").append(content);
+        $(".card-total-price").text('৳ ' + (priceTotal).toFixed(2));
         $(".cartItemCount").text(itemTotal);
     }
     else
@@ -84,6 +84,11 @@ function cartItems() {
         $("#checkOutBtn").prop("disabled",true);
     }
 }
+$('.clear-cart-all-items').click(() => {
+    let cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    cartItems();
+});
 let removeItem = (productId) => {
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart.length > 0) {
