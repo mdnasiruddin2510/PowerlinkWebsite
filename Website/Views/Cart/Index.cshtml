@@ -12,7 +12,7 @@
                     <div class="col-md-8">
                         <div class="cart-table">
                             <div id="cart-table-dy">
-                                <div class="cart-table-prd">
+                                @*<div class="cart-table-prd">
                                     <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="/assets/products/dc-f1.webp" alt=""></a></div>
                                     <div class="cart-table-prd-name">
                                         <h5><a href="javascript:void(0)">PRDC-1212</a></h5>
@@ -21,7 +21,7 @@
                                     <div class="cart-table-prd-qty"><span>qty:</span><b><a href="#" class="icon-prev"></a> <span class="#">5</span><a href="#" class="icon-next"></a></b>  </div>
                                     <div class="cart-table-prd-price"><span>price:</span> <b>৳ 1200</b></div>
                                     <div class="cart-table-prd-action"><a href="#" class="icon-cross"></a></div>
-                                </div>
+                                </div>*@
                             </div>
                             <div class="cart-table-total">
                                 <div class="row">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="sidebar-block">
-                            <div class="card-total text-uppercase">Subtotal <span class="card-total-price">৳ 1200</span></div><a href="/shopping/checkout" style="height:52px;" class="btn btn--full btn--lg">proceed to checkout</a>
+                            <div class="card-total text-uppercase">Subtotal <span class="card-total-price">৳ 00</span></div><a href="/shopping/checkout" style="height:52px;" class="btn btn--full btn--lg">proceed to checkout</a>
                         </div>
                     </div>
                 </div>
@@ -61,14 +61,14 @@
                 $.each(cart, function (index, val) {
 
                     content += `<div class="cart-table-prd">
-                                      <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${val.img}" alt=""></a></div>
+                                      <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${ imageURL + val.productImageUrl}" alt=""></a></div>
                                       <div class="cart-table-prd-name">
                                           <h5><a href="javascript:void(0)">${val.code}</a></h5>
                                           <h2><a href="javascript:void(0)">${val.name}</a></h2>
                                       </div>
-                                      <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <span class="quentityItemCart-${index}">${val.qty}</span><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
+                                      <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <span class="quentityItemCart-${index}">${val.quantity}</span><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
                                       <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${val.priceTotal}</b></div>
-                                      <div class="cart-table-prd-action"><a href="javascript:removeItem(${index})" class="icon-cross"></a></div>
+                                      <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"></a></div>
                                   </div>`;
                     priceTotal += parseInt(val.priceTotal);
                     itemTotal += 1;
@@ -87,16 +87,16 @@
             cartPageItems();
         })
 
-        function removeItem(item) {
-            var cart = JSON.parse(localStorage.getItem('cart'));
-            var removed = cart.splice(item, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            cartPageItems();
-        }
+        //function removeItem(item) {
+        //    var cart = JSON.parse(localStorage.getItem('cart'));
+        //    var removed = cart.splice(item, 1);
+        //    localStorage.setItem('cart', JSON.stringify(cart));
+        //    cartPageItems();
+        //}
 
 
         $(document).ready(function () {
-            //cartPageItems();
+            cartPageItems();
         });
     </script>
 }
