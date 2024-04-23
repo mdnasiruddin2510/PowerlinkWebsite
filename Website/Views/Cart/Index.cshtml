@@ -61,12 +61,12 @@
                 $.each(cart, function (index, val) {
 
                     content += `<div class="cart-table-prd">
-                                      <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${ imageURL + val.productImageUrl}" alt=""></a></div>
+                                      <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
                                       <div class="cart-table-prd-name">
                                           <h5><a href="javascript:void(0)">${val.code}</a></h5>
                                           <h2><a href="javascript:void(0)">${val.name}</a></h2>
                                       </div>
-                                      <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <span class="quentityItemCart-${index}">${val.quantity}</span><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
+                                      <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <i class="bx bx-chevron-left"></i><span class="quentityItemCart-${index}">${val.quantity}</span><i class="bx bx-chevron-right"></i><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
                                       <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${val.priceTotal}</b></div>
                                       <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"></a></div>
                                   </div>`;
@@ -80,12 +80,12 @@
             $(".card-total-price").text('৳ ' + (priceTotal).toFixed(2));
             cartItems();
         }
-        $('.clear-cart-all-items').click(() => {
-            let cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            cartItems();
-            cartPageItems();
-        })
+        //$('.clear-cart-all-items').click(() => {
+        //    let cart = [];
+        //    localStorage.setItem('cart', JSON.stringify(cart));
+        //    cartItems();
+        //    cartPageItems();
+        //})
 
         //function removeItem(item) {
         //    var cart = JSON.parse(localStorage.getItem('cart'));
@@ -96,7 +96,7 @@
 
 
         $(document).ready(function () {
-            cartPageItems();
+            cartItems();
         });
     </script>
 }
