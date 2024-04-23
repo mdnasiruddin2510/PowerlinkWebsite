@@ -66,6 +66,8 @@ namespace PosWebsite.View_Models
 
         public decimal Stock {  get; set; }
         public string VariantName { get; set; }
+        public string CategoryName { get; set; }
+        public string BrandName { get; set; }
         public string ExpireDate { get; set; }
         public string Barcode { get; set; }
         public bool IsFeatured { get; set; }

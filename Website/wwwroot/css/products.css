@@ -541,7 +541,7 @@ div.shadow {
 
 .carouselNext {
     top: 0;
-    right: -26px;
+    right: -32px;
     -webkit-transform: rotateY( -117deg );
     -moz-transform: rotateY( -117deg );
     -o-transform: rotateY( -117deg );
@@ -561,7 +561,7 @@ div.shadow {
     }
 
 .carouselPrev {
-    left: -26px;
+    left: -32px;
     top: 0;
     -webkit-transform: rotateY( 117deg );
     -moz-transform: rotateY( 117deg );
@@ -571,7 +571,7 @@ div.shadow {
 }
 
     .carouselPrev.visible {
-        left: 0;
+        left: 50px;
         opacity: 0.8;
         background: #eee;
         -webkit-transform: rotateY( 0deg );

@@ -35,6 +35,10 @@ namespace Website.Api
 														   && (vm.MaxPrice == 0 || x.Price < vm.MaxPrice)
 														   && !x.Deleted)
 							   join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
+							   join category in _db.ProductCategory.Where(x => !x.Deleted) on _product.CategoryId equals category.Id into categories
+							   from _category in categories.DefaultIfEmpty()
+							   join brand in _db.ProductBrand.Where(x => !x.Deleted) on _product.ProductBrandId equals brand.Id into brands
+							   from _brand in brands.DefaultIfEmpty()
 							   select new VmProduct
 							   {
 								   Id = _product.Id,
@@ -71,7 +75,9 @@ namespace Website.Api
 								   VariantName = _inventory.VariantName,
 								   ExpireDate = _inventory.ExpireDate.Value.ToString("dd MM yy"),
 								   Barcode = _inventory.Barcode,
-								   IsFeatured = _product.IsFeatured
+								   IsFeatured = _product.IsFeatured,
+								   CategoryName = _category.Name ?? "",
+								   BrandName = _brand.Name ?? ""
 							   }).Skip(vm.Offset).Take(vm.Limit).ToListAsync();
 			return model;
 		}
