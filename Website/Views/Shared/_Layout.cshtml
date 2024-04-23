@@ -27,7 +27,7 @@
   <link href="~/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="~/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+  <link href="~/css/cart.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
@@ -69,6 +69,13 @@
           <li><a class="nav-link scrollto" href="/service/index">Service</a></li>
           <li><a class="nav-link scrollto" href="#">Contact</a></li>*@
         </ul>
+        <div class="cart-icon-wrap">
+            <a class="addTadaClass" href="/cart/index">
+                <img height="30" src="~/assets/img/cart.svg" />
+                @* <i class="fa fa-basket"></i> *@
+                <span class="cartItemCount">0</span>
+            </a>
+        </div>
         <button class="log-in"> <a href="#" target="blank"> LOG IN </a></button>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
