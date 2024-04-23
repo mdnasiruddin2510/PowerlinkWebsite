@@ -125,7 +125,7 @@ namespace Website.Api
 		public async Task<ActionResult<VmProduct>> GetProductById(int id)
 		{
 			var model = await (from _product in _db.Product.Where(x => !x.Deleted && x.Id == id)
-							   join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
+							   //join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
 							   select new VmProduct
 							   {
 								   Id = _product.Id,
@@ -158,10 +158,10 @@ namespace Website.Api
 								   AdditionalField3Value = _product.AdditionalField3Value,
 								   AdditionalField4 = _product.AdditionalField4,
 								   AdditionalField4Value = _product.AdditionalField4Value,
-								   Stock = _inventory.Quantity,
-								   VariantName = _inventory.VariantName,
-								   ExpireDate = _inventory.ExpireDate.Value.ToString("dd MM yy"),
-								   Barcode = _inventory.Barcode,
+								   //Stock = _inventory.Quantity,
+								   //VariantName = _inventory.VariantName,
+								   //ExpireDate = _inventory.ExpireDate.Value.ToString("dd MM yy"),
+								   //Barcode = _inventory.Barcode,
 							   }).FirstOrDefaultAsync();
 			return model;
 		}
