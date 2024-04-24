@@ -19,12 +19,15 @@
 
 @section Scripts{
     <script type="text/javascript">
+        let id = 0;
         (() => {
+            id = @ViewBag.Id;
             loadProductDetails();
+            cartItems();
         })()
 
         function loadProductDetails() {
-            let id = 12; //should be dynamic
+            //let id = 12; //should be dynamic
             $.ajax({
                 headers: {
                     'Accept': 'application/json',

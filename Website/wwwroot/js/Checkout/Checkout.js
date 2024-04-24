@@ -35,7 +35,7 @@ function addToCart(id, url, name, price, discountPrice) {
     $(".addTadaClass").addClass("animated tada");
     setTimeout(function () {
         $(".addTadaClass").removeClass("animated tada");
-    }, 3000);
+    },1000);
 }
 let showAlert = (message, icon) => {
     Swal.fire({
@@ -155,9 +155,7 @@ $(document).on('click','.wishlist-btn', function(e) {
 
         let data = {
             productId: productId,
-            customerId: customer.id,
-            phone: "01703504061",
-            Email: "dhoor@gmail.com"
+            customerId: customer.id
         }
         $.ajax({
             headers: {
