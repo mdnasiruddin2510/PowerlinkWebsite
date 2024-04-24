@@ -165,5 +165,33 @@ namespace Website.Api
 							   }).FirstOrDefaultAsync();
 			return model;
 		}
+		[HttpGet("GetAllCategory")]
+		public async Task<ActionResult<List<VmProductCategory>>> GetAllCategory()
+		{
+			var model = await _db.ProductCategory.AsNoTracking().Where(x => !x.Deleted && x.ParentId == 0)
+								 .Select(s => new VmProductCategory
+								 {
+								 	Id = s.Id,
+								 	Name = s.Name,
+								 	PictureUrl = s.PictureUrl ?? "/images/noimage.png",
+								 	DisplayOrder = s.DisplayOrder,
+								 	ShowOnHomePage = s.ShowOnHomePage,
+								 	CompanyId = s.CompanyId
+								 }).ToListAsync();
+
+			return model.OrderBy(o => o.Name).ToList();
+		}
+		[HttpGet("GetProductBrand")]
+		public async Task<ActionResult<List<VmProductBrand>>> GetProductBrand()
+		{
+			var model = await _db.ProductBrand
+                                 .Where(x => !x.Deleted)
+								 .Select(s => new VmProductBrand
+								 {
+								 	Id = s.Id,
+								 	Name = s.Name,
+								 }).ToListAsync();
+			return model.DistinctBy(x => x.Name).OrderBy(o => o.Name).ToList();
+		}
 	}
 }

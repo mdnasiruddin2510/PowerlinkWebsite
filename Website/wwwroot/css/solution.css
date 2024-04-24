@@ -46,7 +46,7 @@
 .accordion-button{
 	background-color: #D9EFFC;
 	height: 50px;
-	width: 400px;
+	width: 100%;
 	text-align: center;
 	/* border: 1px solid #8EC4DD; */
 	margin: auto;

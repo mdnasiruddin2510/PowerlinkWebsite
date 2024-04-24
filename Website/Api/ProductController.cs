@@ -44,42 +44,35 @@ namespace Website.Api
 								   Id = _product.Id,
 								   Name = _product.Name,
 								   Code = _product.Code,
-								   Hscode = _product.Hscode,
-								   ShortDescription = _product.ShortDescription,
-								   FullDescription = _product.FullDescription,
-								   SpecificationId = _product.SpecificationId,
 								   ProductImageUrl = _product.ProductImageUrl ?? "/images/noimage.png",
 								   Price = _product.Price,
-								   CategoryId = _product.CategoryId,
-								   SubCategoryId = _product.SubCategoryId,
-								   ProductTypeId = _product.ProductTypeId,
-								   ProductBrandId = _product.ProductBrandId,
-								   GlobalBarcode = _product.GlobalBarcode,
-								   Vat = _product.Vat,
-								   Weight = _product.Weight,
-								   WarrantyPeriod = _product.WarrantyPeriod,
-								   WarrantyPeriodDuration = _product.WarrantyPeriodDuration,
-								   WarrantyNote = _product.WarrantyNote,
-								   WarrantyShownInInvoice = _product.WarrantyShownInInvoice,
-								   NotifiedBeforeExpired = _product.NotifiedBeforeExpired,
-								   CompanyId = _product.CompanyId,
-								   AdditionalField1 = _product.AdditionalField1,
-								   AdditionalField1Value = _product.AdditionalField1Value,
-								   AdditionalField2 = _product.AdditionalField2,
-								   AdditionalField2Value = _product.AdditionalField2Value,
-								   AdditionalField3 = _product.AdditionalField3,
-								   AdditionalField3Value = _product.AdditionalField3Value,
-								   AdditionalField4 = _product.AdditionalField4,
-								   AdditionalField4Value = _product.AdditionalField4Value,
-								   Stock = _inventory.Quantity,
-								   VariantName = _inventory.VariantName,
-								   ExpireDate = _inventory.ExpireDate.Value.ToString("dd MM yy"),
-								   Barcode = _inventory.Barcode,
 								   IsFeatured = _product.IsFeatured,
 								   CategoryName = _category.Name ?? "",
 								   BrandName = _brand.Name ?? ""
-							   }).Skip(vm.Offset).Take(vm.Limit).ToListAsync();
+							   }).Take(39).ToListAsync();
 			return model;
+		}
+		[HttpGet("SearchProduct")]
+		public async Task<ActionResult<List<VmProduct>>> SearchProduct(string key)
+		{
+			var products = await (from _product in _db.Product.AsNoTracking().Where(x => !x.Deleted && x.Name.ToLower().Contains(key.ToLower()))
+								  join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
+								  join category in _db.ProductCategory.Where(x => !x.Deleted) on _product.CategoryId equals category.Id into categories
+								  from _category in categories.DefaultIfEmpty()
+								  join brand in _db.ProductBrand.Where(x => !x.Deleted) on _product.ProductBrandId equals brand.Id into brands
+								  from _brand in brands.DefaultIfEmpty()
+								  select new VmProduct
+								  {
+									  Id = _product.Id,
+									  Name = _product.Name,
+									  ProductImageUrl = _product.ProductImageUrl ?? "/images/noimage.png",
+									  Price = _product.Price,
+									  CategoryId = _product.CategoryId,
+									  IsFeatured = _product.IsFeatured,
+									  CategoryName = _category.Name ?? "",
+									  BrandName = _brand.Name ?? ""
+								  }).ToListAsync();
+			return products;
 		}
 	}
 }

@@ -6,58 +6,82 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="~/css/products.css" rel="stylesheet" />
-
-<div role="main" class="main pt-4" style="height: 1750px;margin-top:115px;">
+<link href="~/css/common.css" rel="stylesheet" />
+<div role="main" class="main pt-4" style="margin-top:115px;">
     <div class="containers" style="padding-left:135px;padding-right:95px;">
         <div class="row">
             <div class="col-md-3">
-                <div class="row">
-                    <div class="col-12">
-                        <!-- Catagory-->
-                        <div class="widget catagory mb-4">
-                            <h6 class="widget-title mb-2">Brand</h6>
-                            <div class="widget-desc" id="filterBrandContainer">
-                                <!-- Single Checkbox-->
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <!-- Color-->
-                        <div class="widget color mb-4">
-                            <h6 class="widget-title mb-2">Category</h6>
-                            <div class="widget-desc" id="filterCategoryContainer">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <!-- Price Range-->
-                        <div class="widget price-range mb-4">
-                            <h6 class="widget-title mb-2">Price Range</h6>
-                            <div class="widget-desc">
-                                <!-- Min Value-->
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="form-floating">
-                                            <input class="form-control" id="minPrice" type="text" placeholder="1" value="1">
-                                            <label for="floatingInput">Min</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="form-floating">
-                                            <input class="form-control" id="maxPrice" type="text" placeholder="1" value="5000">
-                                            <label for="floatingInput">Max</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <!-- Apply Filter-->
-                        <div class="apply-filter-btn"><a class="btn btn-lg btn-success w-100" id="btnFilter">Apply Filter</a></div>
-                    </div>
-                </div>
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<div class="col-6">
+								<h5>Filter</h5>
+							</div>
+							<div class="col-6">
+								<form id="searchBar">
+									<input type="search" id="mainSerchBar" placeholder="Search...">
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="accordion accordion-flush" id="filterContainer">
+								<div class="accordion-item">
+									<h5 class="accordion-header m-0" id="flush-heading1">
+										<button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapse1">
+											Brand
+										</button>
+									</h5>
+									<div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#filterContainer">
+										<div class="accordion-body" id="filterBrandContainer" style="overflow:scroll;overflow-x:hidden;height:368px;">
+										</div>
+									</div>
+								</div>
+								<div class="accordion-item">
+									<h5 class="accordion-header m-0" id="flush-heading2">
+										<button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapse2">
+											Category
+										</button>
+									</h5>
+									<div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#filterContainer">
+										<div class="accordion-body" id="filterCategoryContainer" style="overflow:scroll;overflow-x:hidden;height:368px;">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 mt-4">
+								<!-- Price Range-->
+								<div class="widget price-range mb-4">
+									<h6 class="widget-title mb-2">Price Range</h6>
+									<div class="widget-desc">
+										<!-- Min Value-->
+										<div class="row g-3">
+											<div class="col-6">
+												<div class="form-floating">
+													<input class="form-control" id="minPrice" type="text" placeholder="1" value="1">
+													<label for="floatingInput">Min</label>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-floating">
+													<input class="form-control" id="maxPrice" type="text" placeholder="1" value="5000">
+													<label for="floatingInput">Max</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<!-- Apply Filter-->
+								<div class="apply-filter-btn"><a class="btn btn-lg btn-success w-100" id="btnFilter">Apply Filter</a></div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
             </div>
             <div class="col-md-9">
 				<div class="row" id="productContainer">
@@ -69,120 +93,149 @@
 </div>
 @section Scripts{
 <script type="text/javascript">
-	$(document).ready(function () {
+		var brandIds = "";
+		var categoryIds = "";
+		var minPrice = 0;
+		var maxPrice = 0;
+		$(document).ready(function () {
+			getCategories();
+			getBrands();
 			getProducts();
-			// Lift card and show stats on Mouseover
-			$('.product-card').hover(function () {
-				$(this).addClass('animate');
-				$('div.carouselNext, div.carouselPrev').addClass('visible');
-			}, function () {
-				$(this).removeClass('animate');
-				$('div.carouselNext, div.carouselPrev').removeClass('visible');
-			});
-
-			// Flip card to the back side
-			$('.view_details').click(function () {
-				$('div.carouselNext, div.carouselPrev').removeClass('visible');
-				$('.product-card').addClass('flip-10');
-				setTimeout(function () {
-					$('.product-card').removeClass('flip-10').addClass('flip90').find('div.shadow').show().fadeTo(80, 1, function () {
-						$('.product-front, .product-front div.shadow').hide();
-					});
-				}, 50);
-
-				setTimeout(function () {
-					$('.product-card').removeClass('flip90').addClass('flip190');
-					$('.product-back').show().find('div.shadow').show().fadeTo(90, 0);
-					setTimeout(function () {
-						$('.product-card').removeClass('flip190').addClass('flip180').find('div.shadow').hide();
-						setTimeout(function () {
-							$('.product-card').css('transition', '100ms ease-out');
-							$('.cx, .cy').addClass('s1');
-							setTimeout(function () { $('.cx, .cy').addClass('s2'); }, 100);
-							setTimeout(function () { $('.cx, .cy').addClass('s3'); }, 200);
-							$('div.carouselNext, div.carouselPrev').addClass('visible');
-						}, 100);
-					}, 100);
-				}, 150);
-			});
-
-			// Flip card back to the front side
-			$('.flip-back').click(function () {
-
-				$('.product-card').removeClass('flip180').addClass('flip190');
-				setTimeout(function () {
-					$('.product-card').removeClass('flip190').addClass('flip90');
-
-					$('.product-back div.shadow').css('opacity', 0).fadeTo(100, 1, function () {
-						$('.product-back, .product-back div.shadow').hide();
-						$('.product-front, .product-front div.shadow').show();
-					});
-				}, 50);
-
-				setTimeout(function () {
-					$('.product-card').removeClass('flip90').addClass('flip-10');
-					$('.product-front div.shadow').show().fadeTo(100, 0);
-					setTimeout(function () {
-						$('.product-front div.shadow').hide();
-						$('.product-card').removeClass('flip-10').css('transition', '100ms ease-out');
-						$('.cx, .cy').removeClass('s1 s2 s3');
-					}, 100);
-				}, 150);
-
-			});
-
-
-			/* ----  Image Gallery Carousel   ---- */
-
-			var carousel = $('.carousel ul');
-			var carouselSlideWidth = 335;
-			var carouselWidth = 0;
-			var isAnimating = false;
-
-			// building the width of the casousel
-			$('.carousel li').each(function () {
-				carouselWidth += carouselSlideWidth;
-			});
-			$(carousel).css('width', carouselWidth);
-
-			// Load Next Image
-			$('div.carouselNext').on('click', function () {
-				var currentLeft = Math.abs(parseInt($(carousel).css("left")));
-				var newLeft = currentLeft + carouselSlideWidth;
-				if (newLeft == carouselWidth || isAnimating === true) { return; }
-				$('.carousel ul').css({
-					'left': "-" + newLeft + "px",
-					"transition": "300ms ease-out"
-				});
-				isAnimating = true;
-				setTimeout(function () { isAnimating = false; }, 300);
-			});
-
-			// Load Previous Image
-			$('div.carouselPrev').on('click', function () {
-				var currentLeft = Math.abs(parseInt($(carousel).css("left")));
-				var newLeft = currentLeft - carouselSlideWidth;
-				if (newLeft < 0 || isAnimating === true) { return; }
-				$('.carousel ul').css({
-					'left': "-" + newLeft + "px",
-					"transition": "300ms ease-out"
-				});
-				isAnimating = true;
-				setTimeout(function () { isAnimating = false; }, 300);
-			});
 		});
-	$(document).on("click", ".view_details_back", function () {
-			var id = $(this).attr("data-id");
-			window.location.href = '/product/details?id=' + id;
-	});
-	function getProducts(model) {
+		$(document).on("keyup", "#mainSerchBar", function () {
+			let searchData = $(this).val();
+			if (searchData.length > 2) {
+				$.ajax({
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					url: baseURL + '/api/product/SearchProduct?key=' + searchData,
+					dataType: "json",
+					type: 'get',
+					success: function (res) {
+						$("#productContainer").empty();
+						let option = ``;
+						let n = 0;
+						$.each(res, function (key, val) {
+							option += `<div class="col-md-4 mb-4">
+												<div class="product-card" id="product-card">
+													<div class="product-front" id="product-front">
+														<div class="shadow"></div>
+														<img src=${imageURL + val.productImageUrl} height="240" width="250" style="margin-left:12%;" alt="" />
+														<div class="image_overlay"></div>
+														<div class="wishListDiv"><a class="wishlist-btn" href="#"><i class="bx bx-heart"></i></a></div>
+														<div class="view_details" data-id="${val.id}" id="view_details">View Details</div>
+														<div class="stats">
+															<div class="stats-container">
+																<span class="product_price">${currencySymbol + val.price}</span>
+																<span class="product_name">${val.name}</span>
+																<div class="product-options">
+																	<strong>Category</strong>
+																	<span>${val.categoryName}</span>
+																	<strong>Brand</strong>
+																	<span>${val.brandName}</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="product-back" id="product-back">
+														<div class="shadow"></div>
+														<div class="carousel" id="carousel">
+															<ul>
+																<li><img src=${imageURL + val.productImageUrl} height="240" width="250" style="margin-left:3%;" alt="" /></li>
+															</ul>
+															<div class="view_details_back" id="view_details_back" data-id="${val.id}">View Details</div>
+															<div class="arrows-perspective">
+																<div class="carouselPrev">
+																	<div class="y"></div>
+																	<div class="x"></div>
+																</div>
+																<div class="carouselNext">
+																	<div class="y"></div>
+																	<div class="x"></div>
+																</div>
+															</div>
+														</div>
+														<div class="flip-back" id="flip-back">
+															<div class="cy" id="cy"></div>
+															<div class="cx" id="cx"></div>
+														</div>
+													</div>
+												</div>
+											</div>`;
+
+						});
+						$("#productContainer").append(option);
+					}
+				});
+			}
+			else {
+				$("#productContainer").empty();
+			}
+		});
+
+		
+		function getBrands() {
+			$.ajax({
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				url: baseURL + '/api/home/GetProductBrand',
+				dataType: "json",
+				type: 'get',
+				success: function (res) {
+					$("#filterBrandContainer").empty();
+					let option = ``;
+					let n = 0;
+					$.each(res, function (key, val) {
+						option += `<div class="form-check">
+										<input class="form-check-input" id="${val.id}-${val.name}" name="brandCheckbox" type="checkbox">
+										<label class="form-check-label" for="${val.id}-${val.name}">${val.name}</label>
+									</div>`;
+
+					});
+					$("#filterBrandContainer").append(option);
+				}
+			});
+		}
+		function getCategories() {
+			$.ajax({
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				url: baseURL + '/api/home/GetAllCategory',
+				dataType: "json",
+				type: 'get',
+				success: function (res) {
+					$("#filterCategoryContainer").empty();
+					let option = ``;
+					let n = 0;
+					$.each(res, function (key, val) {
+						option += `<div class="form-check">
+										<input class="form-check-input" id="${val.id}-${val.name}" name="categoryCheckbox" type="checkbox">
+										<label class="form-check-label" for="${val.id}-${val.name}">${val.name}</label>
+									</div>`;
+
+					});
+					$("#filterCategoryContainer").append(option);
+				}
+			});
+		}
+		$(document).on("click", ".view_details", function () {
+				var id = $(this).attr("data-id");
+				window.location.href = '/product/details?id=' + id;
+		});
+		function getProducts(model) {
 			if (!model) {
 				model = {
 					brandIds: "",
 					categoryIds: "",
 					minPrice: 0,
 					maxPrice: 0,
-					limit: 9,
+					limit: 39,
 					offset: 0,
 					reload: true
 				}
@@ -212,7 +265,7 @@
 										<img src=${imageURL + val.productImageUrl} height="240" width="250" style="margin-left:12%;" alt="" />
 										<div class="image_overlay"></div>
 										<div class="wishListDiv"><a class="wishlist-btn" href="#"><i class="bx bx-heart"></i></a></div>
-										<div class="view_details" id="view_details">View More</div>
+										<div class="view_details" data-id="${val.id}" id="view_details">View Details</div>
 										<div class="stats">
 											<div class="stats-container">
 												<span class="product_price">${currencySymbol + val.price}</span>
@@ -253,9 +306,44 @@
 							</div>`;
 					});
 					$("#productContainer").append(option);
-					// $("#btnFilter").prop("disabled", false);
+					$("#btnFilter").prop("disabled", false);
 				}
 			});
 		}
+		$(document).on("click", "#btnFilter", function () {
+			getFilterProduct();
+		})
+		function getFilterProduct() {
+			$("#btnFilter").prop("disabled", true);
+			brandIds = "";
+			categoryIds = "";
+			var brandElement = $("input[name='brandCheckbox']:checked").each(function (key, val) {
+				brandIds += $(val).attr("id") + ",";
+			});
+			var categoryElement = $("input[name='categoryCheckbox']:checked").each(function (key, val) {
+				categoryIds += $(val).attr("id") + ",";
+			});
+			minPrice = "";
+			maxPrice = "";
+			minPrice = $("#minPrice").val();
+			maxPrice = $("#maxPrice").val();
+			var model = {
+				brandIds: brandIds,
+				categoryIds: categoryIds,
+				minPrice: minPrice,
+				maxPrice: maxPrice,
+				limit: 39,
+				offset: 0,
+				reload: true
+			}
+			getProducts(model);
+		}
+		$(document).on('mouseenter', '.product-card', function (event) {
+			$(this).addClass('animate');
+			$('div.carouselNext, div.carouselPrev').addClass('visible');
+		}).on('mouseleave', '.product-card', function () {
+			$(this).removeClass('animate');
+			$('div.carouselNext, div.carouselPrev').removeClass('visible');
+		});
 </script>
 } 
