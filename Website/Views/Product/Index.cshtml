@@ -172,7 +172,8 @@
 			});
 		});
 	$(document).on("click", ".view_details_back", function () {
-			window.location.href = '/product/details';
+			var id = $(this).attr("data-id");
+			window.location.href = '/product/details?id=' + id;
 	});
 	function getProducts(model) {
 			if (!model) {
@@ -231,7 +232,7 @@
 											<ul>
 												<li><img src=${imageURL + val.productImageUrl} height="240" width="250" style="margin-left:3%;" alt="" /></li>
 											</ul>
-											<div class="view_details_back" id="view_details_back">View Details</div>
+											<div class="view_details_back" id="view_details_back" data-id="${val.id}">View Details</div>
 											<div class="arrows-perspective">
 												<div class="carouselPrev">
 													<div class="y"></div>
