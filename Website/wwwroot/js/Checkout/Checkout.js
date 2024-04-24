@@ -1,5 +1,5 @@
 ﻿
-function addToCart(id, url, name, price, discountPrice) {
+function addToCart(id, url, name, price, code, discountPrice) {
     var cart = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart == null) {
@@ -20,14 +20,14 @@ function addToCart(id, url, name, price, discountPrice) {
             //showAlert("Cart Updated Successfully..!", "success");
         }
         else {
-            cart.push({ productId: id, productImageUrl: url, name: name, price: price, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
+            cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
             localStorage.setItem('cart', JSON.stringify(cart));
             //showAlert("Added To Cart Successfully..!", "success");
         }
 
     }
     else {
-        cart.push({ productId: id, productImageUrl: url, name: name, price: price, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
+        cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
         localStorage.setItem('cart', JSON.stringify(cart));
         //showAlert("Added To Cart Successfully..!", "success");
     }
@@ -50,21 +50,23 @@ function cartItems() {
     var priceTotal = 0;
     var itemTotal = 0;
     var cart = JSON.parse(localStorage.getItem('cart'));
-
+    if (cart == null) {
+        cart = [];
+    }
     if (cart.length > 0) {
         let content = ``;
         $.each(cart, function (index, val) {
             content += `<div class="cart-table-prd">
                             <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
                             <div class="cart-table-prd-name">
-                                <h5><a href="javascript:void(0)">${val.code}</a></h5>
+                                <h4><a href="javascript:void(0)">${val.code}</a></h4>
                                 <h2><a href="javascript:void(0)">${val.name}</a></h2>
                             </div>
-                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"></a> <i class="bx bx-chevron-left"></i><span class="quentityItemCart-${index}">${val.quantity}</span><i class="bx bx-chevron-right"></i><a href="javascript:plusItem(${index})" class="icon-next"></a></b>  </div>
-                            <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${val.priceTotal}</b></div>
-                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"></a></div>
+                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"><i class="bx bx-chevron-left"></i></a><span class="quentityItemCart-${index}">${val.quantity}</span><a style="cursor:pointer;" href="javascript:plusItem(${index})" class="icon-next"><i class="bx bx-chevron-right"></i></a></b></div>
+                            <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${(val.priceTotal).toFixed(2)}</b></div>
+                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"><i class="bx bx-x"></i></a></div>
                         </div>`;
-            priceTotal += parseInt(val.priceTotal);
+            priceTotal += val.priceTotal;
             itemTotal += 1;
         });
         const initialValue = 0;
@@ -79,16 +81,18 @@ function cartItems() {
         let content = `<tr>
                             <th>Opps! Cart is empty. Please add item to your cart.</th>
                         </tr>`;
-        $("#cartTbl tbody").empty();
-        $("#cartTbl tbody").append(content);
-        $("#checkOutBtn").prop("disabled",true);
+        $("#cart-table-dy").empty();
+        $("#cart-table-dy").append(content);
+        $(".cartItemCount").text(0);
+        $(".card-total-price").text('৳ ' + (0).toFixed(2));
+        $(".checkOutBtn").prop("disabled",true);
     }
 }
-$('.clear-cart-all-items').click(() => {
-    let cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
+let clearCart = () => {
+    localStorage.removeItem('cart');
+    cart = [];
     cartItems();
-});
+}
 let removeItem = (productId) => {
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart.length > 0) {
@@ -109,6 +113,29 @@ let modifyQuantity = (objIndex) => {
     localStorage.setItem('cart', JSON.stringify(cart));
     cartItems();
 }
+
+let plusItem = (objIndex) => {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    cart[objIndex].quantity += 1;
+    let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
+    cart[objIndex].priceTotal = priceTotal;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    cartItems();
+}
+let minusItem = (objIndex) => {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    var cartQty = parseInt(cart[objIndex].quantity) - 1;
+    if (cartQty == 0) {
+        removeItem(cart[objIndex].productId);
+    } else {
+        cart[objIndex].quantity -= 1;
+        let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
+        cart[objIndex].priceTotal = priceTotal;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    cartItems();
+}
+
 let placeOrder = () => {
     let productId = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
