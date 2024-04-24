@@ -19,12 +19,15 @@
 
 @section Scripts{
     <script type="text/javascript">
+        let id = 0;
         (() => {
+            id = @ViewBag.Id;
             loadProductDetails();
+            cartItems();
         })()
 
         function loadProductDetails() {
-            let id = 12; //should be dynamic
+            //let id = 12; //should be dynamic
             $.ajax({
                 headers: {
                     'Accept': 'application/json',
@@ -94,7 +97,7 @@
                                             </div>
                                         </div>
                                         <a style="display:inline-block;margin-right:12px;" href="#" class="btn-noarrow">E-Catalogue</a>
-                                        <a style="display:inline-block;" onclick="addToCart(${res.id},'${res.productImageUrl}','${res.name}','${res.price}')" class="btn-noarrow">Shop Now</a>
+                                        <a style="display:inline-block;" onclick="addToCart(${res.id},'${res.productImageUrl}','${res.name.replace(/[^a-zA-Z ]/g, "")}','${res.price}','${res.code}')" class="btn-noarrow">Shop Now</a>
                                     </div>
                                 </div>`;
                     $("#prdDetails").empty();
