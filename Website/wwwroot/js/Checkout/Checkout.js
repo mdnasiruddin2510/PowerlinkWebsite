@@ -62,9 +62,9 @@ function cartItems() {
                                 <h4><a href="javascript:void(0)">${val.code}</a></h4>
                                 <h2><a href="javascript:void(0)">${val.name}</a></h2>
                             </div>
-                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" class="icon-prev"><i class="bx bx-chevron-left"></i></a><span class="quentityItemCart-${index}">${val.quantity}</span><a style="cursor:pointer;" href="javascript:plusItem(${index})" class="icon-next"><i class="bx bx-chevron-right"></i></a></b></div>
+                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" title="Decrease Order Quantity" class="icon-prev"><i class="bx bx-chevron-left"></i></a><span class="quentityItemCart-${index}">${val.quantity}</span><a style="cursor:pointer;" href="javascript:plusItem(${index})" title="Increase Order Quantity" class="icon-next"><i class="bx bx-chevron-right"></i></a></b></div>
                             <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${(val.priceTotal).toFixed(2)}</b></div>
-                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.id})" class="icon-cross"><i class="bx bx-x"></i></a></div>
+                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.productId})" title="Remove From Cart" class="icon-cross"><i class="bx bx-x"></i></a></div>
                         </div>`;
             priceTotal += val.priceTotal;
             itemTotal += 1;
@@ -74,6 +74,9 @@ function cartItems() {
         $("#cart-table-dy").empty();
         $("#cart-table-dy").append(content);
         $(".card-total-price").text('৳ ' + (priceTotal).toFixed(2));
+        let deliveryCharge = 60;
+        $("#deliveryCharge").text('৳ ' + (deliveryCharge).toFixed(2));
+        $("#grandTotal").text('৳ ' + (priceTotal + deliveryCharge).toFixed(2));
         $(".cartItemCount").text(itemTotal);
     }
     else
@@ -85,6 +88,8 @@ function cartItems() {
         $("#cart-table-dy").append(content);
         $(".cartItemCount").text(0);
         $(".card-total-price").text('৳ ' + (0).toFixed(2));
+        $("#deliveryCharge").text('৳ ' + (0).toFixed(2));
+        $("#grandTotal").text('৳ ' + (0).toFixed(2));
         $(".checkOutBtn").prop("disabled",true);
     }
 }
