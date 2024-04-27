@@ -920,9 +920,6 @@
         border: 0;
     }
 }
-.steps-progress .nav-tabs:not(.tab-category) > li {
-    max-width: 50%;
-}
 @media screen and (max-width: 479px) {
     .steps-progress .nav-tabs:not(.tab-category) > li {
         -ms-flex-wrap: wrap;

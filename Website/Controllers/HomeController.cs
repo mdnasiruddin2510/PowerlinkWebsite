@@ -18,6 +18,10 @@ namespace Website.Controllers
             return View();
         }
 
+        public IActionResult ReturnPolicy()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
