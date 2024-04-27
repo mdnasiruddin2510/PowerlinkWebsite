@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/style.css" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<div class="containers">
+    <header>Login Form</header>
+    <form>
+        <div class="input-field">
+            <input type="text" id="userName" required>
+            <label>Email or Username</label>
+        </div>
+        <div class="input-field">
+            <input class="pswrd" id="password" type="password" required>
+            <span class="show">SHOW</span>
+            <label>Password</label>
+        </div>
+        <div class="button">
+            <div class="inner"></div>
+            <button>LOGIN</button>
+        </div>
+    </form>
+    <div class="auth">Or login with</div>
+    <div class="links">
+        <div class="facebook">
+            <i class="fab fa-facebook-square"><span>Facebook</span></i>
+        </div>
+        <div class="google">
+            <i class="fab fa-google-plus-square"><span>Google</span></i>
+        </div>
+    </div>
+    <div class="signup">
+        Not a member? <a href="#">Signup now</a>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        var input = document.querySelector('.pswrd');
+        var show = document.querySelector('.show');
+        show.addEventListener('click', active);
+        function active() {
+            if (input.type === "password") {
+                input.type = "text";
+                show.style.color = "#1DA1F2";
+                show.textContent = "HIDE";
+            } else {
+                input.type = "password";
+                show.textContent = "SHOW";
+                show.style.color = "#111";
+            }
+        }
+        $(document).ready(function () {
+
+        });
+        $(document).on("click", "#btnLogin", function () {
+            manualLogin();
+        });
+        $(document).on('keydown', "#userName", function (e) {
+            if (e.which == 13) {
+                $("#frmLogin").find("#password").eq(0).focus();
+            }
+
+        });
+        $(document).on('keydown', "#password", function (e) {
+            if (e.which == 13) {
+                $("#btnLogin").click();
+            }
+
+        });
+        function manualLogin() {
+            let userName = $("#userName").val();
+            let password = $("#password").val();
+            var model = {
+                userName: userName,
+                password: password,
+                appId
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: baseURL + '/api/Customer/ManualLogin',
+                dataType: 'json',
+                data: JSON.stringify(model),
+                type: 'post',
+                success: function (res) {
+                    if (res == 1) {
+                        getCustomer()
+                            .then(() => {
+                                window.location.href = "/home/index";
+                            });
+                    }
+                    else {
+                        showAlert("Invalid User", "Error");
+                    }
+                },
+                error: function (request, status, error) {
+                    debugger;
+                }
+            })
+
+        }
+        function getCustomer() {
+            let userName = $("#userName").val();
+            return $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: baseURL + '/api/customer/GetCustomerInfo',
+                type: "get",
+                data: { userName, appId },
+                success: function (res) {
+                    localStorage.removeItem('customer');
+                    localStorage.setItem('customer', JSON.stringify(res));
+                }
+            });
+        }
+    </script>
+}
