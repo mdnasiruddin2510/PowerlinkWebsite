@@ -1,5 +1,5 @@
 ﻿
-function addToCart(id, url, name, price, code, discountPrice) {
+function addToCart(id, url, name, price, itemId, freeItemId, freeQty, originalUnitPrice) {
     var cart = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart == null) {
@@ -59,8 +59,8 @@ function cartItems() {
             content += `<div class="cart-table-prd">
                             <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
                             <div class="cart-table-prd-name">
-                                <h4><a href="javascript:void(0)">${val.code}</a></h4>
-                                <h2><a href="javascript:void(0)">${val.name}</a></h2>
+                                <h4><a href="/product/details?id=${val.productId}">${val.code}</a></h4>
+                                <h2><a href="/product/details?id=${val.productId}">${val.name}</a></h2>
                             </div>
                             <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" title="Decrease Order Quantity" class="icon-prev"><i class="bx bx-chevron-left"></i></a><span class="quentityItemCart-${index}">${val.quantity}</span><a style="cursor:pointer;" href="javascript:plusItem(${index})" title="Increase Order Quantity" class="icon-next"><i class="bx bx-chevron-right"></i></a></b></div>
                             <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${(val.priceTotal).toFixed(2)}</b></div>
@@ -110,15 +110,6 @@ function removeObjectWithId(arr, id) {
     arr.splice(objWithIdIndex, 1);
     return arr;
 }
-let modifyQuantity = (objIndex) => {
-    var cart = JSON.parse(localStorage.getItem('cart'));
-    cart[objIndex].quantity = +$("#quantityChanged" + objIndex).val();
-    let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
-    cart[objIndex].priceTotal = priceTotal;
-    localStorage.setItem('cart', JSON.stringify(cart));
-    cartItems();
-}
-
 let plusItem = (objIndex) => {
     var cart = JSON.parse(localStorage.getItem('cart'));
     cart[objIndex].quantity += 1;
@@ -142,31 +133,61 @@ let minusItem = (objIndex) => {
 }
 
 let placeOrder = () => {
-    let productId = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
     var customer = JSON.parse(localStorage.getItem('customer'));
-    let requestBody = [];
+
+    let subTotal = cart.reduce((acc, curr) => acc + parseFloat(curr.priceTotal), 0);
+    let couponPrice = 0;
+    let deliveryCharge = 0;
+    let order = {
+        CustomerId: customer.id,
+        GndTotal: (subTotal + deliveryCharge) - couponPrice, //confused
+        PaidAmount: 0,
+        SalesNote: "NA",
+        DiscountAmount: couponPrice,
+        DiscountPercentage: 0,
+        SubTotal: subTotal,
+        TotalOriginalAmount: subTotal + deliveryCharge,
+        TotalProductDiscount: couponPrice, //confused
+        OrderGroup: "NA",
+        DeliveryAddress: "NA",
+        DeliveryCharge: deliveryCharge,
+        appId: appId
+    };
+    let orderItems = [];
     $.each(cart, function (index, val) {
         let obj = {
+
+            ItemId: val.itemId,
             ProductId: JSON.stringify(val.productId),
-            CustomerId: customer.id,
+            Qty: val.quantity,
+            Amount: parseFloat(val.priceTotal),
             Price: parseFloat(val.price),
-            Quantity: val.quantity,
-            DiscountPrice: 0, //val.discountPrice,
-            AdvanceAmount: 0,
-            PriceTotal: val.priceTotal
+            Name: val.name,
+            OriginalUnitPrice: val.originalUnitPrice,
+            Discount: val.discountPrice,
+            Comments: "Test by Bipu",
+            FreeItemId: val.freeItemId,
+            FreeQty: val.freeQty
         }
-        requestBody.push(obj);
+        orderItems.push(obj);
     });
+
+    order.Products = orderItems;
+
     $.ajax({
-        url: baseURL + '/api/Order/PlaceOrder',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: baseURL + '/api/CustomerOrder/PlaceOrder',
         dataType: "json",
-        contentType: 'application/json',
         type: 'POST',
-        data: JSON.stringify(requestBody),
+        data: JSON.stringify(order),
         success: function (res) {
-            //window.location.href = "/checkout/paymentsuccess";
-            showAlert("Order has been placed Successfully..!", "success");
+            setTimeout(function () {
+                showAlert("Order has been placed Successfully..!", "success");
+            }, 1000);
             localStorage.removeItem('cart');
             window.location.href = "/checkout/cash";
         }

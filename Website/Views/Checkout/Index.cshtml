@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:150px;background-color:white;">
+<section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
     <div class="page-content">
         <div class="holder mt-0">
             <div class="container">
@@ -16,23 +16,13 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                         <a class="nav-link active" id="tab1" data-toggle="tab" href="#step1" data-step="1">
-                                            <span>01.</span>
-                                            <span>Shipping Address</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="tab2" data-toggle="tab" href="#step2" data-step="2">
-                                            <span>02.</span>
-                                            <span>Payment Method</span>
+                                            <span>Shipping Address And Payment Method</span>
                                         </a>
                                     </li>
                                 </ul>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 50%;"></div>
-                                </div>
                             </div>
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="step1">
+                                <div class="tab-pane fade show active">
                                     <div class="tab-pane-inside">
                                         <label class="text-uppercase">Name:</label>
                                         <div class="form-group">
@@ -47,13 +37,14 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <label class="text-uppercase">Email:</label>
-                                                <div class="form-group"><input type="text" id="email" placeholder="customeremail@gmail.com" class="form-control email" value="" required></div>
+                                                <div class="form-group"><input type="email" id="email" placeholder="email@gmail.com" class="form-control email" value="" required></div>
+                                                <span style="color:red;display:none;" id="errorMessageEmail">Email is required</span>
                                             </div>
                                         </div>
                                         <label class="text-uppercase">Address:</label>
                                         <div class="form-group"><input type="text" id="address" class="form-control address" value="" required></div>
                                         <span style="color:red;display:none;" id="errorMessageAddress">Address is required</span>
-                                        <div class="text-right" style="float:right;margin-top:1%;"><button type="button" id="btnContinue" class="btn btn-sm">Continue</button></div>
+                                        @*<div class="text-right" style="float:right;margin-top:1%;"><button type="button" id="btnContinue" class="btn btn-sm">Continue</button></div>*@
                                     </div>
                                     <div class="tab-pane-inside">
                                         <div class="row">
@@ -63,7 +54,7 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <label for="deliveryArea">Delivery Area</label>
-                                                <select id="deliveryArea" class="form-control" style="height:50px;width:50%">
+                                                <select id="deliveryArea" class="form-control" style="height:50px;">
                                                     <option value="Bagerhat">Bagerhat</option>
                                                     <option value="Bandarban">Bandarban</option>
                                                     <option value="Barguna">Barguna</option>
@@ -134,107 +125,17 @@
                                         </div>
                                         <div class="clearfix mt-2">
                                             <input id="returnPolicy" value="1" name="returnPolicy" type="checkbox">
-                                            <label for="returnPolicy">I am agree with <u id="returnCancel">Return & Canecellation</u> Policy</label>
+                                            <label for="returnPolicy">I am agree with <u id="returnCancel" style="cursor:pointer;color:blueviolet;">Return & Canecellation</u> Policy</label>
                                         </div>
                                     </div>
-                                    <div class="clearfix mt-1 mt-md-2"><button type="button" id="btnSave" class="btn btn--lg w-100">Place Order</button></div>
-                                </div>
-                                <div class="tab-pane fade" id="step2">
-                                    <div class="tab-pane-inside">
-                                        <div class="clearfix">
-                                            <input id="formcheckoutRadio4" value="" name="radio2" type="radio" class="radio" checked="checked">
-                                            <label for="formcheckoutRadio4">Cash on delivery</label>
-                                        </div>
-                                        <div class="clearfix">
-                                            <label for="deliveryArea">Delivery Area</label>
-                                            <select id="deliveryArea" class="form-control" style="height:50px;width:50%">
-                                                <option value="Bagerhat">Bagerhat</option>
-                                                <option value="Bandarban">Bandarban</option>
-                                                <option value="Barguna">Barguna</option>
-                                                <option value="Barisal">Barisal</option>
-                                                <option value="Bhola">Bhola</option>
-                                                <option value="Bogra">Bogra</option>
-                                                <option value="Brahmanbaria">Brahmanbaria</option>
-                                                <option value="Chandpur">Chandpur</option>
-                                                <option value="Chittagong">Chittagong</option>
-                                                <option value="Chuadanga">Chuadanga</option>
-                                                <option value="Comilla">Comilla</option>
-                                                <option value="Cox'sBazar">Cox'sBazar</option>
-                                                <option value="Dhaka" selected>Dhaka</option>
-                                                <option value="Dinajpur">Dinajpur</option>
-                                                <option value="Faridpur">Faridpur</option>
-                                                <option value="Feni">Feni</option>
-                                                <option value="Gaibandha">Gaibandha</option>
-                                                <option value="Gazipur">Gazipur</option>
-                                                <option value="Gopalganj">Gopalganj</option>
-                                                <option value="Habiganj">Habiganj</option>
-                                                <option value="Jaipurhat">Jaipurhat</option>
-                                                <option value="Jamalpur">Jamalpur</option>
-                                                <option value="Jessore">Jessore</option>
-                                                <option value="Jhalokati">Jhalokati</option>
-                                                <option value="Jhenaidah">Jhenaidah</option>
-                                                <option value="Khagrachari">Khagrachari</option>
-                                                <option value="Khulna">Khulna</option>
-                                                <option value="Kishoreganj">Kishoreganj</option>
-                                                <option value="Kurigram">Kurigram</option>
-                                                <option value="Kushtia">Kushtia</option>
-                                                <option value="Lakshmipur">Lakshmipur</option>
-                                                <option value="Lalmonirhat">Lalmonirhat</option>
-                                                <option value="Madaripur">Madaripur</option>
-                                                <option value="Magura">Magura</option>
-                                                <option value="Manikganj">Manikganj</option>
-                                                <option value="Maulvibazar">Maulvibazar</option>
-                                                <option value="Meherpur">Meherpur</option>
-                                                <option value="Munshiganj">Munshiganj</option>
-                                                <option value="Mymensingh">Mymensingh</option>
-                                                <option value="Naogaon">Naogaon</option>
-                                                <option value="Narail">Narail</option>
-                                                <option value="Narayanganj">Narayanganj</option>
-                                                <option value="Narsingdi">Narsingdi</option>
-                                                <option value="Natore">Natore</option>
-                                                <option value="Nawabganj">Nawabganj</option>
-                                                <option value="Netrokona">Netrokona</option>
-                                                <option value="Nilphamari">Nilphamari</option>
-                                                <option value="Noakhali">Noakhali</option>
-                                                <option value="Pabna">Pabna</option>
-                                                <option value="Panchagarh">Panchagarh</option>
-                                                <option value="Patuakhali">Patuakhali</option>
-                                                <option value="Pirojpur">Pirojpur</option>
-                                                <option value="Rajbari">Rajbari</option>
-                                                <option value="Rajshahi">Rajshahi</option>
-                                                <option value="Rangamati">Rangamati</option>
-                                                <option value="Rangpur">Rangpur</option>
-                                                <option value="Satkhira">Satkhira</option>
-                                                <option value="Shariatpur">Shariatpur</option>
-                                                <option value="Sherpur">Sherpur</option>
-                                                <option value="Sirajganj">Sirajganj</option>
-                                                <option value="Sunamganj">Sunamganj</option>
-                                                <option value="Sylhet">Sylhet</option>
-                                                <option value="Tangail">Tangail</option>
-                                                <option value="Thakurgaon">Thakurgaon</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <input id="returnPolicy" value="1" name="returnPolicy" type="checkbox">
-                                            <label for="returnPolicy">I am agree with <u id="returnCancel">Return & Canecellation</u> Policy</label>
-                                        </div>
-                                    </div>
-                                    <div class="clearfix mt-1 mt-md-2"><button type="button" id="btnSave" class="btn btn--lg w-100">Place Order</button></div>
+                                    <div class="clearfix mt-1 mt-md-2"><button type="button" style="height:52px;" id="btnSave" class="btn btn--lg w-100">Place Order</button></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 mt-2 mt-md-5">
                             <h2 class="text-center">ORDER SUMMARY</h2>
                             <div class="cart-table cart-table--sm">
-                                @*<div class="cart-table-prd cart-table-prd-headings d-none d-lg-table">
-                                    <div class="cart-table-prd-image"></div>
-                                    <div class="cart-table-prd-name"><b>ITEM</b></div>
-                                    <div class="cart-table-prd-qty">
-                                        <b>QTY</b>
-
-                                    </div>
-                                    <div class="cart-table-prd-price"><b>PRICE</b></div>
-                                </div>*@
+                                
                                 <div id="cart-table-dy">
                                 </div>
                             </div>
@@ -295,40 +196,12 @@
                 success: function (res) {
                     localStorage.removeItem('customer');
                     localStorage.setItem('customer', JSON.stringify(_customer));
-
-                    let note = $("#note").val();
-                    let order = { name: name, phone: phone, email: email, billingAddress: address, orderInstruction: note, total: gndTotal, subTotal: priceTotal, appId: appId, deliveryCharge: deliveryCharge };
-                    var orderItems = [];
-                    var cart = JSON.parse(localStorage.getItem('cart'));
-                    if (cart != null) {
-                        $.each(cart, function (index, val) {
-
-                            var orderItem = { ProductId: JSON.stringify(val.id), ProductName: val.name, UnitPrice: parseFloat(val.price), Quantity: parseFloat(val.qty), TotalPrice: parseFloat(val.priceTotal), refNumber: val.refNumber };
-                            orderItems.push(orderItem);
-                        });
-                    }
-                    order.CustomerOrderItems = orderItems;
-                    console.log(JSON.stringify(order));
-                    $.ajax({
-                        url: '/api/checkout/placeorderpf',
-                        type: "post",
-                        data: JSON.stringify(order),
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (res) {
-                            if (res) {
-                                localStorage.removeItem('cart');
-                                window.location.href = "/customer/orders";
-                            }
-                        }
-                    });
-
+                    placeOrder();
                 }
             });
         }
 
-        $("#btnContinue").click(function () {
-            //$("#tab2").prop('disabled', true);
+        $("#btnSave").click(function () {
             let name = $("#name").val();
             let phone = $("#phone").val();
             let email = $("#email").val();
@@ -337,49 +210,25 @@
                 $("#name").focus();
                 $("#name").blur();
                 $("#errorMessageName").show();
+                return;
             }
             else if (!phone) {
                 $("#phone").focus();
                 $("#phone").blur();
                 $("#errorMessagePhone").show();
+                return;
             }
             else if (!email) {
                 $("#email").focus();
                 $("#email").blur();
+                $("#errorMessageEmail").show();
+                return;
             }
             else if (!address) {
                 $("#address").focus();
                 $("#address").blur();
                 $("#errorMessageAddress").show();
-            }
-            else {
-                $("#tab1").removeClass('show active');
-                $("#tab2").addClass('show active');
-                //$("#tab2").click();
-            }
-        });
-
-        $("#btnSave").click(function () {
-            let name = $("#name").val();
-            let phone = $("#phone").val();
-            let email = $("#email").val();
-            let address = $("#address").val();
-
-            if (!name) {
-                $("#name").focus();
-                $("#name").blur();
-            }
-            else if (!phone) {
-                $("#phone").focus();
-                $("#phone").blur();
-            }
-            else if (!email) {
-                $("#email").focus();
-                $("#email").blur();
-            }
-            else if (!address) {
-                $("#address").focus();
-                $("#address").blur();
+                return;
             }
             else {
                 var customerInfo = JSON.parse(localStorage.getItem('customer'));
@@ -460,7 +309,7 @@
             }
         });
         $('#returnCancel').click(function () {
-            var url = '/home/returnpolicy';
+            var url = '/Home/ReturnPolicy';
             window.open(url, '_blank');
         });
         $(document).ready(function () {
@@ -473,15 +322,16 @@
                 cartItems();
             }
             else {
-                $("#tab2").prop('disabled', true);
                 $("#btnSave").prop('disabled', true);
                 cartItems();
                 let name = $(".name");
                 let phone = $(".phone");
                 let address = $(".address");
+                let email = $(".email");
                 let emsgName = $("#errorMessageName");
                 let emsgPhone = $("#errorMessagePhone");
                 let emsgAddress = $("#errorMessageAddress");
+                let emsgEmail = $("#errorMessageEmail");
                 name.on('input', function () {
                     var val = $(this).val();
                     if (val.length === 0) {
@@ -517,6 +367,15 @@
                     }
                     else {
                         emsgAddress.hide();
+                    }
+                });
+                email.on('input', function () {
+                    var val = $(this).val();
+                    if (val.length === 0) {
+                        emsgEmail.show();
+                    }
+                    else {
+                        emsgEmail.hide();
                     }
                 });
             }
