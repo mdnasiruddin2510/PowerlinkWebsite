@@ -1,0 +1,137 @@
+﻿
+.shake {
+    animation: shakeCart .4s ease-in-out forwards;
+}
+
+@keyframes shakeCart {
+    25% {
+        transform: translateX(6px)
+    }
+
+    50% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(2px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+#searchBarLayout input {
+    outline: none;
+}
+
+    #searchBarLayout input[type=search] {
+        -webkit-appearance: textfield;
+        -webkit-box-sizing: content-box;
+        font-family: inherit;
+        font-size: 95%;
+    }
+
+    #searchBarLayout input::-webkit-search-decoration,
+    #searchBarLayout input::-webkit-search-cancel-button {
+        display: none;
+    }
+
+    #searchBarLayout input[type=search] {
+        padding: 3px 5px 5px 0px;
+        width: 30px;
+        border: solid 1px #ccc;
+        -webkit-border-radius: 10em;
+        -moz-border-radius: 10em;
+        border-radius: 10em;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        transition: all .5s;
+    }
+
+#searchBarLayout {
+    position: relative;
+    width: 100%;
+}
+
+    #searchBarLayout input[type=submit] {
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        width: 36px;
+        height: 36px;
+        color: #fff;
+        background-color: #000;
+        border: 4px solid #ededed;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        transition: all .5s;
+    }
+
+    #searchBarLayout input[type=search] {
+        float: right;
+        width: 50px;
+        padding: 5px 41px 10px 13px;
+        cursor: pointer;
+        background: none;
+        background-color: #ededed;
+    }
+
+        #searchBarLayout input[type=search]:hover {
+            background-color: #fff;
+        }
+
+        #searchBarLayout input[type=search]:focus {
+            padding: 10px;
+            width: 180px;
+            color: #000;
+            background-color: #fff;
+            cursor: auto;
+            box-shadow: 0 0 12px #96f226
+        }
+
+    /*#searchBarLayout input[type=search]:focus ~ input[type=submit],
+#searchBarLayout input[type=search]:hover ~ input[type=submit] {
+  border-color: #fff;
+}*/
+
+    #searchBarLayout input:-moz-placeholder {
+        color: transparent;
+    }
+
+.ui-widget.ui-widget-content {
+    border-radius: 5%;
+}
+
+.ui-menu .ui-menu-item a {
+    background: #e1dede;
+    height: 20px;
+    font-size: 10px;
+}
+
+.ui-autocomplete.source:hover {
+    background: #454545;
+}
+
+.blink {
+    color: red;
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.6s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes blinker {
+    from {
+        opacity: 1.0;
+    }
+
+    to {
+        opacity: 0.0;
+    }
+}
