@@ -5,41 +5,66 @@
 
 <section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
     <div class="page-content">
-        <div class="page-content">
-            <div class="holder mt-0">
-                <div class="container">
-                    <ul class="breadcrumbs">
-                        <li><a href="index.html">Home</a></li>
-                        <li><span>My account</span></li>
-                    </ul>
-                </div>
+        <div class="holder mt-0">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="/home/index">Home</a></li>
+                    <li>My Account</li>
+                </ul>
             </div>
-            <div class="holder mt-0">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 aside aside--left">
-                            <div class="list-group">
-                                <a href="/customer/orders" class="list-group-item active">Account Details</a>
-                                <a href="/customer/billingaddress" class="list-group-item">Billing Address</a>
-                                <a href="/customer/accountwishlist" class="list-group-item">My Wishlist</a>
-                                <a href="/customer/accounthistory" class="list-group-item">My Order History</a>
-                                <a href="#" id="btnLogOut" class="list-group-item">Sign Out</a>
-                            </div>
+        </div>
+        <div class="holder mt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 aside aside--left">
+                        <div class="list-group">
+                            <a href="/Customer/AccountDetails" class="list-group-item active">Account Details</a>
+                            <a href="/Customer/BillingAddress" class="list-group-item">Billing Address</a>
+                            <a href="/Customer/Wishlist" class="list-group-item">My Wishlist</a>
+                            <a href="/Customer/OrderHistory" class="list-group-item">My Order History</a>
+                            <a href="#" id="btnLogOut" class="list-group-item">Sign Out</a>
                         </div>
-                        <div class="col-md-9 aside">
-                            <h2>Account Details</h2>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <div class="card-body" id="personalInfo">
-                                            <h3>Personal Info</h3>
-                                            <p><b>Name:</b> Biplob Hossain<br><b>E-mail:</b> biplobcse.diu@gmail.com<br><b>Phone:</b> 01703504061<br><b>Address:</b> Eastern Housing</p>
-                                            <div class="mt-2 clearfix" ><a href="#" class="link-icn js-show-form" data-form="#updateDetails"><i class="icon-pencil"></i>Edit</a></div>
-                                        </div>
+                    </div>
+                    <div class="col-md-9 aside">
+                        <h2>Account Details</h2>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card" style="text-transform:none;background-color:white;min-height:0px;">
+                                    <div class="card-body personalInfo" id="personalInfo">
+                                        <h3>Personal Info</h3>
+                                        <p><b>Name:</b> Biplob Hossain<br><b>E-mail:</b> biplobcse.diu@gmail.com<br><b>Phone:</b> 01703504061<br><b>Address:</b> Eastern Housing</p>
+                                        <div class="mt-2 clearfix"><a href="#" class="link-icn js-show-form" data-form="#updateDetails"><i class="bx bx-pencil"></i>Edit</a></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card mt-3" style="display:none;" id="updateDetails">
+                        </div>
+                        <div class="card mt-3" style="display:block;text-transform:none;background-color:white;" id="updateDetails">
+                            <div class="card-body" id="updateInfoDetails">
+                                <h3>Update Account Details</h3>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-uppercase">Name:</label>
+                                        <div class="form-group"><input type="text" class="form-control" id="name" value="Biplob Hossain"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-uppercase">Address:</label>
+                                        <div class="form-group"><input type="text" class="form-control" id="address" value="Eastern Housing"></div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6">
+                                        <label class="text-uppercase">E-mail:</label>
+                                        <div class="form-group"><input type="email" class="form-control" id="email" value="biplobcse.diu@gmail.com"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="text-uppercase">Phone:</label>
+                                        <div class="form-group"><input type="text" class="form-control" id="phone" value="01703504061"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="reset" onclick="closeDetailsDiv()" class="btn btn--alt js-close-form" data-form="#updateDetails">Cancel</button>
+                                    <button type="submit" onclick="UpdateDetails(0)" class="btn ml-1">Update</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,3 +73,12 @@
         </div>
     </div>
 </section>
+
+@section Scripts{
+    <script type="text/javascript">
+        (() => {
+
+        })()
+
+    </script>
+}

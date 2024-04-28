@@ -1050,3 +1050,34 @@ h2, .h2-style {
         margin: 0 0 15px;
     }
 }
+
+/* Breadcums*/
+ul.breadcrumb {
+    padding: 10px 16px 0px;
+    list-style: none;
+}
+ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+}
+ul.breadcrumb li + li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+ul.breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+
+
+.card .personalInfo p {
+    color: #2F4D5A;
+    font-size: 14px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}

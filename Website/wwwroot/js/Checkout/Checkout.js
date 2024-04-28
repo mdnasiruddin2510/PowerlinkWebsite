@@ -328,3 +328,29 @@ $(document).on('click','.delete-btn', function(e) {
     });        
     
 });
+
+let getCountry = () => {
+    let jsonObj = country_and_states.country;
+    $("#country").empty();
+    let content = `<option value="">Select Country</option>`;
+    $.each(jsonObj, function (key, val) {
+        content += `<option value="${key}">${val}</option>`;
+    });
+    $("#country").append(content);
+}
+$(document).on('change', '#country', function () {
+    let selectedCountry = $("#country").val();
+    if(selectedCountry == ""){
+        $("#state").prop("disabled", true);
+    }
+    else{
+        $("#state").prop("disabled", false);
+    }
+    let jsonObj = country_and_states.states[selectedCountry];
+    $("#state").empty();
+    let content = `<option value="">Select State</option>`;
+    $.each(jsonObj, function (key, val) {
+        content += `<option value="${val.code}">${val.name}</option>`;
+    });
+    $("#state").append(content);
+});
