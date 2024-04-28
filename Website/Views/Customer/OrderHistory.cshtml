@@ -5,5 +5,72 @@
 
 <section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
     <div class="page-content">
+        <div class="holder mt-0">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="/home/index">Home</a></li>
+                    <li>My Account</li>
+                </ul>
+            </div>
+        </div>
+        <div class="holder mt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 aside aside--left">
+                        <div class="list-group">
+                            <a href="/Customer/AccountDetails" class="list-group-item">Account Details</a>
+                            <a href="/Customer/BillingAddress" class="list-group-item">Billing Address</a>
+                            <a href="/Customer/Wishlist" class="list-group-item">My Wishlist</a>
+                            <a href="/Customer/OrderHistory" class="list-group-item active">My Order History</a>
+                            <a href="#" id="btnLogOut" class="list-group-item">Sign Out</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9 aside">
+                        <h2>Order History</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-order-history" id="orderList">
+                                <thead>
+                                    <tr>
+                                        <th style="font-weight:400">#</th>
+                                        <th style="font-weight:400">Order Number</th>
+                                        <th style="font-weight:400">Order Date</th>
+                                        <th style="font-weight:400">Status</th>
+                                        <th style="font-weight:400">Total Price</th>
+                                        <th style="font-weight:400"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><b>PM-00007769</b> <a href="#" class="ml-1" style="margin-left:7px;margin-right:7px;">View Details</a><a href="#" class="ml-1">Track</a></td>
+                                        <td>28 Mar 2024</td>
+                                        <td>New</td>
+                                        <td><span class="color">80.00</span></td>
+                                        <td style="text-align:right;"><a style="background-color:transparent !important;" href="#" class="btn" onclick="placeReOrder(0)">REORDER</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><b>PM-00007769</b> <a href="#" class="ml-1" style="margin-left:7px;margin-right:7px;">View Details</a><a href="#" class="ml-1">Track</a></td>
+                                        <td>28 Mar 2024</td>
+                                        <td>New</td>
+                                        <td><span class="color">80.00</span></td>
+                                        <td style="text-align:right;"><a style="background-color:transparent !important;" href="#" class="btn" onclick="placeReOrder(0)">REORDER</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+@section Scripts{
+    <script type="text/javascript">
+        (() => {
+
+        })()
+
+    </script>
+}

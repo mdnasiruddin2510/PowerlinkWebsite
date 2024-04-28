@@ -5,5 +5,66 @@
 
 <section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
     <div class="page-content">
+        <div class="holder mt-0">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="/home/index">Home</a></li>
+                    <li>My Account</li>
+                </ul>
+            </div>
+        </div>
+        <div class="holder mt-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 aside aside--left">
+                        <div class="list-group">
+                            <a href="/Customer/AccountDetails" class="list-group-item">Account Details</a>
+                            <a href="/Customer/BillingAddress" class="list-group-item">Billing Address</a>
+                            <a href="/Customer/Wishlist" class="list-group-item active">My Wishlist</a>
+                            <a href="/Customer/OrderHistory" class="list-group-item">My Order History</a>
+                            <a href="#" id="btnLogOut" class="list-group-item">Sign Out</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9 aside">
+                       <h2>My Wishlist</h2>
+                       <div class="cart-table cart-table--wishlist" id="wishList">
+                            <div class="cart-table-prd">
+                                <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="~/assets/img/cta-bg.jpg" alt=""></a></div>
+                                <div class="cart-table-prd-name">
+                                    <h4><a href="#">00000216</a></h4>
+                                    <h2><a href="#">HEERA AGAR AGAR POWDER 100G</a></h2>
+                                </div>
+                                <div class="cart-table-prd-price"><span id="price">price:</span> <b>৳ 1050.00</b></div>
+                                <div class="cart-table-prd-action" style="width:2px;"><a href="#" title="Remove From Cart" class="icon-cross"><i class="bx bx-x"></i></a></div>
+                                <div class="cart-table-addtocart">
+                                    <a href="#" class="btn btnAddToCart">Add To Cart</a>
+                                </div>
+                            </div>
+                            <div class="cart-table-prd">
+                                <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="~/assets/img/cta-bg.jpg" alt=""></a></div>
+                                <div class="cart-table-prd-name">
+                                    <h4><a href="#">00000216</a></h4>
+                                    <h2><a href="#">HEERA AGAR AGAR POWDER 100G</a></h2>
+                                </div>
+                                <div class="cart-table-prd-price"><span id="price">price:</span> <b>৳ 1050.00</b></div>
+                                <div class="cart-table-prd-action" style="width:2px;"><a href="#" title="Remove From Cart" class="icon-cross"><i class="bx bx-x"></i></a></div>
+                                <div class="cart-table-addtocart">
+                                    <a href="#" class="btn btnAddToCart">Add To Cart</a>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+@section Scripts{
+    <script type="text/javascript">
+        (() => {
+            
+        })()
+
+    </script>
+}
