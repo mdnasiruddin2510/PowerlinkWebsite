@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Account Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
+    <div class="page-content">
+        <div class="page-content">
+            <div class="holder mt-0">
+                <div class="container">
+                    <ul class="breadcrumbs">
+                        <li><a href="index.html">Home</a></li>
+                        <li><span>My account</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="holder mt-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 aside aside--left">
+                            <div class="list-group">
+                                <a href="/customer/orders" class="list-group-item active">Account Details</a>
+                                <a href="/customer/billingaddress" class="list-group-item">Billing Address</a>
+                                <a href="/customer/accountwishlist" class="list-group-item">My Wishlist</a>
+                                <a href="/customer/accounthistory" class="list-group-item">My Order History</a>
+                                <a href="#" id="btnLogOut" class="list-group-item">Sign Out</a>
+                            </div>
+                        </div>
+                        <div class="col-md-9 aside">
+                            <h2>Account Details</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body" id="personalInfo">
+                                            <h3>Personal Info</h3>
+                                            <p><b>Name:</b> Biplob Hossain<br><b>E-mail:</b> biplobcse.diu@gmail.com<br><b>Phone:</b> 01703504061<br><b>Address:</b> Eastern Housing</p>
+                                            <div class="mt-2 clearfix" ><a href="#" class="link-icn js-show-form" data-form="#updateDetails"><i class="icon-pencil"></i>Edit</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mt-3" style="display:none;" id="updateDetails">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
