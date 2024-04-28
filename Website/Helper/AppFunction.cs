@@ -47,6 +47,19 @@ namespace Website.Helper
             }
             return cipherText;
         }
-        
+        public static int Generate_4_digitRandomNo()
+        {
+            int _min = 1000;
+            int _max = 9999;
+            Random _rdm = new Random();
+            return _rdm.Next(_min, _max);
+        }
+        public static DateTime BDDateTime()
+        {
+            DateTime utcTime = DateTime.UtcNow;
+            TimeZoneInfo BdZone = TimeZoneInfo.FindSystemTimeZoneById("Bangladesh Standard Time");
+            DateTime localDateTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, BdZone);
+            return localDateTime;
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace PosWebsite.Models
 
         public DbSet<SalesService> SalesService { get; set; }
 
-        public DbSet<SalesSetting> SalesSetting { get; set; }
+        public DbSet<SalesSettings> SalesSettings { get; set; }
 
         public DbSet<Shelf> Shelf { get; set; }
 
@@ -102,6 +102,7 @@ namespace PosWebsite.Models
         public DbSet<Banner> Banner { get; set; }
         public DbSet<AboutUs> AboutUs { get; set; }
         public DbSet<Clients> Clients { get; set; }
-        
+        public DbSet<CustomerPointHistory> CustomerPointHistory { get; set; }
+
     }
 }

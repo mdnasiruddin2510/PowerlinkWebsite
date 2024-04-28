@@ -19,5 +19,5 @@ public partial class AccountSubLedger
 
     public string CompanyId { get; set; }
 
-    public bool? UserDefined { get; set; }
+    public bool UserDefined { get; set; } = false;
 }

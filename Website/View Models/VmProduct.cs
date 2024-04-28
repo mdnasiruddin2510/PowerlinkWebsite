@@ -9,6 +9,8 @@ namespace PosWebsite.View_Models
         public string Code { get; set; }
 
         public string Name { get; set; }
+        public int ProductId { get; set; }
+        public long ItemId { get; set; }
 
         public string Hscode { get; set; }
 
@@ -21,6 +23,13 @@ namespace PosWebsite.View_Models
         public string ProductImageUrl { get; set; }
 
         public decimal Price { get; set; }
+        public decimal Qty { get; set; }
+        public decimal Amount { get; set; }
+        public decimal OriginalUnitPrice { get; set; }
+        public decimal Discount { get; set; }
+        public string Comments { get; set; }
+        public long FreeItemId { get; set; }
+        public decimal FreeQty { get; set; }
 
         public int CategoryId { get; set; }
 
@@ -66,8 +75,6 @@ namespace PosWebsite.View_Models
 
         public decimal Stock {  get; set; }
         public string VariantName { get; set; }
-        public string CategoryName { get; set; }
-        public string BrandName { get; set; }
         public string ExpireDate { get; set; }
         public string Barcode { get; set; }
         public bool IsFeatured { get; set; }

@@ -1,118 +1,312 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using PosWebsite.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PosWebsite.Models;
 using PosWebsite.View_Models;
-using Website.View_Models;
-using Website.Helper;
 
-namespace Website.Api
+namespace PosWebsite.Api_Controllers
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class ProductController : ControllerBase
-	{
-		private readonly AppDbContext _db;
-		public ProductController(AppDbContext db)
-		{
-			_db = db;
-		}
-		[HttpPost("GetAllProduct")]
-		public async Task<ActionResult<List<VmProduct>>> GetAllProduct(VmFilterData vm)
-		{
-			var bids = new List<string>();
-			var cids = new List<string>();
-			var firstBids = vm.BrandIds.TrimEnd(',').Split(',').ToList();
-			foreach (var item in firstBids)
-			{
-				bids.Add(item.Split('-')[0]);
-			}
-			var firstCids = vm.CategoryIds.TrimEnd(',').Split(',').ToList();
-			foreach (var item in firstCids)
-			{
-				cids.Add(item.Split('-')[0]);
-			}
-			var model = await (from _product in _db.Product.AsNoTracking().Where(x => (vm.BrandIds == "" || bids.Contains(x.ProductBrandId.ToString()))
-														   && (vm.CategoryIds == "" || cids.Contains(x.CategoryId.ToString()))
-														   && (vm.MinPrice == 0 || x.Price > vm.MinPrice)
-														   && (vm.MaxPrice == 0 || x.Price < vm.MaxPrice)
-														   && !x.Deleted)
-							   join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
-							   join category in _db.ProductCategory.Where(x => !x.Deleted) on _product.CategoryId equals category.Id into categories
-							   from _category in categories.DefaultIfEmpty()
-							   join brand in _db.ProductBrand.Where(x => !x.Deleted) on _product.ProductBrandId equals brand.Id into brands
-							   from _brand in brands.DefaultIfEmpty()
-							   select new VmProduct
-							   {
-								   Id = _product.Id,
-								   Name = _product.Name,
-								   Code = _product.Code,
-								   ProductImageUrl = _product.ProductImageUrl ?? "/images/noimage.png",
-								   Price = _product.Price,
-								   IsFeatured = _product.IsFeatured,
-								   CategoryName = _category.Name ?? "",
-								   BrandName = _brand.Name ?? ""
-							   }).Take(39).ToListAsync();
-			return model;
-		}
-		[HttpGet("SearchProduct")]
-		public async Task<ActionResult<List<VmProduct>>> SearchProduct(string key)
-		{
-			var products = await (from _product in _db.Product.AsNoTracking().Where(x => !x.Deleted && x.Name.ToLower().Contains(key.ToLower()))
-								  join _inventory in _db.Inventory.Where(x => !x.Deleted) on _product.Id equals _inventory.ProductId
-								  join category in _db.ProductCategory.Where(x => !x.Deleted) on _product.CategoryId equals category.Id into categories
-								  from _category in categories.DefaultIfEmpty()
-								  join brand in _db.ProductBrand.Where(x => !x.Deleted) on _product.ProductBrandId equals brand.Id into brands
-								  from _brand in brands.DefaultIfEmpty()
-								  select new VmProduct
-								  {
-									  Id = _product.Id,
-									  Name = _product.Name,
-									  ProductImageUrl = _product.ProductImageUrl ?? "/images/noimage.png",
-									  Price = _product.Price,
-									  CategoryId = _product.CategoryId,
-									  IsFeatured = _product.IsFeatured,
-									  CategoryName = _category.Name ?? "",
-									  BrandName = _brand.Name ?? ""
-								  }).ToListAsync();
-			return products;
-		}
-        [HttpGet("Search")]
-        public async Task<List<VmSearch>> Search(string appId, string searchPeram)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductController : ControllerBase
+    {
+        protected readonly AppDbContext _db;
+
+        protected string companyId = "COM-2";
+        public ProductController( AppDbContext db)
         {
-			string companyId = "COM-2";//AppFunction.Decrypt(appId);
-            var productList = await _db.Product.Where(x => (x.CompanyId == companyId)
-                                 && (x.Name.ToLower().Contains(searchPeram.ToLower())
-                                 || x.Code.ToLower().Contains(searchPeram.ToLower())
-                                 || x.ShortDescription.ToLower().Contains(searchPeram.ToLower())
-                                 || x.FullDescription.ToLower().Contains(searchPeram.ToLower())))
-                                 .Select(s => new VmSearch
-                                 {
-                                     Name = s.Code + "-" + s.Name,
-                                     Id = s.Id,
-                                     Url = "/product/details?id=" + s.Id,
-                                 })
-                                 .Take(10)
-                                 .ToListAsync();
-
-
-            return productList;
+            _db = db;
         }
-        [HttpGet("SearchByEnterKey")]
-        public async Task<VmSearch> SearchByEnterKey(string appId, string searchPeram)
+        [HttpPost("GetAllProduct")]
+        public async Task<List<VmProduct>> GetAllProduct(VmFilterData vm)
         {
-			string companyId = "COM-2"; //AppFunction.Decrypt(appId);
-            var product = await _db.Product
-                                   .Where(x => x.CompanyId == companyId && x.Code.ToLower().Contains(searchPeram.ToLower()))
-                                   .Select(s => new VmSearch
+            var result = new List<VmProduct>();
+            
+                var bids = new List<string>();
+                var cids = new List<string>();
+                var firstBids = vm.BrandIds.TrimEnd(',').Split(',').ToList();
+                foreach (var item in firstBids)
+                {
+                    bids.Add(item.Split('-')[0]);
+                }
+                var firstCids = vm.CategoryIds.TrimEnd(',').Split(',').ToList();
+                foreach (var item in firstCids)
+                {
+                    cids.Add(item.Split('-')[0]);
+                }
+                var query = await (from P in _db.Product
+                                   join I in _db.Inventory on P.Id equals I.ProductId
+                                   where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId &&
+                                   (vm.BrandIds == "" || bids.Contains(P.ProductBrandId.ToString()))   //CONFUSED ----
+                                                               && (vm.CategoryIds == "" || cids.Contains(P.CategoryId.ToString()))  //CONFUSED ----
+                                                               && (vm.MinPrice == 0 || P.Price > vm.MinPrice) //CONFUSED ----
+                                                               && (vm.MaxPrice == 0 || P.Price < vm.MaxPrice) //CONFUSED ----HOW IT WORKS
+                                   select new VmProduct
                                    {
-                                       Name = s.Code + "-" + s.Name,
-                                       Id = s.Id,
-                                       Url = "/product/details?id=" + s.Id,
-                                   }).FirstOrDefaultAsync();
-            if (product is not null)
-                return product;
-
-            return (VmSearch)Enumerable.Empty<VmSearch>();
+                                       ProductId = P.Id,
+                                       ItemId = I.Id,
+                                       Barcode = I.Barcode,
+                                       Name = P.Name + (I.VariantName ?? ""),
+                                       Code = P.Code,
+                                       ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                       Price = I.SalePrice,
+                                       CategoryId = P.CategoryId,
+                                       IsFeatured = P.IsFeatured,
+                                   }).OrderBy(o => o.Code).ToListAsync();
+                var products = query.GroupBy(g => new { g.Price, g.ProductId, g.Barcode }).ToList();
+                foreach (var item in products)
+                {
+                    result.Add(new VmProduct
+                    {
+                        ProductId = item.FirstOrDefault().ProductId,
+                        ItemId = item.FirstOrDefault().ItemId,
+                        Barcode = item.FirstOrDefault().Barcode,
+                        Name = item.FirstOrDefault().Name,
+                        Code = item.FirstOrDefault().Code,
+                        ProductImageUrl = item.FirstOrDefault().ProductImageUrl,
+                        Price = item.FirstOrDefault().Price,
+                        CategoryId = item.FirstOrDefault().CategoryId,
+                        IsFeatured = item.FirstOrDefault().IsFeatured
+                    });
+                }
+            
+            return result.DistinctBy(x => new { x.ProductId,x.Code,x.Price }).ToList();
         }
+
+
+        [HttpGet("GetProductById")]
+        public async Task<Vm_Api_ProductDetails> GetProductById(int id, string appId)
+        {
+            var result = new Vm_Api_ProductDetails();
+            result = await (from P in _db.Product
+                            join I in _db.Inventory on P.Id equals I.ProductId
+                            where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId
+                            select new Vm_Api_ProductDetails
+                            {
+                                ProductId = P.Id,
+                                ItemId = I.Id,
+                                Name = P.Name,
+                                Code = P.Code,
+                                ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                Price = I.SalePrice
+                            }).FirstOrDefaultAsync();
+            return result;
+        }
+        [HttpPost("GetTopProduct")]
+        public async Task<List<VmProduct>> GetTopProduct(VmFilterData vm)
+        {
+            var result = new List<VmProduct>();
+            
+            var bids = new List<string>();
+            var cids = new List<string>();
+            var firstBids = vm.BrandIds.TrimEnd(',').Split(',').ToList();
+            foreach (var item in firstBids)
+            {
+                bids.Add(item.Split('-')[0]);
+            }
+            var firstCids = vm.CategoryIds.TrimEnd(',').Split(',').ToList();
+            foreach (var item in firstCids)
+            {
+                cids.Add(item.Split('-')[0]);
+            }
+
+            var topSale = await _db.ItemSalesHistory.OrderByDescending(x => x.Quantity).Select(s => s.ItemId).Distinct().Take(10).ToListAsync();
+            foreach (var item in topSale)
+            {
+                result = await (from P in _db.Product
+                                join I in _db.Inventory on P.Id equals I.ProductId
+                                where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId && I.Id == item &&
+                                (vm.BrandIds == "" || bids.Contains(P.ProductBrandId.ToString()))   //CONFUSED ----
+                                && (vm.CategoryIds == "" || cids.Contains(P.CategoryId.ToString()))  //CONFUSED ----
+                                && (vm.MinPrice == 0 || P.Price > vm.MinPrice) //CONFUSED ----
+                                && (vm.MaxPrice == 0 || P.Price < vm.MaxPrice) //CONFUSED ----HOW IT WORKS
+                                select new VmProduct
+                                {
+                                    ProductId = P.Id,
+                                    ItemId = I.Id,
+                                    Barcode = I.Barcode,
+                                    Name = P.Name + (I.VariantName ?? ""),
+                                    Code = P.Code,
+                                    ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                    Price = I.SalePrice,
+                                    CategoryId = P.CategoryId,
+                                    IsFeatured = P.IsFeatured
+                                }).OrderBy(o => o.Code).ToListAsync();
+            }
+            return result.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
+        }
+        [HttpGet("GetRelatedProductById")]
+        public async Task<List<VmProduct>> GetRelatedProductById(int id, string appId)
+        {
+            var result = new List<VmProduct>();
+            var product = await _db.Product.FirstOrDefaultAsync(x => x.Id == id && !x.Deleted);
+            var query = await (from P in _db.Product
+                                join I in _db.Inventory on P.Id equals I.ProductId
+                                where P.CategoryId == product.CategoryId
+                                && !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId
+                                select new VmProduct
+                                {
+                                    ProductId = P.Id,
+                                    ItemId = I.Id,
+                                    Barcode = I.Barcode,
+                                    Name = P.Name + (I.VariantName ?? ""),
+                                    Code = P.Code,
+                                    ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                    Price = I.SalePrice,
+                                    CategoryId = P.CategoryId,
+                                    IsFeatured = P.IsFeatured
+                                }).ToListAsync();
+
+            var products = query.GroupBy(g => new { g.Price, g.ProductId, g.Barcode }).ToList();
+            foreach (var item in products)
+            {
+                result.Add(new VmProduct
+                {
+                    ProductId = item.FirstOrDefault().ProductId,
+                    ItemId = item.FirstOrDefault().ItemId,
+                    Barcode = item.FirstOrDefault().Barcode,
+                    Name = item.FirstOrDefault().Name,
+                    Code = item.FirstOrDefault().Code,
+                    ProductImageUrl = item.FirstOrDefault().ProductImageUrl,
+                    Price = item.FirstOrDefault().Price,
+                    CategoryId = item.FirstOrDefault().CategoryId,
+                    IsFeatured = item.FirstOrDefault().IsFeatured
+                });
+            }
+            return result.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
+
+        }
+        [HttpGet("GetProductByCategoryId")]
+        public async Task<VmProductWithSubCat> GetProductByCategoryId(int id, string appId)
+        {
+            var result = new VmProductWithSubCat();
+            var subCategories = await _db.ProductCategory.Where(x => x.ParentId == id)
+                                                    .Select(s => new VmProductCategory
+                                                    {
+                                                        Id = s.Id,
+                                                        Name = s.Name,
+                                                        PictureUrl = s.PictureUrl ?? "/images/noimage.png",
+                                                        DisplayOrder = s.DisplayOrder,
+                                                        CompanyId = companyId
+                                                    }).ToListAsync();
+            result.SubCategory.AddRange(subCategories);
+
+            var query = await (from P in _db.Product
+                                join I in _db.Inventory on P.Id equals I.ProductId
+                                where P.CategoryId == id
+                                && !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId
+                                select new VmProduct
+                                {
+                                    ProductId = P.Id,
+                                    ItemId = I.Id,
+                                    Barcode = I.Barcode,
+                                    Name = P.Name + (I.VariantName ?? ""),
+                                    Code = P.Code,
+                                    ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                    Price = I.SalePrice,
+                                    CategoryId = P.CategoryId,
+                                    IsFeatured = P.IsFeatured
+                                }).ToListAsync();
+            var products = query.GroupBy(g => new { g.Price, g.ProductId, g.Barcode }).ToList();
+            
+            foreach (var item in products)
+            {
+                result.Product.Add(new VmProduct
+                {
+                    ProductId = item.FirstOrDefault().ProductId,
+                    ItemId = item.FirstOrDefault().ItemId,
+                    Barcode = item.FirstOrDefault().Barcode,
+                    Name = item.FirstOrDefault().Name,
+                    Code = item.FirstOrDefault().Code,
+                    ProductImageUrl = item.FirstOrDefault().ProductImageUrl,
+                    Price = item.FirstOrDefault().Price,
+                    CategoryId = item.FirstOrDefault().CategoryId,
+                    IsFeatured = item.FirstOrDefault().IsFeatured
+                });
+            }
+            result.Product = result.Product.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
+            return result;
+        }
+        [HttpPost("GetWeeklyBestProduct")]
+        public async Task<List<VmProduct>> GetWeeklyBestProduct(VmFilterData vm)
+        {
+            var bids = new List<string>();
+            var cids = new List<string>();
+            var firstBids = vm.BrandIds.TrimEnd(',').Split(',').ToList();
+            foreach (var item in firstBids)
+            {
+                bids.Add(item.Split('-')[0]);
+            }
+            var firstCids = vm.CategoryIds.TrimEnd(',').Split(',').ToList();
+            foreach (var item in firstCids)
+            {
+                cids.Add(item.Split('-')[0]);
+            }
+            var result = new List<VmProduct>();
+            var tillDate = DateTime.UtcNow.AddDays(-7);
+            var weeklySale = await _db.ItemSalesHistory.Where(x => x.CreatedDate > tillDate).OrderByDescending(x => x.Quantity).Select(s => s.ItemId).Distinct().Take(10).ToListAsync();
+            foreach (var item in weeklySale)
+            {
+                result = await (from P in _db.Product
+                                join I in _db.Inventory on P.Id equals I.ProductId
+                                where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId && I.Id == item &&
+                                (vm.BrandIds == "" || bids.Contains(P.ProductBrandId.ToString()))   //CONFUSED ----
+                                && (vm.CategoryIds == "" || cids.Contains(P.CategoryId.ToString()))  //CONFUSED ----
+                                && (vm.MinPrice == 0 || P.Price > vm.MinPrice) //CONFUSED ----
+                                && (vm.MaxPrice == 0 || P.Price < vm.MaxPrice) //CONFUSED ----HOW IT WORKS
+                                select new VmProduct
+                                {
+                                    ProductId = P.Id,
+                                    ItemId = I.Id,
+                                    Barcode = I.Barcode,
+                                    Name = P.Name + (I.VariantName ?? ""),
+                                    Code = P.Code,
+                                    ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                    Price = I.SalePrice,
+                                    CategoryId = P.CategoryId,
+                                    IsFeatured = P.IsFeatured
+                                }).OrderBy(o => o.Code).ToListAsync();
+            }
+            return result.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
+        }
+
+        [HttpGet("SearchProduct")]
+        public async Task<List<VmProduct>> SearchProduct(string key,string appId)
+        {
+            var result = new List<VmProduct>();
+            var query = await (from P in _db.Product
+                                join I in _db.Inventory.Where(x => !x.Deleted) on P.Id equals I.ProductId
+                                where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId
+                                select new VmProduct
+                                {
+                                    ProductId = P.Id,
+                                    ItemId = I.Id,
+                                    Barcode = I.Barcode,
+                                    Name = P.Name + (I.VariantName??""),
+                                    Code = P.Code,
+                                    ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
+                                    Price = I.SalePrice,
+                                    CategoryId = P.CategoryId,
+                                    IsFeatured = P.IsFeatured
+                                }).Where(x=>x.Name.ToLower().Contains(key.ToLower())).ToListAsync();
+            var products = query.GroupBy(g => new { g.Price, g.ProductId, g.Barcode }).ToList();
+            foreach (var item in products)
+            {
+                result.Add(new VmProduct
+                {
+                    ProductId = item.FirstOrDefault().ProductId,
+                    ItemId = item.FirstOrDefault().ItemId,
+                    Barcode = item.FirstOrDefault().Barcode,
+                    Name = item.FirstOrDefault().Name,
+                    Code = item.FirstOrDefault().Code,
+                    ProductImageUrl = item.FirstOrDefault().ProductImageUrl,
+                    Price = item.FirstOrDefault().Price,
+                    CategoryId = item.FirstOrDefault().CategoryId,
+                    IsFeatured = item.FirstOrDefault().IsFeatured
+                });
+            }
+            return result.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
+        }
+        
     }
 }
