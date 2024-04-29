@@ -1,1 +1,384 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section section--small-top-padding" style="padding: 40px 0 40px;margin-top:100px;background-color:white;">
+    <div class="page-content">
+        <div class="holder mt-0">
+            <div class="container">
+                <h1 class="text-center">Checkout</h1>
+                <div class="clearfix"></div>
+                <form action="#" data-toggle="validator">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="steps-progress">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab1" data-toggle="tab" href="#step1" data-step="1">
+                                            <span>Shipping Address And Payment Method</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active">
+                                    <div class="tab-pane-inside">
+                                        <label class="text-uppercase">Name:</label>
+                                        <div class="form-group">
+                                            <input type="text" id="name" class="form-control name" name="" value="" required>
+                                        </div>
+                                        <span style="color:red;display:none;" id="errorMessageName">Name is required</span>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-6">
+                                                <label class="text-uppercase">Phone:</label>
+                                                <div class="form-group"><input type="text" id="phone" placeholder="01XXXXXXXXX" class="form-control phone" value="" required></div>
+                                                <span style="color:red;display:none;" id="errorMessagePhone">Phone is required</span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="text-uppercase">Email:</label>
+                                                <div class="form-group"><input type="email" id="email" placeholder="email@gmail.com" class="form-control email" value="" required></div>
+                                                <span style="color:red;display:none;" id="errorMessageEmail">Email is required</span>
+                                            </div>
+                                        </div>
+                                        <label class="text-uppercase">Address:</label>
+                                        <div class="form-group"><input type="text" id="address" class="form-control address" value="" required></div>
+                                        <span style="color:red;display:none;" id="errorMessageAddress">Address is required</span>
+                                        @*<div class="text-right" style="float:right;margin-top:1%;"><button type="button" id="btnContinue" class="btn btn-sm">Continue</button></div>*@
+                                    </div>
+                                    <div class="tab-pane-inside">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input id="formcheckoutRadio4" value="" name="radio2" type="radio" class="radio" checked="checked">
+                                                <label for="formcheckoutRadio4">Cash on delivery</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label for="deliveryArea">Delivery Area</label>
+                                                <select id="deliveryArea" class="form-control" style="height:50px;">
+                                                    <option value="Bagerhat">Bagerhat</option>
+                                                    <option value="Bandarban">Bandarban</option>
+                                                    <option value="Barguna">Barguna</option>
+                                                    <option value="Barisal">Barisal</option>
+                                                    <option value="Bhola">Bhola</option>
+                                                    <option value="Bogra">Bogra</option>
+                                                    <option value="Brahmanbaria">Brahmanbaria</option>
+                                                    <option value="Chandpur">Chandpur</option>
+                                                    <option value="Chittagong">Chittagong</option>
+                                                    <option value="Chuadanga">Chuadanga</option>
+                                                    <option value="Comilla">Comilla</option>
+                                                    <option value="Cox'sBazar">Cox'sBazar</option>
+                                                    <option value="Dhaka" selected>Dhaka</option>
+                                                    <option value="Dinajpur">Dinajpur</option>
+                                                    <option value="Faridpur">Faridpur</option>
+                                                    <option value="Feni">Feni</option>
+                                                    <option value="Gaibandha">Gaibandha</option>
+                                                    <option value="Gazipur">Gazipur</option>
+                                                    <option value="Gopalganj">Gopalganj</option>
+                                                    <option value="Habiganj">Habiganj</option>
+                                                    <option value="Jaipurhat">Jaipurhat</option>
+                                                    <option value="Jamalpur">Jamalpur</option>
+                                                    <option value="Jessore">Jessore</option>
+                                                    <option value="Jhalokati">Jhalokati</option>
+                                                    <option value="Jhenaidah">Jhenaidah</option>
+                                                    <option value="Khagrachari">Khagrachari</option>
+                                                    <option value="Khulna">Khulna</option>
+                                                    <option value="Kishoreganj">Kishoreganj</option>
+                                                    <option value="Kurigram">Kurigram</option>
+                                                    <option value="Kushtia">Kushtia</option>
+                                                    <option value="Lakshmipur">Lakshmipur</option>
+                                                    <option value="Lalmonirhat">Lalmonirhat</option>
+                                                    <option value="Madaripur">Madaripur</option>
+                                                    <option value="Magura">Magura</option>
+                                                    <option value="Manikganj">Manikganj</option>
+                                                    <option value="Maulvibazar">Maulvibazar</option>
+                                                    <option value="Meherpur">Meherpur</option>
+                                                    <option value="Munshiganj">Munshiganj</option>
+                                                    <option value="Mymensingh">Mymensingh</option>
+                                                    <option value="Naogaon">Naogaon</option>
+                                                    <option value="Narail">Narail</option>
+                                                    <option value="Narayanganj">Narayanganj</option>
+                                                    <option value="Narsingdi">Narsingdi</option>
+                                                    <option value="Natore">Natore</option>
+                                                    <option value="Nawabganj">Nawabganj</option>
+                                                    <option value="Netrokona">Netrokona</option>
+                                                    <option value="Nilphamari">Nilphamari</option>
+                                                    <option value="Noakhali">Noakhali</option>
+                                                    <option value="Pabna">Pabna</option>
+                                                    <option value="Panchagarh">Panchagarh</option>
+                                                    <option value="Patuakhali">Patuakhali</option>
+                                                    <option value="Pirojpur">Pirojpur</option>
+                                                    <option value="Rajbari">Rajbari</option>
+                                                    <option value="Rajshahi">Rajshahi</option>
+                                                    <option value="Rangamati">Rangamati</option>
+                                                    <option value="Rangpur">Rangpur</option>
+                                                    <option value="Satkhira">Satkhira</option>
+                                                    <option value="Shariatpur">Shariatpur</option>
+                                                    <option value="Sherpur">Sherpur</option>
+                                                    <option value="Sirajganj">Sirajganj</option>
+                                                    <option value="Sunamganj">Sunamganj</option>
+                                                    <option value="Sylhet">Sylhet</option>
+                                                    <option value="Tangail">Tangail</option>
+                                                    <option value="Thakurgaon">Thakurgaon</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="clearfix mt-2">
+                                            <input id="returnPolicy" value="1" name="returnPolicy" type="checkbox">
+                                            <label for="returnPolicy">I am agree with <u id="returnCancel" style="cursor:pointer;color:blueviolet;">Return & Canecellation</u> Policy</label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix mt-1 mt-md-2"><button type="button" style="height:52px;" id="btnSave" class="btn btn--lg w-100">Place Order</button></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2 mt-md-5">
+                            <h2 class="text-center">ORDER SUMMARY</h2>
+                            <div class="cart-table cart-table--sm">
+                                
+                                <div id="cart-table-dy">
+                                </div>
+                            </div>
+                            <div class="card-total-sm">
+                                <table style="width:100%;">
+                                    <tr>
+                                        <td>Subtotal</td>
+                                        <td><span class="card-total-price float-right">0</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery Charge</td>
+                                        <td><span id="deliveryCharge" class="float-right">0</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grand Total</td>
+                                        <td><b><span id="grandTotal" class="float-right">0</span></b></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="mt-2"></div>
+                            <div class="card card--grey" style="background-color:#fbfbfb !important">
+                                <div class="card-body">
+                                    <div class="sidebar-block_title">
+                                        <span>ORDER COMMENT</span>
+                                        <div class="toggle-arrow"></div>
+                                    </div>
+                                    <div class="sidebar-block_content"><textarea id="note" placeholder="Write comments here..." style="height:200px;" class="form-control textarea--height-200"></textarea></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<link href="~/lib/jquery-confirm-v3.3.4/jquery-confirm.min.css" rel="stylesheet" />
+@section Scripts{
+    <script src="~/lib/jquery-confirm-v3.3.4/jquery-confirm.min.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        function setCustomer() {
+            let name = $("#name").val();
+            let phone = $("#phone").val();
+            let email = $("#email").val();
+            let address = $("#address").val();
+            let _customer = {
+                id: 0, name: name, phone: phone, email: email, address: address, appId: appId
+            };
+            $.ajax({
+                url: baseURL + '/api/customer/Create',
+                type: "post",
+                data: JSON.stringify(_customer),
+                dataType: 'json',
+                contentType: 'application/json',
+                async: false,
+                success: function (res) {
+                    localStorage.removeItem('customer');
+                    localStorage.setItem('customer', JSON.stringify(_customer));
+                    placeOrder();
+                }
+            });
+        }
+
+        $("#btnSave").click(function () {
+            let name = $("#name").val();
+            let phone = $("#phone").val();
+            let email = $("#email").val();
+            let address = $("#address").val();
+            if (!name) {
+                $("#name").focus();
+                $("#name").blur();
+                $("#errorMessageName").show();
+                return;
+            }
+            else if (!phone) {
+                $("#phone").focus();
+                $("#phone").blur();
+                $("#errorMessagePhone").show();
+                return;
+            }
+            else if (!email) {
+                $("#email").focus();
+                $("#email").blur();
+                $("#errorMessageEmail").show();
+                return;
+            }
+            else if (!address) {
+                $("#address").focus();
+                $("#address").blur();
+                $("#errorMessageAddress").show();
+                return;
+            }
+            else {
+                var customerInfo = JSON.parse(localStorage.getItem('customer'));
+                if (customerInfo != null) {
+                    setCustomer();
+                }
+                else {
+                    $.ajax({
+                        url: baseURL + '/api/validation/SendOTP',
+                        type: "get",
+                        data: { phone: email, appId: appId },
+                        success: function (res) {
+
+                        }
+                    });
+                    $.confirm({
+                        boxWidth: '300px',
+                        useBootstrap: false,
+                        title: 'Pin verification!',
+                        content: '' +
+                            '<form action="" class="formName">' +
+                            '<div class="form-group">' +
+                            '<label>Enter one time pin here</label>' +
+                            '<input type="text" placeholder="Your one time pin" class="pin form-control" required />' +
+                            '</div>' +
+                            '</form>',
+                        buttons: {
+                            formSubmit: {
+                                text: 'Submit',
+                                btnClass: 'btn-blue',
+                                action: function () {
+                                    var pin = this.$content.find('.pin').val();
+                                    if (!pin) {
+                                        $.alert('provide a valid pin');
+                                        return false;
+                                    }
+                                    $.ajax({
+                                        url: baseURL + '/api/validation/Validate',
+                                        type: "get",
+                                        data: { phone: email, otp: pin, appId: appId },
+                                        async: false,
+                                        success: function (res) {
+                                            if (!res) {
+                                                setCustomer();
+                                            }
+                                        }
+                                    });
+                                }
+                            },
+                            cancel: function () {
+                                //close
+                            },
+                        }
+                    });
+                }
+            }
+        });
+
+        $('#deliveryArea').change(function () {
+            if (this.value == 'Dhaka') {
+                deliveryCharge = 80;
+            }
+            else {
+                deliveryCharge = 150;
+            }
+
+            $("#deliveryCharge").text('৳ ' + (deliveryCharge).toFixed(2));
+            gndTotal = priceTotal + deliveryCharge;
+            $("#grandTotal").text('৳ ' + (gndTotal).toFixed(2));
+        });
+
+        $('#returnPolicy').click(function () {
+            if ($(this).is(':checked')) {
+                $("#btnSave").prop('disabled', false);
+            }
+            else {
+                $("#btnSave").prop('disabled', true);
+            }
+        });
+        $('#returnCancel').click(function () {
+            var url = '/Home/ReturnPolicy';
+            window.open(url, '_blank');
+        });
+        $(document).ready(function () {
+            var customer = JSON.parse(localStorage.getItem('customer'));
+            if (customer) {
+                $(".name").val(customer.name);
+                $(".phone").val(customer.phone);
+                $(".address").val(customer.address);
+                $(".email").val(customer.email);
+                cartItems();
+            }
+            else {
+                $("#btnSave").prop('disabled', true);
+                cartItems();
+                let name = $(".name");
+                let phone = $(".phone");
+                let address = $(".address");
+                let email = $(".email");
+                let emsgName = $("#errorMessageName");
+                let emsgPhone = $("#errorMessagePhone");
+                let emsgAddress = $("#errorMessageAddress");
+                let emsgEmail = $("#errorMessageEmail");
+                name.on('input', function () {
+                    var val = $(this).val();
+                    if (val.length === 0) {
+                        emsgName.show();
+                    }
+                    else {
+                        emsgName.hide();
+                    }
+                });
+                phone.on('input', function () {
+                    var val = $(this).val();
+                    if (val.length === 0) {
+                        emsgPhone.show();
+                    }
+                    else {
+                        emsgPhone.hide();
+                        let pattern = "^(?:\\?)?01[15-9]\\d{8}$";
+                        if (val.match(pattern)) {
+                            emsgPhone.hide();
+                            return true;
+                        }
+                        else {
+                            $("#errorMessagePhone").text("Not a valid Phone Number");
+                            emsgPhone.show();
+                            return false;
+                        }
+                    }
+                });
+                address.on('input', function () {
+                    var val = $(this).val();
+                    if (val.length === 0) {
+                        emsgAddress.show();
+                    }
+                    else {
+                        emsgAddress.hide();
+                    }
+                });
+                email.on('input', function () {
+                    var val = $(this).val();
+                    if (val.length === 0) {
+                        emsgEmail.show();
+                    }
+                    else {
+                        emsgEmail.hide();
+                    }
+                });
+            }
+        });
+    </script>
+}

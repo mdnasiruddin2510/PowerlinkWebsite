@@ -89,7 +89,7 @@ body {
 }
 
 #product-front, #product-back {
-    width: 335px;
+    width: 100%;
     height: 500px;
     background: #fff;
     position: absolute;
@@ -100,6 +100,7 @@ body {
     -o-transition: all 100ms ease-out;
     transition: all 100ms ease-out;
     background-color: gainsboro;
+    /*border-bottom: blue 2px solid;*/
 }
 
 #product-back {
@@ -117,9 +118,9 @@ body {
 }
 
 #product-card {
-    width: 325px;
+    width: 100%;
     height: 490px;
-    position: absolute;
+    position: relative;
     top: 10px;
     left: 10px;
     overflow: hidden;
@@ -128,6 +129,8 @@ body {
     -moz-transition: 100ms ease-out;
     -o-transition: 100ms ease-out;
     transition: 100ms ease-out;
+    z-index:1;
+    /*border-bottom:blue 2px solid;*/
 }
 
 div#product-card.flip-10 {
@@ -165,7 +168,7 @@ div#product-card.flip180 {
 #product-card.animate {
     top: 5px;
     left: 5px;
-    width: 335px;
+    width: 100%;
     height: 500px;
     box-shadow: 0px 13px 21px -5px rgba(0, 0, 0, 0.3);
     -webkit-transition: 100ms ease-out;
@@ -197,7 +200,7 @@ div#product-card.flip180 {
 }
 
 .stats-container .product_name {
-    font-size: 22px;
+    font-size: 18px;
     color: #393c45;
 }
 
@@ -285,6 +288,17 @@ div#product-card.flip180 {
     -moz-transition: all 200ms ease-out;
     -o-transition: all 200ms ease-out;
     transition: all 200ms ease-out;
+}
+.wishListDiv {
+    top: 15px;
+    /* margin-top: 112px; */
+    position: absolute;
+    margin-left: 87%;
+    font-size: x-large;
+    color: brown;
+}
+.wishlist-btn {
+    color: brown !important;
 }
 #view_details_back {
     position: absolute;
@@ -527,7 +541,7 @@ div.shadow {
 
 .carouselNext {
     top: 0;
-    right: -26px;
+    right: -32px;
     -webkit-transform: rotateY( -117deg );
     -moz-transform: rotateY( -117deg );
     -o-transform: rotateY( -117deg );
@@ -547,7 +561,7 @@ div.shadow {
     }
 
 .carouselPrev {
-    left: -26px;
+    left: -32px;
     top: 0;
     -webkit-transform: rotateY( 117deg );
     -moz-transform: rotateY( 117deg );
@@ -557,7 +571,7 @@ div.shadow {
 }
 
     .carouselPrev.visible {
-        left: 0;
+        left: 50px;
         opacity: 0.8;
         background: #eee;
         -webkit-transform: rotateY( 0deg );

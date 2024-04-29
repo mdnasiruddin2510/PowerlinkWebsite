@@ -1,5 +1,5 @@
 ﻿
-function addToCart(id, url, name, price, discountPrice) {
+function addToCart(id, url, name, price, itemId, freeItemId, freeQty, originalUnitPrice) {
     var cart = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
     if (cart == null) {
@@ -20,14 +20,14 @@ function addToCart(id, url, name, price, discountPrice) {
             //showAlert("Cart Updated Successfully..!", "success");
         }
         else {
-            cart.push({ productId: id, productImageUrl: url, name: name, price: price, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
+            cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
             localStorage.setItem('cart', JSON.stringify(cart));
             //showAlert("Added To Cart Successfully..!", "success");
         }
 
     }
     else {
-        cart.push({ productId: id, productImageUrl: url, name: name, price: price, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
+        cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
         localStorage.setItem('cart', JSON.stringify(cart));
         //showAlert("Added To Cart Successfully..!", "success");
     }
@@ -35,7 +35,7 @@ function addToCart(id, url, name, price, discountPrice) {
     $(".addTadaClass").addClass("animated tada");
     setTimeout(function () {
         $(".addTadaClass").removeClass("animated tada");
-    }, 3000);
+    },1000);
 }
 let showAlert = (message, icon) => {
     Swal.fire({
@@ -50,28 +50,33 @@ function cartItems() {
     var priceTotal = 0;
     var itemTotal = 0;
     var cart = JSON.parse(localStorage.getItem('cart'));
-
+    if (cart == null) {
+        cart = [];
+    }
     if (cart.length > 0) {
         let content = ``;
         $.each(cart, function (index, val) {
-            content += `<tr>
-                            <td><img class="rounded" src="${imageURL + val.productImageUrl}" alt=""></td>
-                            <td><a class="product-title" href="/shop/details?id=${val.productId}">${val.name}<span class="mt-1">${currencySymbol + val.price}</span></a></td>
-                            <td>
-                                <div class="quantity">
-                                    <input class="qty-text decimal" type="text" min="1" id="quantityChanged${index}" max="99" onblur="modifyQuantity(${index})" value="${val.quantity}">
-                                </div>
-                            </td>
-                            <th scope="row"><a class="remove-product" onclick="removeItem(${val.productId})" href=""><i class="ti ti-x"></i></a></th>
-                        </tr>`;
-            priceTotal += parseInt(val.priceTotal);
+            content += `<div class="cart-table-prd">
+                            <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
+                            <div class="cart-table-prd-name">
+                                <h4><a href="/product/details?id=${val.productId}">${val.code}</a></h4>
+                                <h2><a href="/product/details?id=${val.productId}">${val.name}</a></h2>
+                            </div>
+                            <div class="cart-table-prd-qty"><span>qty:</span><b><a href="javascript:minusItem(${index})" title="Decrease Order Quantity" class="icon-prev"><i class="bx bx-chevron-left"></i></a><span class="quentityItemCart-${index}">${val.quantity}</span><a style="cursor:pointer;" href="javascript:plusItem(${index})" title="Increase Order Quantity" class="icon-next"><i class="bx bx-chevron-right"></i></a></b></div>
+                            <div class="cart-table-prd-price"><span>price:</span> <b>৳ ${(val.priceTotal).toFixed(2)}</b></div>
+                            <div class="cart-table-prd-action"><a href="javascript:removeItem(${val.productId})" title="Remove From Cart" class="icon-cross"><i class="bx bx-x"></i></a></div>
+                        </div>`;
+            priceTotal += val.priceTotal;
             itemTotal += 1;
         });
         const initialValue = 0;
         const total = cart.reduce((acc, curr) => acc + parseFloat(curr.priceTotal), initialValue);
-        $("#cartTbl tbody").empty();
-        $("#cartTbl tbody").append(content);
-        $(".priceTotal").text(total.toFixed(2));
+        $("#cart-table-dy").empty();
+        $("#cart-table-dy").append(content);
+        $(".card-total-price").text('৳ ' + (priceTotal).toFixed(2));
+        let deliveryCharge = 60;
+        $("#deliveryCharge").text('৳ ' + (deliveryCharge).toFixed(2));
+        $("#grandTotal").text('৳ ' + (priceTotal + deliveryCharge).toFixed(2));
         $(".cartItemCount").text(itemTotal);
     }
     else
@@ -79,10 +84,19 @@ function cartItems() {
         let content = `<tr>
                             <th>Opps! Cart is empty. Please add item to your cart.</th>
                         </tr>`;
-        $("#cartTbl tbody").empty();
-        $("#cartTbl tbody").append(content);
-        $("#checkOutBtn").prop("disabled",true);
+        $("#cart-table-dy").empty();
+        $("#cart-table-dy").append(content);
+        $(".cartItemCount").text(0);
+        $(".card-total-price").text('৳ ' + (0).toFixed(2));
+        $("#deliveryCharge").text('৳ ' + (0).toFixed(2));
+        $("#grandTotal").text('৳ ' + (0).toFixed(2));
+        $(".checkOutBtn").prop("disabled",true);
     }
+}
+let clearCart = () => {
+    localStorage.removeItem('cart');
+    cart = [];
+    cartItems();
 }
 let removeItem = (productId) => {
     var cart = JSON.parse(localStorage.getItem('cart'));
@@ -96,40 +110,84 @@ function removeObjectWithId(arr, id) {
     arr.splice(objWithIdIndex, 1);
     return arr;
 }
-let modifyQuantity = (objIndex) => {
+let plusItem = (objIndex) => {
     var cart = JSON.parse(localStorage.getItem('cart'));
-    cart[objIndex].quantity = +$("#quantityChanged" + objIndex).val();
+    cart[objIndex].quantity += 1;
     let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
     cart[objIndex].priceTotal = priceTotal;
     localStorage.setItem('cart', JSON.stringify(cart));
     cartItems();
 }
+let minusItem = (objIndex) => {
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    var cartQty = parseInt(cart[objIndex].quantity) - 1;
+    if (cartQty == 0) {
+        removeItem(cart[objIndex].productId);
+    } else {
+        cart[objIndex].quantity -= 1;
+        let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
+        cart[objIndex].priceTotal = priceTotal;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    cartItems();
+}
+
 let placeOrder = () => {
-    let productId = [];
     var cart = JSON.parse(localStorage.getItem('cart'));
     var customer = JSON.parse(localStorage.getItem('customer'));
-    let requestBody = [];
+
+    let subTotal = cart.reduce((acc, curr) => acc + parseFloat(curr.priceTotal), 0);
+    let couponPrice = 0;
+    let deliveryCharge = 0;
+    let order = {
+        CustomerId: customer.id,
+        GndTotal: (subTotal + deliveryCharge) - couponPrice, //confused
+        PaidAmount: 0,
+        SalesNote: "NA",
+        DiscountAmount: couponPrice,
+        DiscountPercentage: 0,
+        SubTotal: subTotal,
+        TotalOriginalAmount: subTotal + deliveryCharge,
+        TotalProductDiscount: couponPrice, //confused
+        OrderGroup: "NA",
+        DeliveryAddress: "NA",
+        DeliveryCharge: deliveryCharge,
+        appId: appId
+    };
+    let orderItems = [];
     $.each(cart, function (index, val) {
         let obj = {
+
+            ItemId: val.itemId,
             ProductId: JSON.stringify(val.productId),
-            CustomerId: customer.id,
+            Qty: val.quantity,
+            Amount: parseFloat(val.priceTotal),
             Price: parseFloat(val.price),
-            Quantity: val.quantity,
-            DiscountPrice: 0, //val.discountPrice,
-            AdvanceAmount: 0,
-            PriceTotal: val.priceTotal
+            Name: val.name,
+            OriginalUnitPrice: val.originalUnitPrice,
+            Discount: val.discountPrice,
+            Comments: "Test by Bipu",
+            FreeItemId: val.freeItemId,
+            FreeQty: val.freeQty
         }
-        requestBody.push(obj);
+        orderItems.push(obj);
     });
+
+    order.Products = orderItems;
+
     $.ajax({
-        url: baseURL + '/api/Order/PlaceOrder',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: baseURL + '/api/CustomerOrder/PlaceOrder',
         dataType: "json",
-        contentType: 'application/json',
         type: 'POST',
-        data: JSON.stringify(requestBody),
+        data: JSON.stringify(order),
         success: function (res) {
-            //window.location.href = "/checkout/paymentsuccess";
-            showAlert("Order has been placed Successfully..!", "success");
+            setTimeout(function () {
+                showAlert("Order has been placed Successfully..!", "success");
+            }, 1000);
             localStorage.removeItem('cart');
             window.location.href = "/checkout/cash";
         }
@@ -150,9 +208,7 @@ $(document).on('click','.wishlist-btn', function(e) {
 
         let data = {
             productId: productId,
-            customerId: customer.id,
-            phone: "01703504061",
-            Email: "dhoor@gmail.com"
+            customerId: customer.id
         }
         $.ajax({
             headers: {
@@ -271,4 +327,30 @@ $(document).on('click','.delete-btn', function(e) {
         }
     });        
     
+});
+
+let getCountry = () => {
+    let jsonObj = country_and_states.country;
+    $("#country").empty();
+    let content = `<option value="">Select Country</option>`;
+    $.each(jsonObj, function (key, val) {
+        content += `<option value="${key}">${val}</option>`;
+    });
+    $("#country").append(content);
+}
+$(document).on('change', '#country', function () {
+    let selectedCountry = $("#country").val();
+    if(selectedCountry == ""){
+        $("#state").prop("disabled", true);
+    }
+    else{
+        $("#state").prop("disabled", false);
+    }
+    let jsonObj = country_and_states.states[selectedCountry];
+    $("#state").empty();
+    let content = `<option value="">Select State</option>`;
+    $.each(jsonObj, function (key, val) {
+        content += `<option value="${val.code}">${val.name}</option>`;
+    });
+    $("#state").append(content);
 });

@@ -8,8 +8,9 @@ namespace Website.Controllers
         {
             return View();
         }
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
+            ViewBag.Id = id;
             return View();
         }
     }

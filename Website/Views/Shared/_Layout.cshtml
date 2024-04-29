@@ -28,7 +28,9 @@
   <link href="~/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="~/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="~/css/cart.css" rel="stylesheet" />
-
+  <link href="~/css/tada-animation.css" rel="stylesheet" />
+    <link href="~/css/searchbar.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui-v1.13.2.css" rel="stylesheet" />
   <link rel="stylesheet" href="../cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
   <link
@@ -60,6 +62,11 @@
         <h1 class="text-light"><a href="/home/index"><img src="~/assets/img/Logo.png" alt=""> <span class="hidden">POWER LINK</span></a></h1>
         
       </div>
+        <div class="col-4">
+            <form id="searchBarLayout">
+                <input type="search" id="mainSerchBarLayout" placeholder="Search...">
+            </form>
+        </div>
       <nav id="navbar" class="navbar">
         <ul id="parentMenuDP">
           @*<li><a class="nav-link scrollto " href="/home/index">Home</a></li>
@@ -76,7 +83,7 @@
                 <span class="cartItemCount">0</span>
             </a>
         </div>
-        <button class="log-in"> <a href="#" target="blank"> LOG IN </a></button>
+        <button class="log-in"> <a href="/auth/login" target="blank"> LOG IN </a></button>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
     </div>
@@ -121,6 +128,10 @@
   <script src="~/assets/vendor/purecounter/purecounter.js"></script>
   <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="~/js/common.js"></script>
+  <script src="~/js/checkout/checkout.js"></script>
+  <script src="~/js/country-states.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <!-- Template Main JS File -->
   <script src="~/assets/js/main.js"></script>
     @RenderSection("Scripts", required: false)
@@ -134,7 +145,7 @@
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            url: baseURL + 'api/Home/GetAllMenu',
+            url: baseURL + '/api/Home/GetAllMenu',
             type: "GET",
             async: false,
             success: function (res) {
@@ -144,6 +155,50 @@
                     parentMenuDP += `<li><a class="nav-link scrollto " href="${menu.url}">${menu.title}</a></li>`;
                 });
                 $("#parentMenuDP").append(parentMenuDP);
+            }
+        });
+        $("#mainSerchBarLayout").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                $.ajax({
+                    url: baseURL + '/api/Product/Search',
+                    type: "GET",
+                    data: { appId: appId, searchPeram: request.term },
+                    success: function (data) {
+                        response($.map(data, function (val, item) {
+                            return {
+                                label: val.name,
+                                value: val.id,
+                                link: val.url,
+                            };
+                        }));
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            },
+            autoFocus: false,
+            select: function (event, ui) {
+                window.location.href = ui.item.link;
+            }
+        });
+        var input = document.getElementById("mainSerchBarLayout");
+        input.addEventListener("keypress", function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                let searchParam = $("#mainSerchBarLayout").val();
+                $.ajax({
+                    url: baseURL + '/api/Product/SearchByEnterKey',
+                    type: "GET",
+                    data: { appId: appId, searchPeram: searchParam },
+                    success: function (data) {
+                        window.location.href = data.url;
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
             }
         });
     </script>

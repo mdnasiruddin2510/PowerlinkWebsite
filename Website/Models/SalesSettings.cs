@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PosWebsite.Models;
 
-public partial class SalesSetting
+public partial class SalesSettings
 {
     public int Id { get; set; }
 
