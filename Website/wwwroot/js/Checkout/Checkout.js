@@ -17,19 +17,16 @@ function addToCart(id, url, name, price, itemId, freeItemId, freeQty, originalUn
             let priceTotal = parseFloat(cart[objIndex].quantity * cart[objIndex].price)
             cart[objIndex].priceTotal = priceTotal;
             localStorage.setItem('cart', JSON.stringify(cart));
-            //showAlert("Cart Updated Successfully..!", "success");
         }
         else {
             cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
             localStorage.setItem('cart', JSON.stringify(cart));
-            //showAlert("Added To Cart Successfully..!", "success");
         }
 
     }
     else {
         cart.push({ productId: id, productImageUrl: url, name: name, price: price, code: code, quantity: qty, discountPrice: discountPrice, priceTotal: parseFloat(price) });
         localStorage.setItem('cart', JSON.stringify(cart));
-        //showAlert("Added To Cart Successfully..!", "success");
     }
     $(".cartItemCount").text(cart.length);
     $(".addTadaClass").addClass("animated tada");
@@ -240,95 +237,6 @@ let preventBack = () => {
     window.history.back();
 }
 
-let wishListProducts = (showProductStyle) => {
-    var customer = JSON.parse(localStorage.getItem('customer'));
-    if (customer){
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: baseURL + '/api/Customer/GetWishListByCustomerId',
-            dataType: "json",
-            type: 'GET',
-            data: { customerId: customer.id },
-            success: function (res) {
-                let content = ``;
-                if (showProductStyle == "grid") {
-                    $.each(res, function (index, val) {
-                         content += `<div class="col-6 col-md-4">
-                                        <div class="card product-card">
-                                            <div class="card-body">
-                                                <span class="badge rounded-pill badge-warning">Sale</span>
-                                                <a class="delete-btn" data-currentpage="grid" data-id="${val.id}" href="#"><i class="ti ti-trash"></i></a>
-                                                <a class="product-thumbnail d-block" href="#">
-                                                    <img class="mb-2" src="${imageURL + val.productImageUrl}" alt="">
-                                                </a>
-                                                <a class="product-title" href="#">${val.name}</a>
-                                                <p class="sale-price">${currencySymbol + val.price}</p>
-                                                <a class="btn btn-success btn-sm" href="javascript:addToCart(${val.id},'${val.productImageUrl}','${val.name}','${val.price}')"><i class="ti ti-plus"></i></a>
-                                            </div>
-                                        </div>
-                                     </div>`;
-                     });
-                } else if (showProductStyle == "list") {
-                    $.each(res, function (index, val) {
-                        content += `<div class="col-12">
-                                        <div class="card horizontal-product-card">
-                                            <div class="d-flex align-items-center">
-                                                <div class="product-thumbnail-side">
-                                                    <a class="product-thumbnail d-block" href="#"><img src="${imageURL + val.productImageUrl}" alt=""></a>
-                                                    <a class="delete-btn" data-currentpage="list" data-id="${val.id}" href="#"><i class="ti ti-trash"></i></a>
-                                                </div>
-                                                <div class="product-description">
-                                                    <a class="product-title d-block" href="#">${val.name}</a>
-                                                    <p class="sale-price">${currencySymbol + val.price}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     </div>`;
-                     });
-                }
-                content += `<div class="col-12">
-                                <div class="select-all-products-btn mt-2"><a class="btn btn-success w-100" href="#"><i class="ti ti-shopping-cart-cog me-2"></i>Add all items to cart</a></div>
-                            </div>`;
-                $("#productCard").empty();
-                $("#productCard").append(content);
-            }
-        });
-    }
-    else{
-        //showAlert("Please Login or Sign Up..!!", "error");
-        window.location.href = "/login/index";
-    }
-}
-
-$(document).on('click','.delete-btn', function(e) {
-    e.preventDefault();
-    let productId = +$(this).data('id');
-    let page = $(this).data('currentpage');
-    var customer = JSON.parse(localStorage.getItem('customer'));
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        url: baseURL + '/api/Customer/RemoveWishList',
-        dataType: "json",
-        type: 'GET',
-        data: { customerId: customer.id, productId: productId },
-        success: function (res) {
-            if (res == 1) {
-                showAlert("Removed from WishList Successfully..!!", "success");
-            } else if(res == 0) {
-                showAlert("Removed from WishList Failed..!!", "error");
-            }
-            wishListProducts(page);
-        }
-    });        
-    
-});
-
 let getCountry = () => {
     let jsonObj = country_and_states.country;
     $("#country").empty();
@@ -354,3 +262,208 @@ $(document).on('change', '#country', function () {
     });
     $("#state").append(content);
 });
+
+/*Customer Part*/
+
+let getCustomerInformation = () => {
+    var customer = JSON.parse(localStorage.getItem('customer')); 
+    if (!customer) {
+        window.location.href = "/login/index";
+    } else {
+        let content = `<h3>Personal Info</h3>
+                       <p>
+                           <b>Name:</b> ${customer.name}<br />
+                           <b>E-mail:</b> ${customer.email}<br />
+                           <b>Phone:</b> ${customer.phone}<br />
+                           <b>Address:</b> ${customer.address}<br />
+                           <b>Country:</b> ${customer.countryName}<br />
+                           <b>State:</b> ${customer.stateName}<br />
+                           <b>City:</b> ${customer.city}<br />
+                           <b>Postal Code:</b> ${customer.postalCode}
+                       </p>
+                       <div class="mt-2 clearfix">
+                           <a href="#" class="link-icn js-show-form" data-form="#updateDetails" onclick="editCustomer()">
+                               <i class="bx bx-pencil"></i>Edit
+                           </a>
+                       </div>`;
+        $("#personalInfo").empty();
+        $("#personalInfo").append(content);
+    }
+}
+
+let editCustomer = () => {
+    var customer = JSON.parse(localStorage.getItem('customer'));
+    if (customer) {
+        getCountry();
+        $("#customerId").val(customer.id);
+        $("#name").val(customer.name);
+        $("#profileName").text(customer.email);
+        $("#userName").val(customer.username == "" ? customer.email : customer.username);
+        $("#email").val(customer.email);
+        $("#phone").val(customer.phone);
+        $("#address").val(customer.address);
+        $("#country").val(customer.country);
+        $("#state").val(customer.state);
+        $("#city").val(customer.city);
+        $("#postalCode").val(customer.zip);
+    } else if (document.cookie != '') {
+        let cookieName = decodeURIComponent(document.cookie.split(';')[0].split('=')[1]);
+        let cookieEmail = decodeURIComponent(document.cookie.split(';')[1].split('=')[1]);
+        $("#name").val(cookieName);
+        $("#email").val(cookieEmail);
+        $("#userName").val(cookieEmail);
+        //$("#profileName").text(cookieEmail);
+    }
+    $("#updateDetails").show();
+}
+
+let updateCustomer = () => {
+    var customer = JSON.parse(localStorage.getItem('customer'));
+    if (!customer) {
+        window.location.href = "/login/index";
+    } else {
+        let name = $("#name").val();
+        let phone = $("#phone").val();
+        let userName = $("#userName").val();
+        let email = $("#email").val();
+        let address = $("#address").val();
+        let country = $("#country").val();
+        let state = $("#state").val();
+        let city = $("#city").val();
+        let zip = $("#postalCode").val();
+        var model = {
+            id = customer.id,
+            name,
+            phone,
+            address,
+            userName,
+            email,
+            appKey: appId,
+            country,
+            state,
+            city,
+            zip
+        }
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: baseURL + '/api/Customer/UpdateCustomer',
+            dataType: "json",
+            type: "post",
+            data: JSON.stringify(model),
+            success: function (res) {
+                if (res != "") {
+                    getCustomerInformation()
+                    .then(() => {
+                            showAlert(res);
+                            setTimeout(function () {
+                                window.location.href = "/checkout/index";
+                            }, 1000);
+                    });
+                        
+                }
+                else {
+                    showAlert("Customer Not Found!!");
+                }
+            },
+            error: function (a, b, c) {
+                //debugger;
+            }
+        });
+    }
+}
+
+let wishListProducts = () => {
+    var customer = JSON.parse(localStorage.getItem('customer'));
+    if (customer){
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: baseURL + '/api/Customer/GetWishListByCustomerId',
+            dataType: "json",
+            type: 'GET',
+            data: { customerId: customer.id },
+            success: function (res) {
+                let content = ``;
+                $.each(res, function (index, val) {
+                    content += `<div class="cart-table-prd">
+                                    <div class="cart-table-prd-image"><a href="javascript:void(0)"><img src="${imageURL + val.productImageUrl}" alt=""></a></div>
+                                    <div class="cart-table-prd-name">
+                                        <h4><a href="/product/details?id=${val.id}">${val.code}</a></h4>
+                                        <h2><a href="/product/details?id=${val.id}">${val.name}</a></h2>
+                                    </div>
+                                    <div class="cart-table-prd-price"><span id="price">price:</span> <b>${currencySymbol + val.price}</b></div>
+                                    <div class="cart-table-prd-action" style="width:2px;"><a href="javascript:removeItem(${val.id})" title="Remove From Wishlist" class="icon-cross"><i class="bx bx-x"></i></a></div>
+                                    <div class="cart-table-addtocart">
+                                        <a href="addToCart(${val.id},'${val.productImageUrl}','${val.name.replace(/[^a-zA-Z ]/g, "")}','${val.price}',${val.itemId},${val.freeItemId},'${val.freeQty}','${val.originalUnitPrice}')" class="btn btnAddToCart">Add To Cart</a>
+                                    </div>
+                                </div>`;
+                });
+                $("#wishList").empty();
+                $("#wishList").append(content);
+            }
+        });
+    }
+    else{
+        //showAlert("Please Login or Sign Up..!!", "error");
+        window.location.href = "/login/index";
+    }
+}
+let removeWishlist = (id) => {
+    var customer = JSON.parse(localStorage.getItem('customer'));
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        url: baseURL + '/api/Customer/RemoveWishList',
+        dataType: "json",
+        type: 'GET',
+        data: { customerId: customer.id, productId: +id },
+        success: function (res) {
+            if (res == 1) {
+                showAlert("Removed from WishList Successfully..!!", "success");
+            } else if(res == 0) {
+                showAlert("Removed from WishList Failed..!!", "error");
+            }
+            wishListProducts();
+        }
+    });
+}
+let orderHistory = () => {
+    var customer = JSON.parse(localStorage.getItem('customer'));
+    if (customer){
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: baseURL + '/api/Customer/GetOrderHistory',
+            dataType: "json",
+            type: 'GET',
+            data: { customerId: customer.id },
+            success: function (res) {
+                let content = ``;
+                $.each(res, function (index, val) {
+                    content += `<tr>
+                                    <td>1</td>
+                                    <td><b>PM-${val.code}</b><a href="/product/details?id=${val.id}" class="ml-1" style="margin-left:7px;margin-right:7px;">View Details</a><a href="/product/details?id=${val.id}" class="ml-1">Track</a></td>
+                                    <td>${val.orderDate}</td>
+                                    <td>${val.status}</td>
+                                    <td><span class="color">${currencySymbol + val.price}</span></td>
+                                    <td style="text-align:right;"><a style="background-color:transparent !important;" href="#" class="btn" onclick="placeReOrder(${val.id})">REORDER</a></td>
+                                </tr>`;
+                });
+                $("#orderHistory tbody").empty();
+                $("#orderHistory tbody").append(content);
+            }
+        });
+    }
+    else{
+        window.location.href = "/home/index";
+    }
+}
