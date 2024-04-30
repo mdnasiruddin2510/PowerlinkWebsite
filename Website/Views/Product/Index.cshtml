@@ -101,6 +101,10 @@
 			getCategories();
 			getBrands();
 			getProducts();
+			var cart = JSON.parse(localStorage.getItem('cart'));
+			if (cart) {
+				$(".cartItemCount").text(cart.length);
+			}
 		});
 		$(document).on("keyup", "#mainSerchBar", function () {
 			let searchData = $(this).val();
