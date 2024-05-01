@@ -39,9 +39,9 @@
 
     #searchBarLayout input[type=search] {
         padding: 3px 5px 5px 0px;
-        width: 30px;
+        width: 30px !important;
         border: solid 1px #ccc;
-        -webkit-border-radius: 10em;
+        -webkit-border-radius: 10em ;
         -moz-border-radius: 10em;
         border-radius: 10em;
         -webkit-transition: all .5s;

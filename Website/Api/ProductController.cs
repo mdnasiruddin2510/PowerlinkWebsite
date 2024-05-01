@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PosWebsite.View_Models;
+using Website.View_Models;
 
 namespace PosWebsite.Api_Controllers
 {
@@ -307,6 +308,43 @@ namespace PosWebsite.Api_Controllers
             }
             return result.DistinctBy(x => new { x.ProductId, x.Code, x.Price }).ToList();
         }
-        
+        [HttpGet("Search")]
+        public async Task<List<VmSearch>> Search(string appId, string searchPeram)
+        {
+            string companyId = "COM-2";//AppFunction.Decrypt(appId);
+            var productList = await _db.Product.Where(x => (x.CompanyId == companyId)
+                                 && (x.Name.ToLower().Contains(searchPeram.ToLower())
+                                 || x.Code.ToLower().Contains(searchPeram.ToLower())
+                                 || x.ShortDescription.ToLower().Contains(searchPeram.ToLower())
+                                 || x.FullDescription.ToLower().Contains(searchPeram.ToLower())))
+                                 .Select(s => new VmSearch
+                                 {
+                                     Name = s.Code + "-" + s.Name,
+                                     Id = s.Id,
+                                     Url = "/product/details?id=" + s.Id,
+                                 })
+                                 .Take(10)
+                                 .ToListAsync();
+
+
+            return productList;
+        }
+        [HttpGet("SearchByEnterKey")]
+        public async Task<VmSearch> SearchByEnterKey(string appId, string searchPeram)
+        {
+            string companyId = "COM-2"; //AppFunction.Decrypt(appId);
+            var product = await _db.Product
+                                   .Where(x => x.CompanyId == companyId && x.Code.ToLower().Contains(searchPeram.ToLower()))
+                                   .Select(s => new VmSearch
+                                   {
+                                       Name = s.Code + "-" + s.Name,
+                                       Id = s.Id,
+                                       Url = "/product/details?id=" + s.Id,
+                                   }).FirstOrDefaultAsync();
+            if (product is not null)
+                return product;
+
+            return (VmSearch)Enumerable.Empty<VmSearch>();
+        }
     }
 }
