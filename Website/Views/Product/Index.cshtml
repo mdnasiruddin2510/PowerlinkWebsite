@@ -101,6 +101,10 @@
 			getCategories();
 			getBrands();
 			getProducts();
+			var cart = JSON.parse(localStorage.getItem('cart'));
+			if (cart) {
+				$(".cartItemCount").text(cart.length);
+			}
 		});
 		$(document).on("keyup", "#mainSerchBar", function () {
 			let searchData = $(this).val();
@@ -182,7 +186,7 @@
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
-				url: baseURL + '/api/home/GetProductBrand',
+				url: baseURL + '/api/brand/GetProductBrand',
 				dataType: "json",
 				type: 'get',
 				success: function (res) {
