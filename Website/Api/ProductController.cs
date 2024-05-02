@@ -36,8 +36,10 @@ namespace PosWebsite.Api_Controllers
                     cids.Add(item.Split('-')[0]);
                 }
                 var query = await (from P in _db.Product
-                                   join I in _db.Inventory on P.Id equals I.ProductId
-                                   where !I.Deleted && !P.Deleted && I.CompanyId == companyId && P.CompanyId == companyId &&
+                                   join I in _db.Inventory on P.Id equals I.ProductId into _i from it in _i.DefaultIfEmpty()
+                                   join b in _db.ProductBrand on P.ProductBrandId equals b.Id into _b from pb in _b.DefaultIfEmpty()
+                                   join c in _db.ProductCategory on P.CategoryId equals c.Id into _c from cg in _c.DefaultIfEmpty()
+                                   where !it.Deleted && !P.Deleted && it.CompanyId == companyId && P.CompanyId == companyId &&
                                    (vm.BrandIds == "" || bids.Contains(P.ProductBrandId.ToString()))   //CONFUSED ----
                                                                && (vm.CategoryIds == "" || cids.Contains(P.CategoryId.ToString()))  //CONFUSED ----
                                                                && (vm.MinPrice == 0 || P.Price > vm.MinPrice) //CONFUSED ----
@@ -45,14 +47,16 @@ namespace PosWebsite.Api_Controllers
                                    select new VmProduct
                                    {
                                        ProductId = P.Id,
-                                       ItemId = I.Id,
-                                       Barcode = I.Barcode,
-                                       Name = P.Name + (I.VariantName ?? ""),
+                                       ItemId = it.Id,
+                                       Barcode = it.Barcode,
+                                       Name = P.Name + (it.VariantName ?? ""),
                                        Code = P.Code,
                                        ProductImageUrl = P.ProductImageUrl ?? "/images/noimage.png",
-                                       Price = I.SalePrice,
+                                       Price = it.SalePrice,
                                        CategoryId = P.CategoryId,
                                        IsFeatured = P.IsFeatured,
+                                       Brand = pb.Name,
+                                       category = cg.Name,
                                    }).OrderBy(o => o.Code).ToListAsync();
                 var products = query.GroupBy(g => new { g.Price, g.ProductId, g.Barcode }).ToList();
                 foreach (var item in products)

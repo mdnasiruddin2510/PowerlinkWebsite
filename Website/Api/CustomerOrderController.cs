@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 using PosWebsite.View_Models;
+using Website.View_Models;
 
 namespace PosWebsite.Api_Controllers
 {
@@ -377,5 +378,47 @@ namespace PosWebsite.Api_Controllers
                 }
             return msg;
         }
+        [HttpPost("ReOrder")]
+        public async Task<ActionResult<string>> ReOrder(VmReOrder vm)
+        {
+            var sale = await _db.Sales.FirstOrDefaultAsync(x => x.Id == vm.SaleId && !x.Deleted);
+            var products = new List<VmProduct>();
+            var saleItem = await _db.SalesItem.Where(x => x.SalesId == sale.Id).ToListAsync();
+            foreach (var item in products)
+            {
+                var product = await (from I in _db.Inventory
+                                           join P in _db.Product on I.ProductId equals P.Id
+                                           where I.Id == item.ItemId
+                                           select new VmProduct
+                                           {
+                                               ProductId = I.ProductId,
+                                               PurchasePrice = I.PurchasePrice,
+                                               Barcode = I.Barcode,
+                                               Code = P.Code,
+                                               UnitId = I.UnitId,
+                                               WarrantyNote = (P.WarrantyNote == null) ? "" : P.WarrantyNote + " For " + P.WarrantyPeriod + " " + P.WarrantyPeriodDuration.ToString()
+                                           }).FirstOrDefaultAsync();
+                products.Add(product);
+            }
+            var vmOrder = new Vm_Api_CustomerOrder
+            {
+                CustomerId = sale.CustomerId,
+                GndTotal = sale.TotalSales,
+                PaidAmount = sale.TotalPaidAmount,
+                SalesNote = vm.SalesNote,
+                DiscountAmount = sale.TotalDiscountAmount,
+                DiscountPercentage = sale.TotalDiscountPercentage,
+                SubTotal = sale.SubTotal,
+                TotalOriginalAmount = sale.TotalOriginalAmount,
+                TotalProductDiscount = sale.TotalProductDiscount,
+                OrderGroup = sale.SalesGroup,
+                DeliveryAddress = sale.DeliveryAddress,
+                DeliveryCharge = sale.DeliveryCharge,
+                Products = products
+            };
+            var msg = await PlaceOrder(vmOrder);
+            return msg;
+        }
+
     }
 }

@@ -78,5 +78,9 @@ namespace PosWebsite.View_Models
         public string ExpireDate { get; set; }
         public string Barcode { get; set; }
         public bool IsFeatured { get; set; }
+        public string Brand { get; set; }
+        public string category { get; set; }
+        public int UnitId { get; set; }
+        public decimal PurchasePrice { get; set; }
     }
 }
