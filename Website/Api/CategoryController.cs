@@ -23,17 +23,23 @@ namespace Project623.Controllers.api
         public async Task<List<VmProductCategory>> GetAllCategory(string appId)
         {
             var response = new List<VmProductCategory>();
-            
-                var model = await _db.ProductCategory.Where(x => !x.Deleted && x.ParentId == 0)
-                                                   .Select(s => new VmProductCategory
-                                                   {
-                                                       Id = s.Id,
-                                                       Name = s.Name,
-                                                       PictureUrl = s.PictureUrl ?? "/images/noimage.png",
-                                                       DisplayOrder = s.DisplayOrder,
-                                                   }).ToListAsync();
+            try
+            {
+				var model = await _db.ProductCategory.Where(x => !x.Deleted && x.ParentId == 0)
+												   .Select(s => new VmProductCategory
+												   {
+													   Id = s.Id,
+													   Name = s.Name,
+													   PictureUrl = s.PictureUrl ?? "/images/noimage.png",
+													   DisplayOrder = s.DisplayOrder,
+												   }).ToListAsync();
 
-                return model.OrderBy(o => o.DisplayOrder).ToList();
+				return model.OrderBy(o => o.DisplayOrder).ToList();
+			}catch (Exception ex)
+            {
+
+            }
+            return response;
             
         }
         [HttpGet("GetProductBySubCategory")]
